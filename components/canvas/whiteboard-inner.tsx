@@ -3,6 +3,8 @@
 import { useCallback } from "react";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
 import "tldraw/tldraw.css";
+import { useDebouncedSaver } from "./use-autosave";
+import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 
 export type WhiteboardInnerProps = {
   projectId: string;
@@ -10,17 +12,30 @@ export type WhiteboardInnerProps = {
 };
 
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
+  const saver = useDebouncedSaver(
+    (snapshot) => saveCanvasAction(projectId, snapshot),
+    1500,
+  );
+
   const handleMount = useCallback(
     (editor: Editor) => {
       if (initial) {
         try {
           loadSnapshot(editor.store, initial as unknown as TLEditorSnapshot);
         } catch {
-          // Corrupt/incompatible snapshot — start from local persisted state instead.
+          // Corrupt/incompatible snapshot — fall back to local persisted state.
         }
       }
+      const unsub = editor.store.listen(
+        () => {
+          const snap = getSnapshot(editor.store) as unknown as Record<string, unknown>;
+          saver(snap);
+        },
+        { source: "user", scope: "document" },
+      );
+      return () => unsub();
     },
-    [initial],
+    [initial, saver],
   );
 
   return (
