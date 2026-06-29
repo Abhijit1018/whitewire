@@ -3,6 +3,9 @@ import { drizzle } from "drizzle-orm/pglite";
 import { beforeAll } from "vitest";
 import * as schema from "@/core/persistence/schema";
 
+// 32-byte test key (base64). Real key comes from env in production.
+process.env.ENCRYPTION_KEY ||= Buffer.from("0123456789abcdef0123456789abcdef").toString("base64");
+
 export const client = new PGlite();
 export const testDb = drizzle(client, { schema });
 
