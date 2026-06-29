@@ -13,10 +13,14 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.1",
+    "@ai-sdk/google": "^4.0.2",
+    "@ai-sdk/openai-compatible": "^3.0.1",
     "@base-ui/react": "^1.6.0",
     "@clerk/nextjs": "^7.5.9",
     "@dagrejs/dagre": "^3.0.0",
     "@neondatabase/serverless": "^1.1.0",
+    "ai": "^7.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
