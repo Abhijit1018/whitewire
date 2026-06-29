@@ -20,5 +20,10 @@ beforeAll(async () => {
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
     );
+    CREATE TABLE IF NOT EXISTS canvas_docs (
+      project_id uuid PRIMARY KEY REFERENCES projects(id) ON DELETE CASCADE,
+      snapshot jsonb NOT NULL,
+      updated_at timestamptz NOT NULL DEFAULT now()
+    );
   `);
 });

@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid, timestamp, jsonb } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(), // Clerk user id
@@ -16,3 +16,13 @@ export const projects = pgTable("projects", {
 
 export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
+
+export const canvasDocs = pgTable("canvas_docs", {
+  projectId: uuid("project_id")
+    .primaryKey()
+    .references(() => projects.id, { onDelete: "cascade" }),
+  snapshot: jsonb("snapshot").notNull().$type<Record<string, unknown>>(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export type CanvasDoc = typeof canvasDocs.$inferSelect;
