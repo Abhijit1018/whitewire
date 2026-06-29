@@ -35,10 +35,12 @@ export async function renameProjectAction(formData: FormData) {
   const { db } = await import("@/core/persistence/db");
   const { syncCurrentUser } = await import("@/lib/auth");
   const ownerId = await syncCurrentUser();
-  const id = String(formData.get("id"));
+  const id = String(formData.get("id") ?? "");
+  if (!id) throw new Error("id required");
   const name = String(formData.get("name") ?? "").trim();
   if (!name) throw new Error("Name required");
-  await renameProject(db, { id, ownerId, name });
+  const updated = await renameProject(db, { id, ownerId, name });
+  if (!updated) throw new Error("Project not found");
   revalidatePath("/dashboard");
 }
 
@@ -46,7 +48,8 @@ export async function deleteProjectAction(formData: FormData) {
   const { db } = await import("@/core/persistence/db");
   const { syncCurrentUser } = await import("@/lib/auth");
   const ownerId = await syncCurrentUser();
-  const id = String(formData.get("id"));
+  const id = String(formData.get("id") ?? "");
+  if (!id) throw new Error("id required");
   await deleteProjectLogic(db, ownerId, id);
   revalidatePath("/dashboard");
 }

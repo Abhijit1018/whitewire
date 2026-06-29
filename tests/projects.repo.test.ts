@@ -6,6 +6,7 @@ import {
   listProjects,
   renameProject,
   deleteProject,
+  getProjectById,
 } from "@/core/persistence/projects.repo";
 
 beforeEach(async () => {
@@ -50,12 +51,20 @@ describe("projects.repo", () => {
 
   it("lists projects newest-updated first", async () => {
     const a = await createProject(testDb, { ownerId: "u1", name: "A" });
-    await new Promise(r => setTimeout(r, 2));
+    await new Promise(r => setTimeout(r, 50));
     const b = await createProject(testDb, { ownerId: "u1", name: "B" });
-    await new Promise(r => setTimeout(r, 2));
+    await new Promise(r => setTimeout(r, 50));
     // Renaming A bumps its updatedAt to the latest, so it should sort first.
     await renameProject(testDb, { id: a.id, ownerId: "u1", name: "A2" });
     const list = await listProjects(testDb, "u1");
     expect(list.map((p) => p.id)).toEqual([a.id, b.id]);
+  });
+
+  it("gets a project by id, owner-scoped", async () => {
+    const p = await createProject(testDb, { ownerId: "u1", name: "Find me" });
+    const found = await getProjectById(testDb, { id: p.id, ownerId: "u1" });
+    expect(found?.name).toBe("Find me");
+    const notFound = await getProjectById(testDb, { id: p.id, ownerId: "intruder" });
+    expect(notFound).toBeUndefined();
   });
 });

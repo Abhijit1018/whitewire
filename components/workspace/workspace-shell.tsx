@@ -1,8 +1,8 @@
-export function WorkspaceShell({ projectId }: { projectId: string }) {
+export function WorkspaceShell({ projectId, name }: { projectId: string; name: string }) {
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col" data-project-id={projectId}>
       <header className="flex h-12 items-center justify-between border-b px-4">
-        <span className="font-medium">Project {projectId}</span>
+        <span className="font-medium">{name}</span>
         <span className="text-sm text-muted-foreground">Model: (set up in Settings)</span>
       </header>
       <div className="flex flex-1 overflow-hidden">

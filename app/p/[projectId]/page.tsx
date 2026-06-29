@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import { eq, and } from "drizzle-orm";
 import { db } from "@/core/persistence/db";
-import { projects } from "@/core/persistence/schema";
+import { getProjectById } from "@/core/persistence/projects.repo";
 import { syncCurrentUser } from "@/lib/auth";
 import { WorkspaceShell } from "@/components/workspace/workspace-shell";
 
@@ -12,10 +11,7 @@ export default async function WorkspacePage({
 }) {
   const { projectId } = await params;
   const ownerId = await syncCurrentUser();
-  const [project] = await db
-    .select()
-    .from(projects)
-    .where(and(eq(projects.id, projectId), eq(projects.ownerId, ownerId)));
+  const project = await getProjectById(db, { id: projectId, ownerId });
   if (!project) notFound();
-  return <WorkspaceShell projectId={project.id} />;
+  return <WorkspaceShell projectId={project.id} name={project.name} />;
 }

@@ -39,3 +39,14 @@ export async function deleteProject(
     .delete(projects)
     .where(and(eq(projects.id, input.id), eq(projects.ownerId, input.ownerId)));
 }
+
+export async function getProjectById(
+  db: Db,
+  input: { id: string; ownerId: string },
+): Promise<Project | undefined> {
+  const [row] = await db
+    .select()
+    .from(projects)
+    .where(and(eq(projects.id, input.id), eq(projects.ownerId, input.ownerId)));
+  return row;
+}
