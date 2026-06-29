@@ -1,0 +1,21 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
+const WhiteboardInner = dynamic(() => import("./whiteboard-inner"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+      Loading canvas…
+    </div>
+  ),
+});
+
+export type WhiteboardProps = {
+  projectId: string;
+  initial: Record<string, unknown> | null;
+};
+
+export function Whiteboard({ projectId, initial }: WhiteboardProps) {
+  return <WhiteboardInner projectId={projectId} initial={initial} />;
+}
