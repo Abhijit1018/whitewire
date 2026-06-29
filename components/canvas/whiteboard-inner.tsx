@@ -2,10 +2,13 @@
 
 import { useCallback, useRef } from "react";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
+import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
 import { useDebouncedSaver } from "./use-autosave";
 import { applyCleanup } from "./cleanup-adapter";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
+
+const customShapeUtils = [AiNodeUtil];
 
 export type WhiteboardInnerProps = {
   projectId: string;
@@ -41,7 +44,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
 
   return (
     <div className="absolute inset-0">
-      <Tldraw persistenceKey={`ww-${projectId}`} onMount={handleMount} />
+      <Tldraw persistenceKey={`ww-${projectId}`} onMount={handleMount} shapeUtils={customShapeUtils} />
       <button
         type="button"
         onClick={() => editorRef.current && applyCleanup(editorRef.current)}
