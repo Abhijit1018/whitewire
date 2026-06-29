@@ -9,10 +9,10 @@ export default function Landing() {
         Bring your own LLM. Own your intelligence.
       </p>
       <div className="flex gap-4">
-        <Link href="/signup" className="rounded-md bg-black px-5 py-2.5 text-white">
+        <Link href="/sign-up" className="rounded-md bg-black px-5 py-2.5 text-white">
           Get started
         </Link>
-        <Link href="/login" className="rounded-md border px-5 py-2.5">
+        <Link href="/sign-in" className="rounded-md border px-5 py-2.5">
           Log in
         </Link>
       </div>
