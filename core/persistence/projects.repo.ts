@@ -1,7 +1,7 @@
 import { and, desc, eq } from "drizzle-orm";
 import { projects, type Project } from "./schema";
 
-type Db = any;
+export type Db = any; // drizzle instance (Neon or PGlite)
 
 export async function createProject(
   db: Db,
