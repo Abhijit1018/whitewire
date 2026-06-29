@@ -28,5 +28,19 @@ beforeAll(async () => {
       snapshot jsonb NOT NULL,
       updated_at timestamptz NOT NULL DEFAULT now()
     );
+    CREATE TABLE IF NOT EXISTS api_keys (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id text NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      provider text NOT NULL,
+      label text NOT NULL,
+      base_url text,
+      model text NOT NULL,
+      encrypted text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS user_settings (
+      user_id text PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      active_key_id uuid REFERENCES api_keys(id) ON DELETE SET NULL
+    );
   `);
 });

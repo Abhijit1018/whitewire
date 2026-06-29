@@ -15,6 +15,13 @@
       "when": 1782723743555,
       "tag": "0001_sturdy_ezekiel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782746357887,
+      "tag": "0002_sweet_the_liberteens",
+      "breakpoints": true
     }
   ]
 }

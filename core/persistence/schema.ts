@@ -26,3 +26,24 @@ export const canvasDocs = pgTable("canvas_docs", {
 });
 
 export type CanvasDoc = typeof canvasDocs.$inferSelect;
+
+export const apiKeys = pgTable("api_keys", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  provider: text("provider").notNull(),
+  label: text("label").notNull(),
+  baseUrl: text("base_url"),
+  model: text("model").notNull(),
+  encrypted: text("encrypted").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const userSettings = pgTable("user_settings", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  activeKeyId: uuid("active_key_id").references(() => apiKeys.id, { onDelete: "set null" }),
+});
+
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type KeyMetadata = Pick<ApiKey, "id" | "provider" | "label" | "baseUrl" | "model" | "createdAt">;
