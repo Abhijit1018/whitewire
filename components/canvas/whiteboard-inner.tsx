@@ -14,10 +14,11 @@ export type WhiteboardInnerProps = {
 
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
   const editorRef = useRef<Editor | null>(null);
-  const saver = useDebouncedSaver(
-    (snapshot) => saveCanvasAction(projectId, snapshot),
-    1500,
+  const saveSnapshot = useCallback(
+    (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
+    [projectId],
   );
+  const saver = useDebouncedSaver(saveSnapshot, 1500);
 
   const handleMount = useCallback(
     (editor: Editor) => {
