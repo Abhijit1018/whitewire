@@ -19,8 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@tldraw/tlschema": ["./node_modules/.pnpm/node_modules/@tldraw/tlschema"]
+      "@/*": ["./*"]
     }
   },
   "include": [
