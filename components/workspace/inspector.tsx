@@ -38,6 +38,9 @@ export function Inspector({ projectId }: { projectId: string }) {
   }
 
   useEffect(() => {
+    setError(null);
+    setShowAll(false);
+    setAttText("");
     if (!selectedNodeId) {
       setArtifacts([]);
       setAttachments([]);
@@ -55,11 +58,13 @@ export function Inspector({ projectId }: { projectId: string }) {
   const currentHash = hashSource(text);
 
   function generate(type: GenType) {
+    const nodeId = selectedNodeId;
+    if (!nodeId) return;
     startTransition(async () => {
       setError(null);
       try {
-        await generateArtifactAction(projectId, selectedNodeId!, type, text);
-        await refresh(selectedNodeId!);
+        await generateArtifactAction(projectId, nodeId, type, text);
+        await refresh(nodeId);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Generation failed");
       }
@@ -67,13 +72,14 @@ export function Inspector({ projectId }: { projectId: string }) {
   }
 
   function addAttachment() {
-    if (!attText.trim()) return;
+    const nodeId = selectedNodeId;
+    if (!nodeId || !attText.trim()) return;
     startTransition(async () => {
       setError(null);
       try {
-        await addAttachmentAction(projectId, selectedNodeId!, attType, attText);
+        await addAttachmentAction(projectId, nodeId, attType, attText);
         setAttText("");
-        await refresh(selectedNodeId!);
+        await refresh(nodeId);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Add failed");
       }
@@ -81,9 +87,15 @@ export function Inspector({ projectId }: { projectId: string }) {
   }
 
   function removeAttachment(id: string) {
+    const nodeId = selectedNodeId;
+    if (!nodeId) return;
     startTransition(async () => {
-      await deleteAttachmentAction(id);
-      await refresh(selectedNodeId!);
+      try {
+        await deleteAttachmentAction(id);
+        await refresh(nodeId);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Delete failed");
+      }
     });
   }
 
