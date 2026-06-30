@@ -29,6 +29,16 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
     (editor: Editor) => {
       setEditor(editor);
       setStatus("mounted");
+      setTimeout(() => {
+        try {
+          const vb = editor.getViewportScreenBounds();
+          const el = document.querySelector(".tl-container") as HTMLElement | null;
+          const cont = el ? `${el.clientWidth}x${el.clientHeight}` : "none";
+          setStatus(`vp=${Math.round(vb.w)}x${Math.round(vb.h)} cont=${cont}`);
+        } catch (e) {
+          setStatus("err: " + String(e));
+        }
+      }, 1000);
       const updateSel = () => {
         const ids = editor.getSelectedShapeIds();
         if (ids.length === 1) {
