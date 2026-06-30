@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
 import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
 import { useDebouncedSaver } from "./use-autosave";
 import { applyCleanup } from "./cleanup-adapter";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
+import { CommandBar } from "./command-bar";
 
 const customShapeUtils = [AiNodeUtil];
 
@@ -17,6 +18,7 @@ export type WhiteboardInnerProps = {
 
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
   const editorRef = useRef<Editor | null>(null);
+  const [ready, setReady] = useState(false);
   const saveSnapshot = useCallback(
     (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
     [projectId],
@@ -26,6 +28,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const handleMount = useCallback(
     (editor: Editor) => {
       editorRef.current = editor;
+      setReady(true);
       if (initial) {
         try {
           loadSnapshot(editor.store, initial as unknown as TLEditorSnapshot);
@@ -52,6 +55,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
       >
         Tidy up
       </button>
+      {ready && <CommandBar projectId={projectId} editor={editorRef.current} />}
     </div>
   );
 }
