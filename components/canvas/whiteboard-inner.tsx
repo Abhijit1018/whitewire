@@ -8,6 +8,7 @@ import { useDebouncedSaver } from "./use-autosave";
 import { applyCleanup } from "./cleanup-adapter";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 import { CommandBar } from "./command-bar";
+import { ExpandButton } from "./expand-button";
 
 const customShapeUtils = [AiNodeUtil];
 
@@ -19,6 +20,7 @@ export type WhiteboardInnerProps = {
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
   const editorRef = useRef<Editor | null>(null);
   const [ready, setReady] = useState(false);
+  const [selectedAiNodeId, setSelectedAiNodeId] = useState<string | null>(null);
   const saveSnapshot = useCallback(
     (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
     [projectId],
@@ -29,6 +31,16 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
     (editor: Editor) => {
       editorRef.current = editor;
       setReady(true);
+      const updateSel = () => {
+        const ids = editor.getSelectedShapeIds();
+        if (ids.length === 1) {
+          const s = editor.getShape(ids[0]);
+          setSelectedAiNodeId(s?.type === "ai-node" ? ids[0] : null);
+        } else {
+          setSelectedAiNodeId(null);
+        }
+      };
+      const unsubSel = editor.store.listen(updateSel, { scope: "session" });
       if (initial) {
         try {
           loadSnapshot(editor.store, initial as unknown as TLEditorSnapshot);
@@ -40,7 +52,10 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         () => saver(getSnapshot(editor.store) as unknown as Record<string, unknown>),
         { source: "user", scope: "document" },
       );
-      return () => unsub();
+      return () => {
+        unsub();
+        unsubSel();
+      };
     },
     [initial, saver],
   );
@@ -55,6 +70,13 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
       >
         Tidy up
       </button>
+      {ready && editorRef.current && (
+        <ExpandButton
+          projectId={projectId}
+          editor={editorRef.current}
+          selectedAiNodeId={selectedAiNodeId}
+        />
+      )}
       {ready && <CommandBar projectId={projectId} editor={editorRef.current} />}
     </div>
   );
