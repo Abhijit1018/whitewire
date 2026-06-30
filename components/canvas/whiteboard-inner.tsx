@@ -1,15 +1,12 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback } from "react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
 import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
 import { useDebouncedSaver } from "./use-autosave";
-import { applyCleanup } from "./cleanup-adapter";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
-import { CommandBar } from "./command-bar";
-import { ExpandButton } from "./expand-button";
 
 const customShapeUtils = [AiNodeUtil];
 
@@ -19,10 +16,8 @@ export type WhiteboardInnerProps = {
 };
 
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
-  const editorRef = useRef<Editor | null>(null);
-  const [ready, setReady] = useState(false);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
-  const selectedNodeId = useWorkspaceStore((s) => s.selectedNodeId);
+  const setEditor = useWorkspaceStore((s) => s.setEditor);
   const saveSnapshot = useCallback(
     (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
     [projectId],
@@ -31,8 +26,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
 
   const handleMount = useCallback(
     (editor: Editor) => {
-      editorRef.current = editor;
-      setReady(true);
+      setEditor(editor);
       const updateSel = () => {
         const ids = editor.getSelectedShapeIds();
         if (ids.length === 1) {
@@ -50,7 +44,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         try {
           loadSnapshot(editor.store, initial as unknown as TLEditorSnapshot);
         } catch {
-          // Corrupt/incompatible snapshot — fall back to local persisted state.
+          // Corrupt/incompatible snapshot — start from an empty canvas.
         }
       }
       const unsub = editor.store.listen(
@@ -60,29 +54,15 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
       return () => {
         unsub();
         unsubSel();
+        setEditor(null);
       };
     },
-    [initial, saver, setSelection],
+    [initial, saver, setSelection, setEditor],
   );
 
   return (
     <div className="absolute inset-0">
-      <Tldraw persistenceKey={`ww-${projectId}`} onMount={handleMount} shapeUtils={customShapeUtils} />
-      <button
-        type="button"
-        onClick={() => editorRef.current && applyCleanup(editorRef.current)}
-        className="absolute right-4 top-4 z-10 rounded-md bg-black px-3 py-1.5 text-sm text-white shadow"
-      >
-        Tidy up
-      </button>
-      {ready && editorRef.current && (
-        <ExpandButton
-          projectId={projectId}
-          editor={editorRef.current}
-          selectedAiNodeId={selectedNodeId}
-        />
-      )}
-      {ready && <CommandBar projectId={projectId} editor={editorRef.current} />}
+      <Tldraw onMount={handleMount} shapeUtils={customShapeUtils} />
     </div>
   );
 }

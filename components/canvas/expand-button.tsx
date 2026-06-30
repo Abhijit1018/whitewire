@@ -76,18 +76,16 @@ export function ExpandButton({
   }
 
   return (
-    <div className="absolute left-1/2 top-4 z-10 -translate-x-1/2">
-      {error && (
-        <p className="mb-1 rounded bg-red-50 px-3 py-1 text-sm text-red-600">{error}</p>
-      )}
+    <span className="inline-flex items-center gap-2">
       <button
         type="button"
         onClick={expand}
         disabled={pending}
-        className="rounded-md bg-indigo-600 px-4 py-1.5 text-sm text-white shadow disabled:opacity-50"
+        className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white shadow disabled:opacity-50"
       >
         {pending ? "Expanding…" : "Expand"}
       </button>
-    </div>
+      {error && <span className="text-sm text-red-600">{error}</span>}
+    </span>
   );
 }

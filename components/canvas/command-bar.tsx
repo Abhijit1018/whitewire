@@ -1,17 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import type { Editor } from "tldraw";
 import { createShapeId } from "tldraw";
+import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { commandGenerateAction } from "@/app/p/[projectId]/ai-actions";
 
-export function CommandBar({
-  projectId,
-  editor,
-}: {
-  projectId: string;
-  editor: Editor | null;
-}) {
+export function CommandBar({ projectId }: { projectId: string }) {
+  const editor = useWorkspaceStore((s) => s.editor);
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -39,27 +34,24 @@ export function CommandBar({
   }
 
   return (
-    <div className="absolute bottom-4 left-1/2 z-10 w-[min(90%,640px)] -translate-x-1/2">
-      {error && (
-        <p className="mb-1 rounded bg-red-50 px-3 py-1 text-sm text-red-600">{error}</p>
-      )}
-      <div className="flex gap-2 rounded-lg border bg-white p-2 shadow">
-        <input
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
-          placeholder="Ask AI to create a node…"
-          className="flex-1 px-2 py-1 outline-none"
-        />
-        <button
-          type="button"
-          onClick={submit}
-          disabled={pending}
-          className="rounded-md bg-black px-4 py-1.5 text-sm text-white disabled:opacity-50"
-        >
-          {pending ? "Generating…" : "Generate"}
-        </button>
-      </div>
+    <div className="flex w-full items-center gap-2">
+      <input
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && submit()}
+        placeholder={editor ? "Ask AI to create a node…" : "Loading canvas…"}
+        disabled={!editor}
+        className="flex-1 rounded-md border bg-white px-3 py-1.5 text-sm outline-none disabled:opacity-50"
+      />
+      <button
+        type="button"
+        onClick={submit}
+        disabled={pending || !editor}
+        className="rounded-md bg-black px-4 py-1.5 text-sm text-white disabled:opacity-50"
+      >
+        {pending ? "Generating…" : "Generate"}
+      </button>
+      {error && <span className="text-sm text-red-600">{error}</span>}
     </div>
   );
 }

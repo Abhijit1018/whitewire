@@ -1,6 +1,9 @@
 import { create } from "zustand";
+import type { Editor } from "tldraw";
 
 type WorkspaceState = {
+  editor: Editor | null;
+  setEditor: (editor: Editor | null) => void;
   selectedNodeId: string | null;
   selectedNodeText: string;
   selectedNodeKind: string;
@@ -8,6 +11,8 @@ type WorkspaceState = {
 };
 
 export const useWorkspaceStore = create<WorkspaceState>((set) => ({
+  editor: null,
+  setEditor: (editor) => set({ editor }),
   selectedNodeId: null,
   selectedNodeText: "",
   selectedNodeKind: "",
