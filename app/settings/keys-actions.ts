@@ -18,6 +18,18 @@ export async function addKeyAction(formData: FormData) {
     throw new Error("invalid provider");
   const baseUrl =
     provider === "openai-compatible" ? baseUrlRaw || "https://api.openai.com/v1" : null;
+  if (baseUrl) {
+    let parsed: URL;
+    try {
+      parsed = new URL(baseUrl);
+    } catch {
+      throw new Error("baseUrl must be a valid URL");
+    }
+    // Allow http(s) only. Private/localhost hosts are intentionally permitted
+    // so local models (Ollama, LM Studio) work.
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:")
+      throw new Error("baseUrl must use http or https");
+  }
 
   await addKey(db, { ownerId, provider, label, baseUrl, model, apiKey });
   revalidatePath("/settings");

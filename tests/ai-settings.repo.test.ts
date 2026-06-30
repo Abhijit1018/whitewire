@@ -26,4 +26,13 @@ describe("settings.repo", () => {
     await client.exec("DELETE FROM api_keys;");
     expect((await getSettings(testDb, "u1")).activeKeyId).toBeNull();
   });
+
+  it("rejects activating a key the caller does not own", async () => {
+    await ensureUser(testDb, { id: "u2", email: "c@d.com" });
+    const theirs = await addKey(testDb, { ownerId: "u2", provider: "anthropic", label: "B", baseUrl: null, model: "m", apiKey: "k" });
+    await expect(
+      setActiveKey(testDb, { ownerId: "u1", keyId: theirs.id }),
+    ).rejects.toThrow("Key not found");
+    expect((await getSettings(testDb, "u1")).activeKeyId).toBeNull();
+  });
 });
