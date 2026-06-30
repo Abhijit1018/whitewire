@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import "tldraw/tldraw.css";
 
 const WhiteboardInner = dynamic(() => import("./whiteboard-inner"), {
   ssr: false,
