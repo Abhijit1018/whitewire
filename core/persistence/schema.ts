@@ -1,7 +1,7 @@
 import { pgTable, text, uuid, timestamp, jsonb, unique } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: text("id").primaryKey(), // Clerk user id
+  id: text("id").primaryKey(), // Supabase auth user id (uuid)
   email: text("email").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });

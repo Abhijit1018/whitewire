@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { signOutAction } from "@/app/auth/actions";
 
 const links = [
   { href: "/dashboard", label: "Projects" },
@@ -20,9 +20,11 @@ export function Sidebar() {
           </Link>
         ))}
       </nav>
-      <div className="mt-auto">
-        <UserButton />
-      </div>
+      <form action={signOutAction} className="mt-auto">
+        <button type="submit" className="rounded px-3 py-2 text-left text-sm hover:bg-muted">
+          Sign out
+        </button>
+      </form>
     </aside>
   );
 }

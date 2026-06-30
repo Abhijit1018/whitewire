@@ -42,3 +42,6 @@ next-env.d.ts
 
 # project-specific
 dist/
+
+.vercel
+.env*
