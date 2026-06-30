@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
 import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
@@ -20,7 +21,8 @@ export type WhiteboardInnerProps = {
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
   const editorRef = useRef<Editor | null>(null);
   const [ready, setReady] = useState(false);
-  const [selectedAiNodeId, setSelectedAiNodeId] = useState<string | null>(null);
+  const setSelection = useWorkspaceStore((s) => s.setSelection);
+  const selectedNodeId = useWorkspaceStore((s) => s.selectedNodeId);
   const saveSnapshot = useCallback(
     (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
     [projectId],
@@ -35,10 +37,13 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         const ids = editor.getSelectedShapeIds();
         if (ids.length === 1) {
           const s = editor.getShape(ids[0]);
-          setSelectedAiNodeId(s?.type === "ai-node" ? ids[0] : null);
-        } else {
-          setSelectedAiNodeId(null);
+          if (s?.type === "ai-node") {
+            const p = s.props as { text: string; kind: string };
+            setSelection({ id: ids[0], text: p.text, kind: p.kind });
+            return;
+          }
         }
+        setSelection({ id: null, text: "", kind: "" });
       };
       const unsubSel = editor.store.listen(updateSel, { scope: "session" });
       if (initial) {
@@ -57,7 +62,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         unsubSel();
       };
     },
-    [initial, saver],
+    [initial, saver, setSelection],
   );
 
   return (
@@ -74,7 +79,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         <ExpandButton
           projectId={projectId}
           editor={editorRef.current}
-          selectedAiNodeId={selectedAiNodeId}
+          selectedAiNodeId={selectedNodeId}
         />
       )}
       {ready && <CommandBar projectId={projectId} editor={editorRef.current} />}

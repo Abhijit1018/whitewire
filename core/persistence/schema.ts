@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid, timestamp, jsonb, unique } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(), // Clerk user id
@@ -47,3 +47,30 @@ export const userSettings = pgTable("user_settings", {
 
 export type ApiKey = typeof apiKeys.$inferSelect;
 export type KeyMetadata = Pick<ApiKey, "id" | "provider" | "label" | "baseUrl" | "model" | "createdAt">;
+
+export const artifacts = pgTable(
+  "artifacts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+    sourceNodeId: text("source_node_id").notNull(),
+    type: text("type").notNull(),
+    content: text("content").notNull(),
+    sourceHash: text("source_hash").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [unique("artifacts_node_type_unique").on(t.projectId, t.sourceNodeId, t.type)],
+);
+
+export const attachments = pgTable("attachments", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+  sourceNodeId: text("source_node_id").notNull(),
+  type: text("type").notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export type Artifact = typeof artifacts.$inferSelect;
+export type Attachment = typeof attachments.$inferSelect;
