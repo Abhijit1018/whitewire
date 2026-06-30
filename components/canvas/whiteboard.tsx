@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import "tldraw/tldraw.css";
+import { CanvasErrorBoundary } from "./canvas-error-boundary";
 
 const WhiteboardInner = dynamic(() => import("./whiteboard-inner"), {
   ssr: false,
@@ -18,5 +19,9 @@ export type WhiteboardProps = {
 };
 
 export function Whiteboard({ projectId, initial }: WhiteboardProps) {
-  return <WhiteboardInner projectId={projectId} initial={initial} />;
+  return (
+    <CanvasErrorBoundary>
+      <WhiteboardInner projectId={projectId} initial={initial} />
+    </CanvasErrorBoundary>
+  );
 }

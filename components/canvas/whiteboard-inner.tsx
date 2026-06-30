@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
 import { AiNodeUtil } from "./shapes/ai-node-util";
@@ -16,6 +16,7 @@ export type WhiteboardInnerProps = {
 };
 
 export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
+  const [status, setStatus] = useState("mounting…");
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const setEditor = useWorkspaceStore((s) => s.setEditor);
   const saveSnapshot = useCallback(
@@ -27,6 +28,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const handleMount = useCallback(
     (editor: Editor) => {
       setEditor(editor);
+      setStatus("mounted");
       const updateSel = () => {
         const ids = editor.getSelectedShapeIds();
         if (ids.length === 1) {
@@ -63,6 +65,9 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   return (
     <div className="absolute inset-0">
       <Tldraw onMount={handleMount} shapeUtils={customShapeUtils} />
+      <div className="pointer-events-none absolute bottom-1 left-1 z-50 rounded bg-black/60 px-1.5 py-0.5 text-[10px] text-white">
+        canvas: {status}
+      </div>
     </div>
   );
 }
