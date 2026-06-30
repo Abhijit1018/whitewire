@@ -3,12 +3,14 @@
 import { useCallback, useState } from "react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
+import { getAssetUrlsByImport } from "@tldraw/assets/imports";
 import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
 import { useDebouncedSaver } from "./use-autosave";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 
 const customShapeUtils = [AiNodeUtil];
+const assetUrls = getAssetUrlsByImport();
 
 export type WhiteboardInnerProps = {
   projectId: string;
@@ -74,7 +76,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
 
   return (
     <div className="absolute inset-0">
-      <Tldraw onMount={handleMount} shapeUtils={customShapeUtils} />
+      <Tldraw onMount={handleMount} shapeUtils={customShapeUtils} assetUrls={assetUrls} />
       <div className="pointer-events-none absolute bottom-1 left-1 z-50 rounded bg-black/60 px-1.5 py-0.5 text-[10px] text-white">
         canvas: {status}
       </div>

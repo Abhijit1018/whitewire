@@ -29,6 +29,9 @@ importers:
       '@neondatabase/serverless':
         specifier: ^1.1.0
         version: 1.1.0
+      '@tldraw/assets':
+        specifier: 5.1.1
+        version: 5.1.1
       '@tldraw/tlschema':
         specifier: 5.1.1
         version: 5.1.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2229,6 +2232,9 @@ packages:
 
   '@tiptap/starter-kit@3.27.1':
     resolution: {integrity: sha512-vfxRsqW8rCc0k4pzo0ilU3wobVi2wqVj88VZI2SlgZlNnUAkrDGDIAph7CTa9k9fshV+O1ivpEgPC5yC046jow==}
+
+  '@tldraw/assets@5.1.1':
+    resolution: {integrity: sha512-/e6QqDADtkbrDtOIHl3TkPQwr+v1lpQz0QDwEOHxoOeroPZmDWTOKxX9kOUV/8dTYVHbQc2CTinK7qhQhmJGaA==}
 
   '@tldraw/driver@5.1.1':
     resolution: {integrity: sha512-toOxjedSIawOzx1/DbdA2MgYEFPTXMqbYhdVm8J8AWfvATQOBC5TBlOfUs7dxzRnxwF4N0dZ6AKaJqlN4Fzhfg==}
@@ -6943,6 +6949,10 @@ snapshots:
       '@tiptap/extension-underline': 3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))
       '@tiptap/extensions': 3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)
       '@tiptap/pm': 3.27.1
+
+  '@tldraw/assets@5.1.1':
+    dependencies:
+      '@tldraw/utils': 5.1.1
 
   '@tldraw/driver@5.1.1(@floating-ui/dom@1.7.6)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
