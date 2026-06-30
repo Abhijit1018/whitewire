@@ -22,6 +22,13 @@
       "when": 1782746357887,
       "tag": "0002_sweet_the_liberteens",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782801831614,
+      "tag": "0003_groovy_loners",
+      "breakpoints": true
     }
   ]
 }

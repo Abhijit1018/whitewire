@@ -42,5 +42,24 @@ beforeAll(async () => {
       user_id text PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       active_key_id uuid REFERENCES api_keys(id) ON DELETE SET NULL
     );
+    CREATE TABLE IF NOT EXISTS artifacts (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      source_node_id text NOT NULL,
+      type text NOT NULL,
+      content text NOT NULL,
+      source_hash text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now(),
+      UNIQUE (project_id, source_node_id, type)
+    );
+    CREATE TABLE IF NOT EXISTS attachments (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      source_node_id text NOT NULL,
+      type text NOT NULL,
+      content text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    );
   `);
 });
