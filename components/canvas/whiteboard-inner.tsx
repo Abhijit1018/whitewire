@@ -3,14 +3,14 @@
 import { useCallback, useState } from "react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { Tldraw, getSnapshot, loadSnapshot, type Editor, type TLEditorSnapshot } from "tldraw";
-import { getAssetUrlsByImport } from "@tldraw/assets/imports";
+import { getAssetUrls } from "@tldraw/assets/selfHosted";
 import { AiNodeUtil } from "./shapes/ai-node-util";
 import "tldraw/tldraw.css";
 import { useDebouncedSaver } from "./use-autosave";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 
 const customShapeUtils = [AiNodeUtil];
-const assetUrls = getAssetUrlsByImport();
+const assetUrls = getAssetUrls({ baseUrl: "/tldraw" });
 
 export type WhiteboardInnerProps = {
   projectId: string;
