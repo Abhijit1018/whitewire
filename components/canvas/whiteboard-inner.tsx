@@ -105,6 +105,14 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
         </ReactFlow>
         {penMode && <PenLayer />}
+        {nodes.length === 0 && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
+            <p className="rounded-lg bg-white/70 px-4 py-2 text-center text-sm text-zinc-500 shadow-sm">
+              Describe an idea in the bar below to build a connected board — or add
+              nodes from the left toolbar.
+            </p>
+          </div>
+        )}
         <CanvasToolbar />
       </div>
     </ReactFlowProvider>

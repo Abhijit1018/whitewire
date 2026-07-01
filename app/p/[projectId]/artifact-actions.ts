@@ -31,6 +31,12 @@ export async function generateArtifactAction(
       content,
       sourceHash: hashSource(sourceText),
     });
+    try {
+      const { logPrompt } = await import("@/core/persistence/versions.repo");
+      await logPrompt(db, { ownerId, projectId, kind: "artifact", prompt: `${type}: ${sourceText}`, output: content });
+    } catch {
+      // best-effort history
+    }
     return {};
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Generation failed" };

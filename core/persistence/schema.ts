@@ -74,5 +74,25 @@ export const attachments = pgTable("attachments", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const versions = pgTable("versions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+  label: text("label").notNull(),
+  snapshot: jsonb("snapshot").notNull().$type<Record<string, unknown>>(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const promptHistory = pgTable("prompt_history", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull(), // command | expand | artifact | architect
+  prompt: text("prompt").notNull(),
+  output: text("output").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type Artifact = typeof artifacts.$inferSelect;
 export type Attachment = typeof attachments.$inferSelect;
+export type Version = typeof versions.$inferSelect;
+export type VersionMeta = Pick<Version, "id" | "label" | "createdAt">;
+export type PromptEntry = typeof promptHistory.$inferSelect;

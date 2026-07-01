@@ -62,5 +62,20 @@ beforeAll(async () => {
       content text NOT NULL,
       created_at timestamptz NOT NULL DEFAULT now()
     );
+    CREATE TABLE IF NOT EXISTS versions (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      label text NOT NULL,
+      snapshot jsonb NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS prompt_history (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id uuid NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      kind text NOT NULL,
+      prompt text NOT NULL,
+      output text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    );
   `);
 });
