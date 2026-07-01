@@ -55,3 +55,17 @@ export async function setActiveKeyAction(formData: FormData) {
   await setActiveKey(db, { ownerId, keyId: id || null });
   revalidatePath("/settings");
 }
+
+const ROLES = ["reasoning", "code", "docs"];
+
+export async function setRouteAction(formData: FormData) {
+  const { db } = await import("@/core/persistence/db");
+  const { syncCurrentUser } = await import("@/lib/auth");
+  const { setRoute } = await import("@/core/ai/settings.repo");
+  const ownerId = await syncCurrentUser();
+  const role = String(formData.get("role") ?? "");
+  if (!ROLES.includes(role)) throw new Error("invalid role");
+  const id = String(formData.get("keyId") ?? "");
+  await setRoute(db, { ownerId, role, keyId: id || null });
+  revalidatePath("/settings");
+}

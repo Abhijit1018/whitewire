@@ -43,6 +43,8 @@ export const userSettings = pgTable("user_settings", {
     .primaryKey()
     .references(() => users.id, { onDelete: "cascade" }),
   activeKeyId: uuid("active_key_id").references(() => apiKeys.id, { onDelete: "set null" }),
+  // Optional per-role model overrides: { reasoning?: keyId, code?: keyId, docs?: keyId }
+  routes: jsonb("routes").notNull().$type<Record<string, string>>().default({}),
 });
 
 export type ApiKey = typeof apiKeys.$inferSelect;

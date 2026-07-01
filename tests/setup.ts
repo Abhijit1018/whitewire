@@ -40,7 +40,8 @@ beforeAll(async () => {
     );
     CREATE TABLE IF NOT EXISTS user_settings (
       user_id text PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-      active_key_id uuid REFERENCES api_keys(id) ON DELETE SET NULL
+      active_key_id uuid REFERENCES api_keys(id) ON DELETE SET NULL,
+      routes jsonb NOT NULL DEFAULT '{}'::jsonb
     );
     CREATE TABLE IF NOT EXISTS artifacts (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

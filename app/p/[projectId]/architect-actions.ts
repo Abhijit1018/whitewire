@@ -10,7 +10,7 @@ export async function architectAction(
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { generateNode } = await import("@/core/ai/generate");
     const { buildArchitectPrompt, parseArchitectResponse } = await import("@/core/ai/architect");
-    const { model } = await resolveModel(projectId);
+    const { model } = await resolveModel(projectId, "reasoning");
     const raw = await generateNode(model, buildArchitectPrompt(board));
     return { result: parseArchitectResponse(raw) };
   } catch (e) {

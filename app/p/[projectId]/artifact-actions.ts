@@ -20,7 +20,8 @@ export async function generateArtifactAction(
     const { upsertArtifact } = await import("@/core/persistence/artifacts.repo");
     const { db } = await import("@/core/persistence/db");
 
-    const { model, ownerId } = await resolveModel(projectId);
+    const role = type === "docs" ? "docs" : "code";
+    const { model, ownerId } = await resolveModel(projectId, role);
     const content = await generateNode(model, buildArtifactPrompt(type as GenType, sourceText));
     await upsertArtifact(db, {
       ownerId,

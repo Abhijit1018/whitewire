@@ -29,6 +29,13 @@
       "when": 1782801831614,
       "tag": "0003_groovy_loners",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782915746957,
+      "tag": "0004_lean_wild_child",
+      "breakpoints": true
     }
   ]
 }

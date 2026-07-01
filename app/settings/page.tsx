@@ -6,6 +6,13 @@ import { syncCurrentUser } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { addKeyAction, deleteKeyAction, setActiveKeyAction } from "./keys-actions";
+import { RouteSelect } from "./route-select";
+
+const ROLES: { role: string; hint: string }[] = [
+  { role: "reasoning", hint: "Architect Assist" },
+  { role: "code", hint: "Schema / API / ORM / ERD / UI" },
+  { role: "docs", hint: "Documentation" },
+];
 
 export default async function Settings() {
   const ownerId = await syncCurrentUser();
@@ -62,6 +69,28 @@ export default async function Settings() {
             <Button type="submit">Add key</Button>
           </form>
         </section>
+
+        {keys.length > 0 && (
+          <section className="max-w-xl">
+            <h2 className="mb-1 font-medium">Model routing</h2>
+            <p className="mb-3 text-sm text-muted-foreground">
+              Use different models per task. Anything left on “Use active key” falls back to your
+              active key.
+            </p>
+            <div className="space-y-2 rounded border p-4">
+              {ROLES.map((r) => (
+                <div key={r.role}>
+                  <RouteSelect
+                    role={r.role}
+                    current={settings.routes[r.role] ?? ""}
+                    keys={keys.map((k) => ({ id: k.id, label: `${k.label} (${k.model})` }))}
+                  />
+                  <p className="ml-[7.5rem] text-xs text-muted-foreground">{r.hint}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
