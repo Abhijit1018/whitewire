@@ -14,7 +14,7 @@ export type AiNodeData = {
   purpose: string;
   model: string;
 };
-export type AiNode = Node<AiNodeData, "aiNode">;
+export type AiNode = Node<AiNodeData>;
 
 type WorkspaceState = {
   nodes: AiNode[];
@@ -22,6 +22,7 @@ type WorkspaceState = {
   selectedNodeId: string | null;
   selectedNodeText: string;
   selectedNodeKind: string;
+  selectedNodeType: string;
 
   onNodesChange: (changes: NodeChange<AiNode>[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
@@ -29,7 +30,8 @@ type WorkspaceState = {
   setNodes: (nodes: AiNode[]) => void;
   addNode: (node: AiNode) => void;
   addNodesEdges: (nodes: AiNode[], edges: Edge[]) => void;
-  setSelection: (sel: { id: string | null; text: string; kind: string }) => void;
+  updateNodeData: (id: string, data: Partial<AiNodeData>) => void;
+  setSelection: (sel: { id: string | null; text: string; kind: string; type: string }) => void;
 };
 
 function makeStore() {
@@ -39,6 +41,7 @@ function makeStore() {
     selectedNodeId: null,
     selectedNodeText: "",
     selectedNodeKind: "",
+    selectedNodeType: "",
 
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
@@ -48,15 +51,24 @@ function makeStore() {
     addNode: (node) => set({ nodes: [...get().nodes, node] }),
     addNodesEdges: (nodes, edges) =>
       set({ nodes: [...get().nodes, ...nodes], edges: [...get().edges, ...edges] }),
-    setSelection: ({ id, text, kind }) =>
-      set({ selectedNodeId: id, selectedNodeText: text, selectedNodeKind: kind }),
+    updateNodeData: (id, data) =>
+      set({
+        nodes: get().nodes.map((n) =>
+          n.id === id ? { ...n, data: { ...n.data, ...data } } : n,
+        ),
+      }),
+    setSelection: ({ id, text, kind, type }) =>
+      set({
+        selectedNodeId: id,
+        selectedNodeText: text,
+        selectedNodeKind: kind,
+        selectedNodeType: type,
+      }),
   }));
 }
 
 // The canvas loads via a dynamic ssr:false chunk that can get its own copy of this
-// module. Cache the store on `window` so every chunk shares ONE instance (selection
-// / nodes set in the canvas reach the header/footer/inspector). Fresh per-render on
-// the server to avoid cross-request leakage.
+// module. Cache the store on `window` so every chunk shares ONE instance.
 type StoreHook = UseBoundStore<StoreApi<WorkspaceState>>;
 const globalKey = "__whitewireWorkspaceStore" as const;
 

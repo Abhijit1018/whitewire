@@ -3,15 +3,26 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Background,
+  BackgroundVariant,
   Controls,
+  MarkerType,
   MiniMap,
   ReactFlow,
   ReactFlowProvider,
+  type DefaultEdgeOptions,
   type Edge,
   type OnSelectionChangeParams,
 } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
+import { CanvasToolbar } from "./canvas-toolbar";
+
+const defaultEdgeOptions: DefaultEdgeOptions = {
+  type: "smoothstep",
+  animated: false,
+  style: { stroke: "#a5b4fc", strokeWidth: 1.5 },
+  markerEnd: { type: MarkerType.ArrowClosed, color: "#818cf8" },
+};
 import { useDebouncedSaver } from "./use-autosave";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 
@@ -55,8 +66,14 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const onSelectionChange = useCallback(
     ({ nodes: sel }: OnSelectionChangeParams) => {
       const n = sel[0] as AiNode | undefined;
-      if (n) setSelection({ id: n.id, text: n.data.text ?? "", kind: n.data.kind ?? "" });
-      else setSelection({ id: null, text: "", kind: "" });
+      if (n)
+        setSelection({
+          id: n.id,
+          text: n.data.text ?? "",
+          kind: n.data.kind ?? "",
+          type: n.type ?? "",
+        });
+      else setSelection({ id: null, text: "", kind: "", type: "" });
     },
     [setSelection],
   );
@@ -70,12 +87,15 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
         onEdgesChange={onEdgesChange}
         onSelectionChange={onSelectionChange}
         nodeTypes={nodeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
         fitView
         minZoom={0.2}
+        proOptions={{ hideAttribution: false }}
       >
-        <Background />
+        <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#e4e4e7" />
+        <CanvasToolbar />
         <Controls />
-        <MiniMap pannable zoomable />
+        <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
       </ReactFlow>
     </ReactFlowProvider>
   );

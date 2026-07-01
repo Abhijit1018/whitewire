@@ -61,7 +61,7 @@ export function ExpandButton({ projectId }: { projectId: string }) {
         type="button"
         onClick={expand}
         disabled={pending}
-        className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white shadow disabled:opacity-50"
+        className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white shadow transition-all hover:bg-indigo-700 active:scale-95 disabled:opacity-50"
       >
         {pending ? "Expanding…" : "Expand"}
       </button>

@@ -19,11 +19,13 @@ export function Inspector({ projectId }: { projectId: string }) {
   const selectedNodeId = useWorkspaceStore((s) => s.selectedNodeId);
   const text = useWorkspaceStore((s) => s.selectedNodeText);
   const kind = useWorkspaceStore((s) => s.selectedNodeKind);
+  const nodeType = useWorkspaceStore((s) => s.selectedNodeType);
 
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
   const [attType, setAttType] = useState<(typeof ATTACH_TYPES)[number]>("note");
   const [attText, setAttText] = useState("");
   const [pending, startTransition] = useTransition();
@@ -50,12 +52,23 @@ export function Inspector({ projectId }: { projectId: string }) {
   }, [selectedNodeId, projectId]);
 
   if (!selectedNodeId) {
-    return <p className="text-sm text-muted-foreground">Select an AI Node to inspect.</p>;
+    return (
+      <p className="mt-2 text-sm text-muted-foreground">
+        Select a node to inspect and generate from it.
+      </p>
+    );
   }
 
+  const isAi = nodeType === "aiNode" || nodeType === "";
   const gens = generatorsForKind(kind);
   const shown = showAll ? gens.all : gens.primary;
   const currentHash = hashSource(text);
+
+  function copy(id: string, content: string) {
+    navigator.clipboard?.writeText(content);
+    setCopied(id);
+    setTimeout(() => setCopied((c) => (c === id ? null : c)), 1200);
+  }
 
   function generate(type: GenType) {
     const nodeId = selectedNodeId;
@@ -104,72 +117,109 @@ export function Inspector({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex h-full flex-col gap-4 overflow-y-auto text-sm">
-      <div>
-        <p className="text-xs uppercase tracking-wide text-muted-foreground">{kind || "node"}</p>
-        <p className="font-medium">{text || "(empty)"}</p>
-      </div>
+    <div className="flex h-full flex-col gap-5 overflow-y-auto pr-1 text-sm">
+      <header>
+        <span className="inline-block rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-600">
+          {kind || "node"}
+        </span>
+        <p className="mt-1.5 font-medium leading-snug text-zinc-900">{text || "(empty)"}</p>
+      </header>
 
-      {error && <p className="rounded bg-red-50 px-2 py-1 text-red-600">{error}</p>}
+      {error && (
+        <p className="rounded-md bg-red-50 px-2.5 py-1.5 text-red-600">{error}</p>
+      )}
 
-      <div>
-        <div className="mb-2 flex items-center justify-between">
-          <span className="font-medium">Generate</span>
-          {gens.primary.length < gens.all.length && (
-            <button className="text-xs underline" onClick={() => setShowAll((v) => !v)}>
-              {showAll ? "Less" : "More"}
-            </button>
-          )}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {shown.map((t) => (
-            <button
-              key={t}
-              type="button"
-              disabled={pending}
-              onClick={() => generate(t)}
-              className="rounded border px-2 py-1 capitalize disabled:opacity-50"
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
+      {isAi && (
+        <section>
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Generate
+            </h3>
+            {gens.primary.length < gens.all.length && (
+              <button
+                className="text-xs text-indigo-600 transition-colors hover:text-indigo-800"
+                onClick={() => setShowAll((v) => !v)}
+              >
+                {showAll ? "Less" : "More"}
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {shown.map((t) => (
+              <button
+                key={t}
+                type="button"
+                disabled={pending}
+                onClick={() => generate(t)}
+                className="rounded-md border border-zinc-200 px-2.5 py-1 capitalize text-zinc-700 transition-all hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 active:scale-95 disabled:opacity-50"
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <div>
-        <span className="font-medium">Artifacts</span>
+      <section>
+        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          Artifacts
+        </h3>
         {artifacts.length === 0 ? (
-          <p className="text-muted-foreground">None yet.</p>
+          <p className="text-muted-foreground">
+            {isAi ? "None yet — generate one above." : "Generators are available on AI nodes."}
+          </p>
         ) : (
-          <ul className="mt-2 space-y-2">
+          <ul className="space-y-3">
             {artifacts.map((a) => {
               const stale = a.sourceHash !== currentHash;
               return (
-                <li key={a.id} className="rounded border p-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium capitalize">{a.type}</span>
+                <li key={a.id} className="overflow-hidden rounded-lg border border-zinc-200">
+                  <div className="flex items-center justify-between border-b border-zinc-100 bg-zinc-50 px-2.5 py-1.5">
                     <span className="flex items-center gap-2">
-                      {stale && <span className="rounded bg-amber-100 px-1 text-xs text-amber-700">stale</span>}
-                      <button className="text-xs underline" disabled={pending} onClick={() => generate(a.type as GenType)}>
+                      <span className="text-xs font-semibold capitalize text-zinc-700">
+                        {a.type}
+                      </span>
+                      {stale && (
+                        <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                          stale
+                        </span>
+                      )}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <button
+                        className="text-xs text-zinc-500 transition-colors hover:text-zinc-800"
+                        onClick={() => copy(a.id, a.content)}
+                      >
+                        {copied === a.id ? "Copied" : "Copy"}
+                      </button>
+                      <button
+                        className="text-xs text-indigo-600 transition-colors hover:text-indigo-800 disabled:opacity-50"
+                        disabled={pending}
+                        onClick={() => generate(a.type as GenType)}
+                      >
                         Regenerate
                       </button>
                     </span>
                   </div>
-                  <pre className="mt-1 max-h-40 overflow-auto whitespace-pre-wrap text-xs">{a.content}</pre>
+                  <pre className="max-h-56 overflow-auto bg-white p-2.5 font-mono text-[11px] leading-relaxed text-zinc-800">
+                    {a.content}
+                  </pre>
                 </li>
               );
             })}
           </ul>
         )}
-      </div>
+      </section>
 
-      <div>
-        <span className="font-medium">Attachments</span>
-        <div className="mt-2 flex gap-2">
+      <section>
+        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          Attachments
+        </h3>
+        <div className="flex gap-1.5">
           <select
             value={attType}
             onChange={(e) => setAttType(e.target.value as (typeof ATTACH_TYPES)[number])}
-            className="rounded border px-1"
+            className="rounded-md border border-zinc-200 px-1.5 text-xs"
           >
             {ATTACH_TYPES.map((t) => (
               <option key={t} value={t}>
@@ -180,29 +230,41 @@ export function Inspector({ projectId }: { projectId: string }) {
           <input
             value={attText}
             onChange={(e) => setAttText(e.target.value)}
-            placeholder="Add note/link/comment/snippet…"
-            className="flex-1 rounded border px-2 py-1"
+            onKeyDown={(e) => e.key === "Enter" && addAttachment()}
+            placeholder="Add note / link / comment…"
+            className="flex-1 rounded-md border border-zinc-200 px-2 py-1 text-sm outline-none focus:border-indigo-300"
           />
-          <button type="button" disabled={pending} onClick={addAttachment} className="rounded bg-black px-2 py-1 text-white disabled:opacity-50">
+          <button
+            type="button"
+            disabled={pending}
+            onClick={addAttachment}
+            className="rounded-md bg-zinc-900 px-2.5 py-1 text-sm text-white transition-all hover:bg-zinc-700 active:scale-95 disabled:opacity-50"
+          >
             Add
           </button>
         </div>
         {attachments.length > 0 && (
-          <ul className="mt-2 space-y-1">
+          <ul className="mt-2 space-y-1.5">
             {attachments.map((at) => (
-              <li key={at.id} className="flex items-start justify-between gap-2 rounded border p-2">
-                <span>
-                  <span className="mr-1 text-xs uppercase text-muted-foreground">{at.type}</span>
-                  {at.content}
+              <li
+                key={at.id}
+                className="flex items-start justify-between gap-2 rounded-md border border-zinc-200 px-2.5 py-1.5"
+              >
+                <span className="min-w-0">
+                  <span className="mr-1.5 text-[10px] uppercase text-zinc-400">{at.type}</span>
+                  <span className="break-words text-zinc-700">{at.content}</span>
                 </span>
-                <button className="text-xs text-red-500" onClick={() => removeAttachment(at.id)}>
+                <button
+                  className="shrink-0 text-zinc-400 transition-colors hover:text-red-500"
+                  onClick={() => removeAttachment(at.id)}
+                >
                   ✕
                 </button>
               </li>
             ))}
           </ul>
         )}
-      </div>
+      </section>
     </div>
   );
 }

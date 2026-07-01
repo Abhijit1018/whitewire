@@ -9,7 +9,7 @@ export function CanvasTools({ projectId }: { projectId: string }) {
       <button
         type="button"
         onClick={() => applyCleanup()}
-        className="rounded-md border px-3 py-1.5 text-sm"
+        className="rounded-md border border-zinc-200 px-3 py-1.5 text-sm transition-all hover:bg-zinc-100 active:scale-95"
       >
         Tidy up
       </button>
