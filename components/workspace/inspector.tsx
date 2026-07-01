@@ -9,6 +9,7 @@ import {
   addAttachmentAction,
   listNodeAttachmentsAction,
   deleteAttachmentAction,
+  uploadFileAction,
 } from "@/app/p/[projectId]/attachment-actions";
 
 type Artifact = { id: string; type: string; content: string; sourceHash: string };
@@ -115,6 +116,24 @@ export function Inspector({ projectId }: { projectId: string }) {
       } catch (e) {
         setError(e instanceof Error ? e.message : "Delete failed");
       }
+    });
+  }
+
+  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    const nodeId = selectedNodeId;
+    e.target.value = "";
+    if (!file || !nodeId) return;
+    const fd = new FormData();
+    fd.set("file", file);
+    startTransition(async () => {
+      setError(null);
+      const res = await uploadFileAction(projectId, nodeId, fd);
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      await refresh(nodeId);
     });
   }
 
@@ -260,25 +279,44 @@ export function Inspector({ projectId }: { projectId: string }) {
             Add
           </button>
         </div>
+        <label className="mt-2 inline-flex cursor-pointer items-center gap-1 text-xs text-indigo-600 transition-colors hover:text-indigo-800">
+          + Upload file
+          <input type="file" className="hidden" onChange={handleFile} disabled={pending} />
+        </label>
         {attachments.length > 0 && (
           <ul className="mt-2 space-y-1.5">
-            {attachments.map((at) => (
-              <li
-                key={at.id}
-                className="flex items-start justify-between gap-2 rounded-md border border-zinc-200 px-2.5 py-1.5"
-              >
-                <span className="min-w-0">
-                  <span className="mr-1.5 text-[10px] uppercase text-zinc-400">{at.type}</span>
-                  <span className="break-words text-zinc-700">{at.content}</span>
-                </span>
-                <button
-                  className="shrink-0 text-zinc-400 transition-colors hover:text-red-500"
-                  onClick={() => removeAttachment(at.id)}
+            {attachments.map((at) => {
+              const isFile = at.type === "file";
+              const [fileName, fileUrl] = isFile ? at.content.split("::") : ["", ""];
+              return (
+                <li
+                  key={at.id}
+                  className="flex items-start justify-between gap-2 rounded-md border border-zinc-200 px-2.5 py-1.5"
                 >
-                  ✕
-                </button>
-              </li>
-            ))}
+                  <span className="min-w-0">
+                    <span className="mr-1.5 text-[10px] uppercase text-zinc-400">{at.type}</span>
+                    {isFile ? (
+                      <a
+                        href={fileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="break-words text-indigo-600 hover:underline"
+                      >
+                        {fileName || "Open file"}
+                      </a>
+                    ) : (
+                      <span className="break-words text-zinc-700">{at.content}</span>
+                    )}
+                  </span>
+                  <button
+                    className="shrink-0 text-zinc-400 transition-colors hover:text-red-500"
+                    onClick={() => removeAttachment(at.id)}
+                  >
+                    ✕
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>
