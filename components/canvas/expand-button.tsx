@@ -22,7 +22,12 @@ export function ExpandButton({ projectId }: { projectId: string }) {
     startTransition(async () => {
       setError(null);
       try {
-        const { items } = await expandAction(projectId, text);
+        const res = await expandAction(projectId, text);
+        if (res.error) {
+          setError(res.error);
+          return;
+        }
+        const items = res.items ?? [];
         if (items.length === 0) {
           setError("Model returned no sub-items.");
           return;

@@ -63,7 +63,11 @@ export function Inspector({ projectId }: { projectId: string }) {
     startTransition(async () => {
       setError(null);
       try {
-        await generateArtifactAction(projectId, nodeId, type, text);
+        const res = await generateArtifactAction(projectId, nodeId, type, text);
+        if (res.error) {
+          setError(res.error);
+          return;
+        }
         await refresh(nodeId);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Generation failed");

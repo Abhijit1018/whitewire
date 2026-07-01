@@ -16,13 +16,17 @@ export function CommandBar({ projectId }: { projectId: string }) {
     startTransition(async () => {
       setError(null);
       try {
-        const { text: generated } = await commandGenerateAction(projectId, text);
+        const res = await commandGenerateAction(projectId, text);
+        if (res.error) {
+          setError(res.error);
+          return;
+        }
         const count = useWorkspaceStore.getState().nodes.length;
         addNode({
           id: crypto.randomUUID(),
           type: "aiNode",
           position: { x: 120 + (count % 5) * 60, y: 100 + count * 30 },
-          data: { text: generated, kind: "generic", purpose: "", model: "" },
+          data: { text: res.text ?? "", kind: "generic", purpose: "", model: "" },
         });
         setPrompt("");
       } catch (e) {

@@ -9,26 +9,31 @@ export async function generateArtifactAction(
   sourceNodeId: string,
   type: string,
   sourceText: string,
-) {
-  if (!GEN_TYPES.includes(type)) throw new Error("invalid artifact type");
-  if (!sourceText.trim()) throw new Error("Node has no text to generate from");
-  const { resolveModel } = await import("@/core/ai/resolve-model");
-  const { generateNode } = await import("@/core/ai/generate");
-  const { buildArtifactPrompt } = await import("@/core/ai/artifact-prompts");
-  const { hashSource } = await import("@/core/artifacts/hash");
-  const { upsertArtifact } = await import("@/core/persistence/artifacts.repo");
-  const { db } = await import("@/core/persistence/db");
+): Promise<{ error?: string }> {
+  if (!GEN_TYPES.includes(type)) return { error: "invalid artifact type" };
+  if (!sourceText.trim()) return { error: "Node has no text to generate from" };
+  try {
+    const { resolveModel } = await import("@/core/ai/resolve-model");
+    const { generateNode } = await import("@/core/ai/generate");
+    const { buildArtifactPrompt } = await import("@/core/ai/artifact-prompts");
+    const { hashSource } = await import("@/core/artifacts/hash");
+    const { upsertArtifact } = await import("@/core/persistence/artifacts.repo");
+    const { db } = await import("@/core/persistence/db");
 
-  const { model, ownerId } = await resolveModel(projectId);
-  const content = await generateNode(model, buildArtifactPrompt(type as GenType, sourceText));
-  return upsertArtifact(db, {
-    ownerId,
-    projectId,
-    sourceNodeId,
-    type,
-    content,
-    sourceHash: hashSource(sourceText),
-  });
+    const { model, ownerId } = await resolveModel(projectId);
+    const content = await generateNode(model, buildArtifactPrompt(type as GenType, sourceText));
+    await upsertArtifact(db, {
+      ownerId,
+      projectId,
+      sourceNodeId,
+      type,
+      content,
+      sourceHash: hashSource(sourceText),
+    });
+    return {};
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Generation failed" };
+  }
 }
 
 export async function listNodeArtifactsAction(projectId: string, sourceNodeId: string) {
