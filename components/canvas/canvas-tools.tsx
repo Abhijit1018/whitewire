@@ -2,10 +2,12 @@
 
 import { applyCleanup } from "./cleanup-adapter";
 import { ExpandButton } from "./expand-button";
+import { ArchitectPanel } from "./architect-panel";
 
 export function CanvasTools({ projectId }: { projectId: string }) {
   return (
     <div className="flex items-center gap-2">
+      <ArchitectPanel projectId={projectId} />
       <button
         type="button"
         onClick={() => applyCleanup()}
