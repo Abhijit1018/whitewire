@@ -31,8 +31,15 @@ export function AiNode({ data, selected }: NodeProps<AiNodeType>) {
           {kind}
         </span>
       </div>
-      <div className="line-clamp-4 px-3 py-2 text-[13px] leading-snug text-zinc-800">
-        {data.text || "Untitled"}
+      <div className="px-3 py-2">
+        <div className="line-clamp-3 text-[13px] font-medium leading-snug text-zinc-800">
+          {data.text || "Untitled"}
+        </div>
+        {data.purpose ? (
+          <div className="mt-1 line-clamp-2 text-[11px] leading-snug text-zinc-500">
+            {data.purpose}
+          </div>
+        ) : null}
       </div>
       <Handle type="source" position={Position.Bottom} className={handleClass} />
     </div>

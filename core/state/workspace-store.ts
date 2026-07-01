@@ -1,7 +1,9 @@
 import { create, type StoreApi, type UseBoundStore } from "zustand";
 import {
+  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  type Connection,
   type Edge,
   type EdgeChange,
   type Node,
@@ -32,6 +34,7 @@ type WorkspaceState = {
   setPenMode: (on: boolean) => void;
   onNodesChange: (changes: NodeChange<AiNode>[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
+  onConnect: (connection: Connection) => void;
   setGraph: (nodes: AiNode[], edges: Edge[]) => void;
   setNodes: (nodes: AiNode[]) => void;
   addNode: (node: AiNode) => void;
@@ -55,6 +58,7 @@ function makeStore() {
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
     onEdgesChange: (changes) => set({ edges: applyEdgeChanges(changes, get().edges) }),
+    onConnect: (connection) => set({ edges: addEdge(connection, get().edges) }),
     setGraph: (nodes, edges) => set({ nodes, edges }),
     setNodes: (nodes) => set({ nodes }),
     addNode: (node) => set({ nodes: [...get().nodes, node] }),

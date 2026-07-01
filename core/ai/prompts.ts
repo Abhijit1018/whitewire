@@ -1,9 +1,10 @@
 export function buildExpandPrompt(text: string): string {
   return [
-    `Break the following concept into 3 to 7 concise, distinct sub-components.`,
+    `Break the following concept into 3 to 7 concrete, distinct sub-components.`,
+    `Each item is a short but descriptive phrase (what it is / does), not just a bare name.`,
     `Concept: "${text}"`,
-    `Reply with ONLY a JSON array of short strings (no prose, no markdown).`,
-    `Example: ["Email field", "Password field", "OAuth login"]`,
+    `Reply with ONLY a JSON array of strings (no prose, no markdown).`,
+    `Example: ["Email + password auth", "OAuth (Google, GitHub) sign-in", "Session + token refresh"]`,
   ].join("\n");
 }
 

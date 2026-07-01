@@ -68,6 +68,7 @@ export function PenLayer() {
     <div
       ref={ref}
       className="absolute inset-0 z-10 cursor-crosshair"
+      style={{ touchAction: "none" }}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}

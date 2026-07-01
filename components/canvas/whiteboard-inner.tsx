@@ -37,6 +37,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const edges = useWorkspaceStore((s) => s.edges);
   const onNodesChange = useWorkspaceStore((s) => s.onNodesChange);
   const onEdgesChange = useWorkspaceStore((s) => s.onEdgesChange);
+  const onConnect = useWorkspaceStore((s) => s.onConnect);
   const setGraph = useWorkspaceStore((s) => s.setGraph);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const penMode = useWorkspaceStore((s) => s.penMode);
@@ -88,6 +89,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
           onSelectionChange={onSelectionChange}
           nodeTypes={nodeTypes}
           defaultEdgeOptions={defaultEdgeOptions}

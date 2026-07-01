@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useWorkspaceStore } from "@/core/state/workspace-store";
+import type { Edge } from "@xyflow/react";
+import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { commandGenerateAction } from "@/app/p/[projectId]/ai-actions";
+import { applyCleanup } from "./cleanup-adapter";
 
 export function CommandBar({ projectId }: { projectId: string }) {
-  const addNode = useWorkspaceStore((s) => s.addNode);
+  const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -21,13 +23,22 @@ export function CommandBar({ projectId }: { projectId: string }) {
           setError(res.error);
           return;
         }
-        const count = useWorkspaceStore.getState().nodes.length;
-        addNode({
-          id: crypto.randomUUID(),
+        const bp = res.nodes ?? [];
+        if (bp.length === 0) return;
+        const ids = bp.map(() => crypto.randomUUID());
+        const newNodes: AiNode[] = bp.map((n, i) => ({
+          id: ids[i],
           type: "aiNode",
-          position: { x: 120 + (count % 5) * 60, y: 100 + count * 30 },
-          data: { text: res.text ?? "", kind: "generic", purpose: "", model: "" },
-        });
+          position: { x: 120 + (i % 4) * 280, y: 100 + Math.floor(i / 4) * 180 },
+          data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
+        }));
+        const newEdges: Edge[] = (res.edges ?? []).map(([a, b]) => ({
+          id: crypto.randomUUID(),
+          source: ids[a],
+          target: ids[b],
+        }));
+        addNodesEdges(newNodes, newEdges);
+        applyCleanup();
         setPrompt("");
       } catch (e) {
         setError(e instanceof Error ? e.message : "Generation failed");
@@ -41,7 +52,7 @@ export function CommandBar({ projectId }: { projectId: string }) {
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && submit()}
-        placeholder="Ask AI to create a node…"
+        placeholder="Describe something — AI builds a connected board…"
         className="flex-1 rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm outline-none transition-colors focus:border-indigo-300"
       />
       <button

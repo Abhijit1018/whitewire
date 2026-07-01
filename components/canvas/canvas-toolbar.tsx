@@ -57,8 +57,18 @@ export function CanvasToolbar() {
         <div className="my-0.5 h-px bg-zinc-200" />
         <button
           type="button"
+          title="Select / move (hand)"
+          onClick={() => setPenMode(false)}
+          className={`rounded-lg px-2.5 py-2 text-xs font-medium transition-colors active:scale-95 ${
+            !penMode ? "bg-zinc-900 text-white" : "text-zinc-600 hover:bg-zinc-100"
+          }`}
+        >
+          Select
+        </button>
+        <button
+          type="button"
           title="Pen — draw freehand"
-          onClick={() => setPenMode(!penMode)}
+          onClick={() => setPenMode(true)}
           className={`rounded-lg px-2.5 py-2 text-xs font-medium transition-colors active:scale-95 ${
             penMode ? "bg-indigo-600 text-white" : "text-zinc-600 hover:bg-zinc-100"
           }`}
