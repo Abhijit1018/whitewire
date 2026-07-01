@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Inspector } from "./inspector";
 import { CanvasTools } from "@/components/canvas/canvas-tools";
 import { CommandBar } from "@/components/canvas/command-bar";
@@ -15,9 +16,16 @@ export function WorkspaceShell({
   return (
     <div className="flex h-screen flex-col" data-project-id={projectId}>
       <header className="flex h-12 items-center justify-between gap-4 border-b px-4">
-        <span className="font-medium">{name}</span>
+        <div className="flex items-center gap-3">
+          <Link href="/dashboard" className="text-sm text-muted-foreground hover:underline">
+            ← Projects
+          </Link>
+          <span className="font-medium">{name}</span>
+        </div>
         <CanvasTools projectId={projectId} />
-        <span className="text-sm text-muted-foreground">Model: (set up in Settings)</span>
+        <Link href="/settings" className="text-sm text-muted-foreground hover:underline">
+          Model: Settings
+        </Link>
       </header>
       <div className="flex flex-1 overflow-hidden">
         <section className="relative flex-1 bg-muted/30">{children}</section>
