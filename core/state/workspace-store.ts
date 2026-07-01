@@ -14,6 +14,9 @@ export type AiNodeData = {
   purpose: string;
   model: string;
   shape?: string;
+  points?: number[][];
+  color?: string;
+  size?: number;
 };
 export type AiNode = Node<AiNodeData>;
 
@@ -24,7 +27,9 @@ type WorkspaceState = {
   selectedNodeText: string;
   selectedNodeKind: string;
   selectedNodeType: string;
+  penMode: boolean;
 
+  setPenMode: (on: boolean) => void;
   onNodesChange: (changes: NodeChange<AiNode>[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   setGraph: (nodes: AiNode[], edges: Edge[]) => void;
@@ -44,7 +49,9 @@ function makeStore() {
     selectedNodeText: "",
     selectedNodeKind: "",
     selectedNodeType: "",
+    penMode: false,
 
+    setPenMode: (on) => set({ penMode: on }),
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
     onEdgesChange: (changes) => set({ edges: applyEdgeChanges(changes, get().edges) }),

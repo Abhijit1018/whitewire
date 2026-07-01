@@ -1,6 +1,6 @@
 "use client";
 
-import { Panel, useReactFlow } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 import { useWorkspaceStore, type AiNodeData } from "@/core/state/workspace-store";
 
 type Tool = {
@@ -23,6 +23,8 @@ const TOOLS: Tool[] = [
 export function CanvasToolbar() {
   const { screenToFlowPosition } = useReactFlow();
   const addNode = useWorkspaceStore((s) => s.addNode);
+  const penMode = useWorkspaceStore((s) => s.penMode);
+  const setPenMode = useWorkspaceStore((s) => s.setPenMode);
 
   function add(tool: Tool) {
     const position = screenToFlowPosition({
@@ -39,7 +41,7 @@ export function CanvasToolbar() {
   }
 
   return (
-    <Panel position="top-left" className="!m-3">
+    <div className="absolute left-3 top-3 z-20">
       <div className="flex flex-col gap-1 rounded-xl border border-zinc-200 bg-white p-1 shadow-sm">
         {TOOLS.map((t) => (
           <button
@@ -52,7 +54,18 @@ export function CanvasToolbar() {
             {t.label}
           </button>
         ))}
+        <div className="my-0.5 h-px bg-zinc-200" />
+        <button
+          type="button"
+          title="Pen — draw freehand"
+          onClick={() => setPenMode(!penMode)}
+          className={`rounded-lg px-2.5 py-2 text-xs font-medium transition-colors active:scale-95 ${
+            penMode ? "bg-indigo-600 text-white" : "text-zinc-600 hover:bg-zinc-100"
+          }`}
+        >
+          Pen
+        </button>
       </div>
-    </Panel>
+    </div>
   );
 }

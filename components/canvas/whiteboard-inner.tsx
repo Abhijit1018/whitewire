@@ -16,6 +16,7 @@ import {
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
 import { CanvasToolbar } from "./canvas-toolbar";
+import { PenLayer } from "./pen-layer";
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   type: "smoothstep",
@@ -38,6 +39,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const onEdgesChange = useWorkspaceStore((s) => s.onEdgesChange);
   const setGraph = useWorkspaceStore((s) => s.setGraph);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
+  const penMode = useWorkspaceStore((s) => s.penMode);
 
   // Load the saved snapshot once.
   const initRef = useRef(false);
@@ -80,23 +82,29 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
 
   return (
     <ReactFlowProvider>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onSelectionChange={onSelectionChange}
-        nodeTypes={nodeTypes}
-        defaultEdgeOptions={defaultEdgeOptions}
-        fitView
-        minZoom={0.2}
-        proOptions={{ hideAttribution: false }}
-      >
-        <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#e4e4e7" />
+      <div className="relative h-full w-full">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onSelectionChange={onSelectionChange}
+          nodeTypes={nodeTypes}
+          defaultEdgeOptions={defaultEdgeOptions}
+          fitView
+          minZoom={0.2}
+          panOnDrag={!penMode}
+          nodesDraggable={!penMode}
+          elementsSelectable={!penMode}
+          proOptions={{ hideAttribution: false }}
+        >
+          <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#e4e4e7" />
+          <Controls />
+          <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
+        </ReactFlow>
+        {penMode && <PenLayer />}
         <CanvasToolbar />
-        <Controls />
-        <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
-      </ReactFlow>
+      </div>
     </ReactFlowProvider>
   );
 }

@@ -2,6 +2,7 @@
 
 import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode as AiNodeType } from "@/core/state/workspace-store";
+import { DrawNode } from "./draw-node";
 
 const KIND_STYLES: Record<string, string> = {
   idea: "bg-amber-100 text-amber-700",
@@ -120,4 +121,5 @@ export const nodeTypes = {
   textNode: TextNode,
   noteNode: NoteNode,
   shapeNode: ShapeNode,
+  drawNode: DrawNode,
 };
