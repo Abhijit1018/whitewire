@@ -2,7 +2,7 @@
 
 import type { GenType } from "@/core/artifacts/kinds";
 
-const GEN_TYPES = ["schema", "api", "ui", "docs"];
+const GEN_TYPES = ["schema", "api", "orm", "erd", "ui", "docs"];
 
 export async function generateArtifactAction(
   projectId: string,

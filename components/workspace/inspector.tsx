@@ -20,6 +20,8 @@ export function Inspector({ projectId }: { projectId: string }) {
   const text = useWorkspaceStore((s) => s.selectedNodeText);
   const kind = useWorkspaceStore((s) => s.selectedNodeKind);
   const nodeType = useWorkspaceStore((s) => s.selectedNodeType);
+  const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
+  const deleteNode = useWorkspaceStore((s) => s.deleteNode);
 
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -118,11 +120,26 @@ export function Inspector({ projectId }: { projectId: string }) {
 
   return (
     <div className="flex h-full flex-col gap-5 overflow-y-auto pr-1 text-sm">
-      <header>
-        <span className="inline-block rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-600">
-          {kind || "node"}
-        </span>
-        <p className="mt-1.5 font-medium leading-snug text-zinc-900">{text || "(empty)"}</p>
+      <header className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="inline-block rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-600">
+            {kind || "node"}
+          </span>
+          <button
+            type="button"
+            onClick={() => deleteNode(selectedNodeId)}
+            className="text-xs text-zinc-400 transition-colors hover:text-red-500"
+          >
+            Delete node
+          </button>
+        </div>
+        <input
+          key={selectedNodeId}
+          defaultValue={text}
+          onChange={(e) => updateNodeData(selectedNodeId, { text: e.target.value })}
+          placeholder="Node text"
+          className="w-full rounded-md border border-zinc-200 px-2 py-1.5 text-sm font-medium leading-snug text-zinc-900 outline-none transition-colors focus:border-indigo-300"
+        />
       </header>
 
       {error && (

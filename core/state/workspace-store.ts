@@ -13,6 +13,7 @@ export type AiNodeData = {
   kind: string;
   purpose: string;
   model: string;
+  shape?: string;
 };
 export type AiNode = Node<AiNodeData>;
 
@@ -31,6 +32,7 @@ type WorkspaceState = {
   addNode: (node: AiNode) => void;
   addNodesEdges: (nodes: AiNode[], edges: Edge[]) => void;
   updateNodeData: (id: string, data: Partial<AiNodeData>) => void;
+  deleteNode: (id: string) => void;
   setSelection: (sel: { id: string | null; text: string; kind: string; type: string }) => void;
 };
 
@@ -57,6 +59,12 @@ function makeStore() {
           n.id === id ? { ...n, data: { ...n.data, ...data } } : n,
         ),
       }),
+    deleteNode: (id) =>
+      set((state) => ({
+        nodes: state.nodes.filter((n) => n.id !== id),
+        edges: state.edges.filter((e) => e.source !== id && e.target !== id),
+        selectedNodeId: state.selectedNodeId === id ? null : state.selectedNodeId,
+      })),
     setSelection: ({ id, text, kind, type }) =>
       set({
         selectedNodeId: id,

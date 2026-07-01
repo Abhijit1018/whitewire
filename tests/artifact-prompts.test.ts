@@ -3,12 +3,18 @@ import { buildArtifactPrompt } from "@/core/ai/artifact-prompts";
 
 describe("buildArtifactPrompt", () => {
   it("embeds the node text in every type", () => {
-    for (const t of ["schema", "api", "ui", "docs"] as const) {
+    for (const t of ["schema", "api", "orm", "erd", "ui", "docs"] as const) {
       expect(buildArtifactPrompt(t, "Login Page")).toContain("Login Page");
     }
   });
   it("schema asks for SQL", () => {
     expect(buildArtifactPrompt("schema", "x").toLowerCase()).toContain("sql");
+  });
+  it("orm asks for an ORM", () => {
+    expect(buildArtifactPrompt("orm", "x").toLowerCase()).toContain("orm");
+  });
+  it("erd asks for a mermaid ER diagram", () => {
+    expect(buildArtifactPrompt("erd", "x").toLowerCase()).toContain("mermaid");
   });
   it("api asks for endpoints", () => {
     expect(buildArtifactPrompt("api", "x").toLowerCase()).toContain("endpoint");

@@ -11,11 +11,14 @@ describe("generatorsForKind", () => {
   it("idea → docs primary", () => {
     expect(generatorsForKind("idea").primary).toEqual(["docs"]);
   });
-  it("generic/unknown → all four primary", () => {
-    expect(generatorsForKind("generic").primary).toEqual(["schema", "api", "ui", "docs"]);
-    expect(generatorsForKind("whatever").primary).toEqual(["schema", "api", "ui", "docs"]);
+  it("entity → schema, orm, erd, docs primary", () => {
+    expect(generatorsForKind("entity").primary).toEqual(["schema", "orm", "erd", "docs"]);
   });
-  it("all is always the four generators", () => {
-    expect(generatorsForKind("idea").all).toEqual(["schema", "api", "ui", "docs"]);
+  it("generic/unknown → all generators primary", () => {
+    expect(generatorsForKind("generic").primary).toEqual(["schema", "api", "orm", "erd", "ui", "docs"]);
+    expect(generatorsForKind("whatever").primary).toEqual(["schema", "api", "orm", "erd", "ui", "docs"]);
+  });
+  it("all is always the full generator set", () => {
+    expect(generatorsForKind("idea").all).toEqual(["schema", "api", "orm", "erd", "ui", "docs"]);
   });
 });

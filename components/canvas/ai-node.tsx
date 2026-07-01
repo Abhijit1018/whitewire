@@ -1,6 +1,6 @@
 "use client";
 
-import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode as AiNodeType } from "@/core/state/workspace-store";
 
 const KIND_STYLES: Record<string, string> = {
@@ -81,4 +81,43 @@ export function NoteNode({ id, data, selected }: NodeProps<AiNodeType>) {
   );
 }
 
-export const nodeTypes = { aiNode: AiNode, textNode: TextNode, noteNode: NoteNode };
+export function ShapeNode({ id, data, selected }: NodeProps<AiNodeType>) {
+  const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
+  const shape = data.shape ?? "rectangle";
+  const radius = shape === "ellipse" ? "9999px" : "10px";
+  const rotate = shape === "diamond";
+  return (
+    <div className="relative h-full w-full">
+      <NodeResizer
+        minWidth={90}
+        minHeight={60}
+        isVisible={!!selected}
+        lineClassName="!border-indigo-400"
+        handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-indigo-500"
+      />
+      <Handle type="target" position={Position.Top} className={handleClass} />
+      <div
+        className={`flex h-full w-full items-center justify-center border-2 bg-white transition-colors ${
+          selected ? "border-indigo-500" : "border-zinc-400"
+        }`}
+        style={{ borderRadius: radius, transform: rotate ? "rotate(45deg)" : undefined }}
+      >
+        <input
+          className="nodrag w-[78%] bg-transparent text-center text-sm text-zinc-800 outline-none"
+          style={{ transform: rotate ? "rotate(-45deg)" : undefined }}
+          defaultValue={data.text}
+          placeholder="Label"
+          onChange={(e) => updateNodeData(id, { text: e.target.value })}
+        />
+      </div>
+      <Handle type="source" position={Position.Bottom} className={handleClass} />
+    </div>
+  );
+}
+
+export const nodeTypes = {
+  aiNode: AiNode,
+  textNode: TextNode,
+  noteNode: NoteNode,
+  shapeNode: ShapeNode,
+};
