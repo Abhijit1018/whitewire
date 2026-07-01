@@ -1,39 +1,24 @@
-import type { Editor, TLShape, TLShapeId } from "tldraw";
-import { cleanup, type Box, type Edge } from "@/core/canvas/cleanup";
+import { cleanup, type Box, type Edge as CleanupEdge } from "@/core/canvas/cleanup";
+import { useWorkspaceStore } from "@/core/state/workspace-store";
 
-/** Reads selected shapes (or all page shapes if <2 selected), runs cleanup, applies positions. */
-export function applyCleanup(editor: Editor) {
-  const selected = editor.getSelectedShapes();
-  const shapes: TLShape[] =
-    selected.length >= 2 ? selected : editor.getCurrentPageShapes();
+const NODE_W = 220;
+const NODE_H = 80;
 
-  const boxes: Box[] = [];
-  const ids = new Set<TLShapeId>();
-  for (const s of shapes) {
-    if (s.type === "arrow") continue;
-    const b = editor.getShapePageBounds(s.id);
-    if (!b) continue;
-    boxes.push({ id: s.id, x: b.x, y: b.y, w: b.w, h: b.h });
-    ids.add(s.id);
-  }
-  if (boxes.length < 2) return;
+/** Lays out the current graph (dagre tree when edges connect nodes, else a tidy grid). */
+export function applyCleanup() {
+  const store = useWorkspaceStore.getState();
+  const { nodes, edges } = store;
+  if (nodes.length < 2) return;
 
-  const edges: Edge[] = [];
-  for (const s of shapes) {
-    if (s.type !== "arrow") continue;
-    const bindings = editor.getBindingsFromShape(s.id, "arrow");
-    const start = bindings.find((b) => b.props.terminal === "start")?.toId;
-    const end = bindings.find((b) => b.props.terminal === "end")?.toId;
-    if (start && end && ids.has(start) && ids.has(end)) {
-      edges.push({ from: start, to: end });
-    }
-  }
+  const boxes: Box[] = nodes.map((n) => ({
+    id: n.id,
+    x: n.position.x,
+    y: n.position.y,
+    w: n.measured?.width ?? NODE_W,
+    h: n.measured?.height ?? NODE_H,
+  }));
+  const cleanupEdges: CleanupEdge[] = edges.map((e) => ({ from: e.source, to: e.target }));
 
-  const positions = cleanup(boxes, edges);
-  editor.updateShapes(
-    Object.entries(positions).map(([id, p]) => {
-      const shape = editor.getShape(id as TLShapeId)!;
-      return { id: id as TLShapeId, type: shape.type, x: p.x, y: p.y };
-    }),
-  );
+  const positions = cleanup(boxes, cleanupEdges);
+  store.setNodes(nodes.map((n) => (positions[n.id] ? { ...n, position: positions[n.id] } : n)));
 }

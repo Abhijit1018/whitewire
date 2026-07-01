@@ -1,31 +1,62 @@
 import { create, type StoreApi, type UseBoundStore } from "zustand";
-import type { Editor } from "tldraw";
+import {
+  applyEdgeChanges,
+  applyNodeChanges,
+  type Edge,
+  type EdgeChange,
+  type Node,
+  type NodeChange,
+} from "@xyflow/react";
+
+export type AiNodeData = {
+  text: string;
+  kind: string;
+  purpose: string;
+  model: string;
+};
+export type AiNode = Node<AiNodeData, "aiNode">;
 
 type WorkspaceState = {
-  editor: Editor | null;
-  setEditor: (editor: Editor | null) => void;
+  nodes: AiNode[];
+  edges: Edge[];
   selectedNodeId: string | null;
   selectedNodeText: string;
   selectedNodeKind: string;
+
+  onNodesChange: (changes: NodeChange<AiNode>[]) => void;
+  onEdgesChange: (changes: EdgeChange[]) => void;
+  setGraph: (nodes: AiNode[], edges: Edge[]) => void;
+  setNodes: (nodes: AiNode[]) => void;
+  addNode: (node: AiNode) => void;
+  addNodesEdges: (nodes: AiNode[], edges: Edge[]) => void;
   setSelection: (sel: { id: string | null; text: string; kind: string }) => void;
 };
 
 function makeStore() {
-  return create<WorkspaceState>((set) => ({
-    editor: null,
-    setEditor: (editor) => set({ editor }),
+  return create<WorkspaceState>((set, get) => ({
+    nodes: [],
+    edges: [],
     selectedNodeId: null,
     selectedNodeText: "",
     selectedNodeKind: "",
+
+    onNodesChange: (changes) =>
+      set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
+    onEdgesChange: (changes) => set({ edges: applyEdgeChanges(changes, get().edges) }),
+    setGraph: (nodes, edges) => set({ nodes, edges }),
+    setNodes: (nodes) => set({ nodes }),
+    addNode: (node) => set({ nodes: [...get().nodes, node] }),
+    addNodesEdges: (nodes, edges) =>
+      set({ nodes: [...get().nodes, ...nodes], edges: [...get().edges, ...edges] }),
     setSelection: ({ id, text, kind }) =>
       set({ selectedNodeId: id, selectedNodeText: text, selectedNodeKind: kind }),
   }));
 }
 
-// The canvas loads via a dynamic ssr:false chunk, which can get its own copy of
-// this module. Cache the store on `window` so every chunk shares ONE instance
-// (so selection/editor set inside the canvas reach the header/footer/inspector).
-// On the server, return a fresh per-render store to avoid cross-request leakage.
+// The canvas loads via a dynamic ssr:false chunk that can get its own copy of this
+// module. Cache the store on `window` so every chunk shares ONE instance (selection
+// / nodes set in the canvas reach the header/footer/inspector). Fresh per-render on
+// the server to avoid cross-request leakage.
 type StoreHook = UseBoundStore<StoreApi<WorkspaceState>>;
 const globalKey = "__whitewireWorkspaceStore" as const;
 

@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import "tldraw/tldraw.css";
 import { CanvasErrorBoundary } from "./canvas-error-boundary";
 
 const WhiteboardInner = dynamic(() => import("./whiteboard-inner"), {
