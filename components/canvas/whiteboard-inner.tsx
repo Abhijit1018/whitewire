@@ -113,7 +113,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
             </p>
           </div>
         )}
-        <CanvasToolbar />
+        <CanvasToolbar projectId={projectId} />
       </div>
     </ReactFlowProvider>
   );
