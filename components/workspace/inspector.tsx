@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { generatorsForKind, type GenType } from "@/core/artifacts/kinds";
 import { hashSource } from "@/core/artifacts/hash";
+import { MermaidDiagram } from "./mermaid-diagram";
 import { generateArtifactAction, listNodeArtifactsAction } from "@/app/p/[projectId]/artifact-actions";
 import {
   addAttachmentAction,
@@ -237,9 +238,13 @@ export function Inspector({ projectId }: { projectId: string }) {
                       </button>
                     </span>
                   </div>
-                  <pre className="max-h-56 overflow-auto bg-white p-2.5 font-mono text-[11px] leading-relaxed text-zinc-800">
-                    {a.content}
-                  </pre>
+                  {a.type === "erd" ? (
+                    <MermaidDiagram code={a.content} />
+                  ) : (
+                    <pre className="max-h-56 overflow-auto bg-white p-2.5 font-mono text-[11px] leading-relaxed text-zinc-800">
+                      {a.content}
+                    </pre>
+                  )}
                 </li>
               );
             })}
