@@ -10,6 +10,8 @@ import {
   type NodeChange,
 } from "@xyflow/react";
 
+import type { WireframeSpec } from "@/core/ai/wireframe";
+
 export type AiNodeData = {
   text: string;
   kind: string;
@@ -19,6 +21,7 @@ export type AiNodeData = {
   points?: number[][];
   color?: string;
   size?: number;
+  wireframe?: WireframeSpec;
 };
 export type AiNode = Node<AiNodeData>;
 

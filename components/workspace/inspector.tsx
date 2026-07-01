@@ -12,6 +12,7 @@ import {
   deleteAttachmentAction,
   uploadFileAction,
 } from "@/app/p/[projectId]/attachment-actions";
+import { wireframeAction, refineAction } from "@/app/p/[projectId]/design-actions";
 
 type Artifact = { id: string; type: string; content: string; sourceHash: string };
 type Attachment = { id: string; type: string; content: string };
@@ -24,6 +25,7 @@ export function Inspector({ projectId }: { projectId: string }) {
   const nodeType = useWorkspaceStore((s) => s.selectedNodeType);
   const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
   const deleteNode = useWorkspaceStore((s) => s.deleteNode);
+  const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
 
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -89,6 +91,51 @@ export function Inspector({ projectId }: { projectId: string }) {
       } catch (e) {
         setError(e instanceof Error ? e.message : "Generation failed");
       }
+    });
+  }
+
+  function refine() {
+    const nodeId = selectedNodeId;
+    if (!nodeId) return;
+    startTransition(async () => {
+      setError(null);
+      const res = await refineAction(projectId, text);
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      if (res.text) updateNodeData(nodeId, { text: res.text });
+    });
+  }
+
+  function generateWireframe() {
+    const nodeId = selectedNodeId;
+    if (!nodeId) return;
+    startTransition(async () => {
+      setError(null);
+      const res = await wireframeAction(projectId, text);
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      const spec = res.spec;
+      if (!spec) return;
+      const parent = useWorkspaceStore.getState().nodes.find((n) => n.id === nodeId);
+      const px = (parent?.position.x ?? 0) + 320;
+      const py = parent?.position.y ?? 0;
+      const wid = crypto.randomUUID();
+      addNodesEdges(
+        [
+          {
+            id: wid,
+            type: "wireframeNode",
+            position: { x: px, y: py },
+            style: { width: 320, height: 240 },
+            data: { text: spec.title || "Wireframe", kind: "component", purpose: "", model: "", wireframe: spec },
+          },
+        ],
+        [{ id: crypto.randomUUID(), source: nodeId, target: wid }],
+      );
     });
   }
 
@@ -164,6 +211,27 @@ export function Inspector({ projectId }: { projectId: string }) {
 
       {error && (
         <p className="rounded-md bg-red-50 px-2.5 py-1.5 text-red-600">{error}</p>
+      )}
+
+      {isAi && (
+        <div className="flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            disabled={pending}
+            onClick={refine}
+            className="rounded-md border border-zinc-200 px-2.5 py-1 text-zinc-700 transition-all hover:bg-zinc-100 active:scale-95 disabled:opacity-50"
+          >
+            Refine text
+          </button>
+          <button
+            type="button"
+            disabled={pending}
+            onClick={generateWireframe}
+            className="rounded-md border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-indigo-700 transition-all hover:bg-indigo-100 active:scale-95 disabled:opacity-50"
+          >
+            Wireframe
+          </button>
+        </div>
       )}
 
       {isAi && (

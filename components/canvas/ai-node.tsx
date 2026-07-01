@@ -3,6 +3,7 @@
 import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode as AiNodeType } from "@/core/state/workspace-store";
 import { DrawNode } from "./draw-node";
+import { WireframeNode } from "./wireframe-node";
 
 const KIND_STYLES: Record<string, string> = {
   idea: "bg-amber-100 text-amber-700",
@@ -129,4 +130,5 @@ export const nodeTypes = {
   noteNode: NoteNode,
   shapeNode: ShapeNode,
   drawNode: DrawNode,
+  wireframeNode: WireframeNode,
 };
