@@ -32,9 +32,20 @@ export async function deleteAccountAction(formData: FormData) {
   const { createAdminClient } = await import("@/core/supabase/admin");
 
   const ownerId = await syncCurrentUser();
-  await purgeOwnerData(db, ownerId);
 
-  const admin = createAdminClient();
+  // Construct the admin client FIRST — if the service-role key is missing it throws
+  // here, before any data is deleted, and we redirect with a clear message.
+  let admin: ReturnType<typeof createAdminClient>;
+  try {
+    admin = createAdminClient();
+  } catch (e) {
+    redirect(
+      "/account?error=" +
+        encodeURIComponent(e instanceof Error ? e.message : "Account deletion is not configured."),
+    );
+  }
+
+  await purgeOwnerData(db, ownerId);
   const { error } = await admin.auth.admin.deleteUser(ownerId);
   if (error) redirect("/account?error=" + encodeURIComponent(error.message));
 
