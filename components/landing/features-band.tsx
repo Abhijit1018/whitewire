@@ -16,7 +16,7 @@ export function FeaturesBand() {
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
           <h2 className="text-3xl font-bold tracking-tight">Everything, in one place</h2>
-          <p className="mt-3 text-neutral-400">Think. Visualize. Collaborate. Build.</p>
+          <p className="mt-3 text-neutral-300">Think. Visualize. Collaborate. Build.</p>
         </Reveal>
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
@@ -26,7 +26,7 @@ export function FeaturesBand() {
                   <f.icon className="size-5" />
                 </div>
                 <h3 className="mt-4 font-semibold">{f.title}</h3>
-                <p className="mt-1 text-sm text-neutral-400">{f.body}</p>
+                <p className="mt-1 text-sm text-neutral-300">{f.body}</p>
               </div>
             </Reveal>
           ))}

@@ -37,7 +37,7 @@ export default async function Dashboard() {
                   <form action={deleteProjectAction}>
                     <input type="hidden" name="id" value={p.id} />
                     <button
-                      className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-destructive/10 hover:text-destructive group-hover/proj:opacity-100"
+                      className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-destructive/10 hover:text-destructive group-hover/proj:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring"
                       type="submit"
                       aria-label={`Delete ${p.name}`}
                     >
