@@ -1,13 +1,21 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+// Routes reachable without a session: auth flows + public marketing/content pages.
+const PUBLIC_PREFIXES = [
+  "/sign-in",
+  "/sign-up",
+  "/auth",
+  "/about",
+  "/docs",
+  "/privacy",
+  "/terms",
+  "/contact",
+  "/changelog",
+];
+
 function isPublic(pathname: string): boolean {
-  return (
-    pathname === "/" ||
-    pathname.startsWith("/sign-in") ||
-    pathname.startsWith("/sign-up") ||
-    pathname.startsWith("/auth")
-  );
+  return pathname === "/" || PUBLIC_PREFIXES.some((p) => pathname.startsWith(p));
 }
 
 /** Refreshes the Supabase session cookie and redirects unauthenticated users away from protected routes. */
