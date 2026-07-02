@@ -49,15 +49,17 @@ function Mark({ className }: { className?: string }) {
 }
 
 export function Logo({ variant = "full", appearance = "light", className }: LogoProps) {
-  const textColor = appearance === "dark" ? "text-white" : "text-foreground";
+  const isDark = appearance === "dark";
+  const markColor = isDark ? "text-white" : "text-foreground";
   if (variant === "mark") {
-    return <Mark className={cn(appearance === "dark" ? "text-white" : "text-foreground", className)} />;
+    return <Mark className={cn(markColor, className)} />;
   }
   return (
     <span className={cn("inline-flex items-center gap-2", className)}>
-      <Mark className={appearance === "dark" ? "text-white" : "text-foreground"} />
-      <span className={cn("text-xl font-bold tracking-tight", textColor)}>
-        White<span className="text-gradient-brand">Wire</span>
+      <Mark className={markColor} />
+      <span className={cn("text-xl font-bold tracking-tight", markColor)}>
+        {/* On the dark/gradient panel the wordmark is solid white; on light bg "Wire" is gradient. */}
+        White<span className={isDark ? undefined : "text-gradient-brand"}>Wire</span>
       </span>
     </span>
   );
