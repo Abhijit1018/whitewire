@@ -221,6 +221,10 @@ pnpm db:migrate   # apply migrations
 
 </details>
 
+### Environment
+
+- `SUPABASE_SERVICE_ROLE_KEY` — required for the **Delete account** action (Account page). Without it, deletion returns a clear error and no data is removed. Set it in `.env.local` and in the Vercel project's environment variables. Never expose this key to the client.
+
 ---
 
 ## 🗺️ Roadmap
