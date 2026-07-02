@@ -9,12 +9,10 @@ export default defineConfig({
     fileParallelism: false,
   },
   resolve: {
-    alias: { "@": path.resolve(__dirname, ".") },
-    conditions: ["react-server"],
-  },
-  ssr: {
-    resolve: {
-      conditions: ["react-server"],
+    alias: {
+      "@": path.resolve(__dirname, "."),
+      "server-only": path.resolve(__dirname, "tests/stubs/empty-module.ts"),
+      "client-only": path.resolve(__dirname, "tests/stubs/empty-module.ts"),
     },
   },
 });
