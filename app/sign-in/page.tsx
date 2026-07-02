@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { signInAction } from "@/app/auth/actions";
+import { AuthShell } from "@/components/auth/auth-shell";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default async function SignInPage({
   searchParams,
@@ -8,34 +11,21 @@ export default async function SignInPage({
 }) {
   const { error } = await searchParams;
   return (
-    <div className="flex min-h-screen items-center justify-center p-6">
-      <form action={signInAction} className="w-full max-w-sm space-y-4 rounded-lg border p-6">
-        <h1 className="text-xl font-semibold">Sign in to WhiteWire</h1>
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          className="w-full rounded border px-3 py-2"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          className="w-full rounded border px-3 py-2"
-        />
-        <button type="submit" className="w-full rounded-md bg-black px-4 py-2 text-white">
+    <AuthShell title="Sign in to WhiteWire">
+      <form action={signInAction} className="space-y-4">
+        {error && <p className="text-sm text-destructive">{error}</p>}
+        <Input name="email" type="email" placeholder="Email" required className="h-10" />
+        <Input name="password" type="password" placeholder="Password" required className="h-10" />
+        <Button type="submit" size="lg" className="w-full bg-gradient-brand text-white hover:opacity-90">
           Sign in
-        </button>
+        </Button>
         <p className="text-sm text-muted-foreground">
           No account?{" "}
-          <Link href="/sign-up" className="underline">
+          <Link href="/sign-up" className="text-brand-violet hover:underline">
             Sign up
           </Link>
         </p>
       </form>
-    </div>
+    </AuthShell>
   );
 }
