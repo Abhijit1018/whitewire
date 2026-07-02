@@ -19,16 +19,10 @@ export async function addKeyAction(formData: FormData) {
   const baseUrl =
     provider === "openai-compatible" ? baseUrlRaw || "https://api.openai.com/v1" : null;
   if (baseUrl) {
-    let parsed: URL;
-    try {
-      parsed = new URL(baseUrl);
-    } catch {
-      throw new Error("baseUrl must be a valid URL");
-    }
-    // Allow http(s) only. Private/localhost hosts are intentionally permitted
-    // so local models (Ollama, LM Studio) work.
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:")
-      throw new Error("baseUrl must use http or https");
+    // Allow http(s) + local/private hosts only. Private/localhost hosts are intentionally
+    // permitted so local models (Ollama, LM Studio) work; cloud-metadata/link-local hosts are not.
+    const { assertAllowedBaseUrl } = await import("@/core/ai/net-guard");
+    assertAllowedBaseUrl(baseUrl);
   }
 
   await addKey(db, { ownerId, provider, label, baseUrl, model, apiKey });

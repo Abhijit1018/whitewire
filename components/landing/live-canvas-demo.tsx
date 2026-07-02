@@ -9,6 +9,8 @@ export function LiveCanvasDemo() {
   const reduce = useReducedMotion();
   // When reduced motion is on, jump straight to the final composed state.
   const show = reduce ? true : inView;
+  // With reduced motion, initial state is already "show" so there is nothing to tween.
+  const initialState = reduce ? "show" : "hidden";
 
   const draw = {
     hidden: { pathLength: 0, opacity: 0 },
@@ -42,11 +44,11 @@ export function LiveCanvasDemo() {
             strokeWidth="3"
             strokeLinecap="round"
             variants={draw}
-            initial="hidden"
+            initial={initialState}
             animate={show ? "show" : "hidden"}
           />
           {/* node A */}
-          <motion.g variants={pop(1.0)} initial="hidden" animate={show ? "show" : "hidden"}>
+          <motion.g variants={pop(1.0)} initial={initialState} animate={show ? "show" : "hidden"}>
             <rect x="80" y="150" width="150" height="64" rx="12" fill="white" stroke="var(--brand-violet)" strokeWidth="2" />
             <text x="155" y="188" textAnchor="middle" fontSize="16" fill="#111">Web App</text>
           </motion.g>
@@ -59,12 +61,12 @@ export function LiveCanvasDemo() {
             strokeDasharray="6 6"
             markerEnd="url(#arrow)"
             variants={draw}
-            initial="hidden"
+            initial={initialState}
             animate={show ? "show" : "hidden"}
             transition={{ delay: 1.4 }}
           />
           {/* node B */}
-          <motion.g variants={pop(1.7)} initial="hidden" animate={show ? "show" : "hidden"}>
+          <motion.g variants={pop(1.7)} initial={initialState} animate={show ? "show" : "hidden"}>
             <rect x="360" y="150" width="150" height="64" rx="12" fill="white" stroke="var(--brand-blue)" strokeWidth="2" />
             <text x="435" y="188" textAnchor="middle" fontSize="16" fill="#111">Auth Service</text>
           </motion.g>
@@ -77,16 +79,16 @@ export function LiveCanvasDemo() {
             strokeDasharray="6 6"
             markerEnd="url(#arrow)"
             variants={draw}
-            initial="hidden"
+            initial={initialState}
             animate={show ? "show" : "hidden"}
             transition={{ delay: 2.1 }}
           />
-          <motion.g variants={pop(2.4)} initial="hidden" animate={show ? "show" : "hidden"}>
+          <motion.g variants={pop(2.4)} initial={initialState} animate={show ? "show" : "hidden"}>
             <rect x="640" y="150" width="120" height="64" rx="12" fill="white" stroke="var(--brand-blue)" strokeWidth="2" />
             <text x="700" y="188" textAnchor="middle" fontSize="16" fill="#111">Postgres</text>
           </motion.g>
           {/* sticky note pops last */}
-          <motion.g variants={pop(2.8)} initial="hidden" animate={show ? "show" : "hidden"}>
+          <motion.g variants={pop(2.8)} initial={initialState} animate={show ? "show" : "hidden"}>
             <rect x="300" y="250" width="200" height="70" rx="6" fill="#fef08a" transform="rotate(-4 400 285)" />
             <text x="400" y="292" textAnchor="middle" fontSize="18" fill="#713f12" fontFamily="var(--font-hand), cursive" transform="rotate(-4 400 285)">
               Here's your architecture ✦

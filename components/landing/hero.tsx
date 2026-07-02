@@ -77,7 +77,7 @@ export function Hero({ signedIn }: { signedIn: boolean }) {
       </div>
 
       {/* Floating decorations — parallax depth, hidden on mobile */}
-      <motion.div style={{ y: slow }} className="pointer-events-none absolute inset-0">
+      <motion.div aria-hidden style={{ y: slow }} className="pointer-events-none absolute inset-0">
         <FloatCard className="left-[6%] top-[22%]" amplitude={12} duration={5} delay={0}>
           <div className="w-56 rounded-xl border border-border bg-white p-3 shadow-lg">
             <p className="mb-2 text-xs font-medium text-muted-foreground">System architecture</p>
@@ -101,7 +101,7 @@ export function Hero({ signedIn }: { signedIn: boolean }) {
         </FloatCard>
       </motion.div>
 
-      <motion.div style={{ y: fast }} className="pointer-events-none absolute inset-0">
+      <motion.div aria-hidden style={{ y: fast }} className="pointer-events-none absolute inset-0">
         <FloatCard className="right-[10%] top-[46%]" amplitude={10} duration={4.5} delay={0.2}>
           <div className="-rotate-6 rounded-md bg-yellow-200 px-4 py-3 font-hand text-lg text-yellow-900 shadow-lg">
             Add onboarding flow ✦

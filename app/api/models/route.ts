@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { syncCurrentUser } from "@/lib/auth";
 import { listModels } from "@/core/ai/list-models";
+import { assertAllowedBaseUrl } from "@/core/ai/net-guard";
 
 const PROVIDERS = ["openai-compatible", "anthropic", "google"];
 
@@ -27,11 +28,10 @@ export async function POST(req: Request) {
   if (!apiKey) return NextResponse.json({ error: "API key is required" }, { status: 400 });
   if (baseUrl) {
     try {
-      const u = new URL(baseUrl);
-      if (u.protocol !== "http:" && u.protocol !== "https:")
-        return NextResponse.json({ error: "baseUrl must use http or https" }, { status: 400 });
-    } catch {
-      return NextResponse.json({ error: "baseUrl must be a valid URL" }, { status: 400 });
+      assertAllowedBaseUrl(baseUrl);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "Invalid baseUrl";
+      return NextResponse.json({ error: message }, { status: 400 });
     }
   }
 

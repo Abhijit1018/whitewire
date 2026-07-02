@@ -20,7 +20,7 @@ export default async function Landing() {
   const signedIn = Boolean(user);
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-white text-foreground">
       <LandingNav signedIn={signedIn} />
       <main>
         <Hero signedIn={signedIn} />
@@ -35,6 +35,6 @@ export default async function Landing() {
         <FinalCta signedIn={signedIn} />
       </main>
       <LandingFooter />
-    </>
+    </div>
   );
 }
