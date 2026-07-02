@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FolderKanban, FileStack, Settings, LogOut } from "lucide-react";
+import { FolderKanban, FileStack, Settings, UserCircle, LogOut } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { signOutAction } from "@/app/auth/actions";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ const links = [
   { href: "/dashboard", label: "Projects", icon: FolderKanban },
   { href: "/artifacts", label: "Artifacts", icon: FileStack },
   { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/account", label: "Account", icon: UserCircle },
 ];
 
 export function Sidebar() {
