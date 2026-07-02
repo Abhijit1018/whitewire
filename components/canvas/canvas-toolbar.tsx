@@ -82,25 +82,25 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
 
   return (
     <div className="absolute left-3 top-3 z-20">
-      <div className="flex flex-col gap-1 rounded-xl border border-zinc-200 bg-white p-1 shadow-sm">
+      <div className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-1 shadow-sm">
         {TOOLS.map((t) => (
           <button
             key={t.label}
             type="button"
             title={t.hint}
             onClick={() => add(t)}
-            className="rounded-lg px-2.5 py-2 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-100 active:scale-95"
+            className="rounded-lg px-2.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted active:scale-95"
           >
             {t.label}
           </button>
         ))}
-        <div className="my-0.5 h-px bg-zinc-200" />
+        <div className="my-0.5 h-px bg-border" />
         <button
           type="button"
           title="Select / move (hand)"
           onClick={() => setPenMode(false)}
           className={`rounded-lg px-2.5 py-2 text-xs font-medium transition-colors active:scale-95 ${
-            !penMode ? "bg-zinc-900 text-white" : "text-zinc-600 hover:bg-zinc-100"
+            !penMode ? "bg-gradient-brand text-white" : "text-muted-foreground hover:bg-muted"
           }`}
         >
           Select
@@ -110,7 +110,7 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           title="Pen — draw freehand"
           onClick={() => setPenMode(true)}
           className={`rounded-lg px-2.5 py-2 text-xs font-medium transition-colors active:scale-95 ${
-            penMode ? "bg-indigo-600 text-white" : "text-zinc-600 hover:bg-zinc-100"
+            penMode ? "bg-gradient-brand text-white" : "text-muted-foreground hover:bg-muted"
           }`}
         >
           Pen
@@ -120,13 +120,13 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           title="Read sketch with AI (needs a vision model)"
           onClick={readSketch}
           disabled={pending}
-          className="rounded-lg px-2.5 py-2 text-xs font-medium text-indigo-600 transition-colors hover:bg-indigo-50 active:scale-95 disabled:opacity-50"
+          className="rounded-lg px-2.5 py-2 text-xs font-medium text-primary transition-colors hover:bg-muted active:scale-95 disabled:opacity-50"
         >
           {pending ? "…" : "Read"}
         </button>
       </div>
       {msg && (
-        <p className="mt-1 max-w-[200px] rounded bg-white/90 px-2 py-1 text-[11px] text-red-600 shadow">
+        <p className="mt-1 max-w-[200px] rounded-xl border border-border bg-surface/90 px-2 py-1 text-[11px] text-destructive shadow-sm">
           {msg}
         </p>
       )}

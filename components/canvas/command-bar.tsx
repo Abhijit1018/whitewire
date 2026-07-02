@@ -53,17 +53,17 @@ export function CommandBar({ projectId }: { projectId: string }) {
         onChange={(e) => setPrompt(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && submit()}
         placeholder="Describe something — AI builds a connected board…"
-        className="flex-1 rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm outline-none transition-colors focus:border-indigo-300"
+        className="flex-1 rounded-md border border-border bg-surface px-3 py-1.5 text-sm outline-none transition-colors focus:border-primary"
       />
       <button
         type="button"
         onClick={submit}
         disabled={pending}
-        className="rounded-md bg-zinc-900 px-4 py-1.5 text-sm text-white transition-all hover:bg-zinc-700 active:scale-95 disabled:opacity-50"
+        className="rounded-md bg-gradient-brand px-4 py-1.5 text-sm text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
       >
         {pending ? "Generating…" : "Generate"}
       </button>
-      {error && <span className="text-sm text-red-600">{error}</span>}
+      {error && <span className="text-sm text-destructive">{error}</span>}
     </div>
   );
 }
