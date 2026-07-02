@@ -8,5 +8,13 @@ export default defineConfig({
     globals: true,
     fileParallelism: false,
   },
-  resolve: { alias: { "@": path.resolve(__dirname, ".") } },
+  resolve: {
+    alias: { "@": path.resolve(__dirname, ".") },
+    conditions: ["react-server"],
+  },
+  ssr: {
+    resolve: {
+      conditions: ["react-server"],
+    },
+  },
 });
