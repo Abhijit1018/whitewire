@@ -1,7 +1,7 @@
 import { createClient } from "@/core/supabase/server";
 import { LandingNav } from "@/components/landing/landing-nav";
 import { Hero } from "@/components/landing/hero";
-import { WhatItIs } from "@/components/landing/what-it-is";
+import { LiveCanvasDemo } from "@/components/landing/live-canvas-demo";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { FeaturesBand } from "@/components/landing/features-band";
 import { Pricing } from "@/components/landing/pricing";
@@ -20,7 +20,7 @@ export default async function Landing() {
       <LandingNav signedIn={signedIn} />
       <main className="flex-1">
         <Hero signedIn={signedIn} />
-        <WhatItIs />
+        <LiveCanvasDemo />
         <HowItWorks />
         <FeaturesBand />
         <ByoAi />
