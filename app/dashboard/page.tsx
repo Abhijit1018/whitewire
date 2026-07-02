@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Trash2 } from "lucide-react";
 import { Sidebar } from "@/components/app-shell/sidebar";
+import { Topbar } from "@/components/app-shell/topbar";
 import { db } from "@/core/persistence/db";
 import { listProjects } from "@/core/persistence/projects.repo";
 import { syncCurrentUser } from "@/lib/auth";
@@ -12,31 +14,42 @@ export default async function Dashboard() {
   const projects = await listProjects(db, ownerId);
 
   return (
-    <div className="flex">
+    <div className="flex bg-surface-muted">
       <Sidebar />
-      <main className="flex-1 p-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Projects</h1>
-          <NewProjectDialog />
-        </div>
-        {projects.length === 0 ? (
-          <p className="text-muted-foreground">No projects yet. Create your first one.</p>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p) => (
-              <Card key={p.id} className="flex items-center justify-between p-4">
-                <Link href={`/p/${p.id}`} className="font-medium hover:underline">
-                  {p.name}
-                </Link>
-                <form action={deleteProjectAction}>
-                  <input type="hidden" name="id" value={p.id} />
-                  <button className="text-sm text-red-500" type="submit">Delete</button>
-                </form>
-              </Card>
-            ))}
-          </div>
-        )}
-      </main>
+      <div className="flex min-h-screen flex-1 flex-col">
+        <Topbar breadcrumbs={[{ label: "Projects" }]} actions={<NewProjectDialog />} />
+        <main className="flex-1 p-8">
+          {projects.length === 0 ? (
+            <div className="mt-20 flex flex-col items-center text-center">
+              <p className="text-muted-foreground">No projects yet.</p>
+              <p className="text-sm text-muted-foreground">Create your first one to get started.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((p) => (
+                <Card
+                  key={p.id}
+                  className="group/proj flex flex-row items-center justify-between p-4 transition-shadow hover:shadow-md"
+                >
+                  <Link href={`/p/${p.id}`} className="font-medium hover:text-brand-violet">
+                    {p.name}
+                  </Link>
+                  <form action={deleteProjectAction}>
+                    <input type="hidden" name="id" value={p.id} />
+                    <button
+                      className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-destructive/10 hover:text-destructive group-hover/proj:opacity-100"
+                      type="submit"
+                      aria-label={`Delete ${p.name}`}
+                    >
+                      <Trash2 className="size-4" />
+                    </button>
+                  </form>
+                </Card>
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   );
 }
