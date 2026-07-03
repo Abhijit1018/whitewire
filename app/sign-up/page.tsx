@@ -13,7 +13,16 @@ export default async function SignUpPage({
   return (
     <AuthShell title="Create your WhiteWire account">
       <form action={signUpAction} className="space-y-4">
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && (
+          <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+            <p>{error}</p>
+            {/already exists/i.test(error) && (
+              <Link href="/sign-in" className="mt-1 inline-block font-medium text-brand-violet hover:underline">
+                Go to sign in →
+              </Link>
+            )}
+          </div>
+        )}
         <Input name="email" type="email" placeholder="Email" required className="h-10" />
         <Input
           name="password"

@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/core/supabase/server";
+import { signUpOutcome } from "./signup-outcome";
 
 export async function signInAction(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
@@ -17,12 +18,12 @@ export async function signUpAction(formData: FormData) {
   const password = String(formData.get("password") ?? "");
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({ email, password });
-  if (error) redirect("/sign-up?error=" + encodeURIComponent(error.message));
-  // If email confirmation is enabled, there is no session yet.
-  if (!data.session) {
-    redirect("/sign-in?error=" + encodeURIComponent("Check your email to confirm, then sign in."));
-  }
-  redirect("/dashboard");
+  const { redirect: target } = signUpOutcome({
+    hasSession: Boolean(data.session),
+    identityCount: data.user?.identities?.length,
+    errorMessage: error?.message,
+  });
+  redirect(target);
 }
 
 export async function signOutAction() {

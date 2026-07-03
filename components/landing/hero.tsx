@@ -109,10 +109,15 @@ export function Hero({ signedIn }: { signedIn: boolean }) {
         </FloatCard>
         <FloatCard className="left-[12%] top-[52%]" amplitude={9} duration={5.5} delay={0.6}>
           <div className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 shadow-lg">
-            <span className="grid size-6 place-items-center rounded-full bg-gradient-brand text-[10px] font-bold text-white">
-              A
+            <span className="flex -space-x-2">
+              <span className="size-6 rounded-full bg-gradient-brand ring-2 ring-white" />
+              <span className="size-6 rounded-full bg-blue-500 ring-2 ring-white" />
+              <span className="size-6 rounded-full bg-emerald-500 ring-2 ring-white" />
             </span>
-            <span className="text-xs text-muted-foreground">Abhi is editing…</span>
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-emerald-500" />
+              Live
+            </span>
           </div>
         </FloatCard>
         <FloatCard className="left-[18%] top-[34%]" amplitude={11} duration={5} delay={0.9}>
