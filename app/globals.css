@@ -134,9 +134,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Guard against stray horizontal overflow on small screens.
+       `clip` (not `hidden`) doesn't create a scroll container, so sticky headers still work. */
+    overflow-x: clip;
   }
   html {
     @apply font-sans;
+    overflow-x: clip;
   }
 }
 

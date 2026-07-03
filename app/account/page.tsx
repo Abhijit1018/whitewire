@@ -24,7 +24,7 @@ export default async function Account({
       <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar breadcrumbs={[{ label: "Account" }]} />
-        <main className="flex-1 space-y-8 p-8">
+        <main className="flex-1 space-y-8 p-4 sm:p-8">
           {error && <p className="max-w-xl rounded-lg bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
           {ok && <p className="max-w-xl rounded-lg bg-green-500/10 p-3 text-sm text-green-700">Saved.</p>}
 

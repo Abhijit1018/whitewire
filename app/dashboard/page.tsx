@@ -18,7 +18,7 @@ export default async function Dashboard() {
       <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar breadcrumbs={[{ label: "Projects" }]} actions={<NewProjectDialog />} />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-8">
           {projects.length === 0 ? (
             <div className="mt-20 flex flex-col items-center text-center">
               <p className="text-muted-foreground">No projects yet.</p>

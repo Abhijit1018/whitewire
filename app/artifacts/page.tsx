@@ -22,7 +22,7 @@ export default async function ArtifactsPage() {
       <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar breadcrumbs={[{ label: "Artifacts" }]} />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-8">
           {rows.length === 0 ? (
             <p className="mt-20 text-center text-sm text-muted-foreground">
               No artifacts yet. Open a project, select an AI Node, and generate one.

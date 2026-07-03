@@ -2,22 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FolderKanban, FileStack, Settings, UserCircle, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { signOutAction } from "@/app/auth/actions";
 import { cn } from "@/lib/utils";
-
-const links = [
-  { href: "/dashboard", label: "Projects", icon: FolderKanban },
-  { href: "/artifacts", label: "Artifacts", icon: FileStack },
-  { href: "/settings", label: "Settings", icon: Settings },
-  { href: "/account", label: "Account", icon: UserCircle },
-];
+import { NAV_LINKS as links } from "./nav-links";
 
 export function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="flex h-screen w-56 flex-col border-r border-border bg-surface p-4">
+    <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-border bg-surface p-4 md:flex">
       <Link href="/dashboard" className="mb-6 px-1">
         <Logo variant="full" appearance="light" />
       </Link>

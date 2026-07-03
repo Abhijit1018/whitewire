@@ -24,7 +24,7 @@ export default async function Settings() {
       <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar breadcrumbs={[{ label: "Settings" }]} />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-8">
           <Card className="mb-8 max-w-xl p-6">
             <h2 className="mb-3 font-medium">API Keys (BYO-LLM)</h2>
             {keys.length === 0 ? (
