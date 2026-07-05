@@ -11,19 +11,23 @@ import { Pricing } from "@/components/landing/pricing";
 import { Faq } from "@/components/landing/faq";
 import { FinalCta } from "@/components/landing/final-cta";
 import { LandingFooter } from "@/components/landing/footer";
+import { BuiltFor } from "@/components/landing/built-for";
+import { Templates } from "@/components/landing/templates";
 
 export default async function Landing() {
   const signedIn = await hasSession();
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-foreground">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <LandingNav signedIn={signedIn} />
       <main>
         <Hero signedIn={signedIn} />
         <LiveCanvasDemo />
-        <HowItWorks />
-        <UseCases />
         <FeaturesBand />
+        <BuiltFor />
+        <HowItWorks />
+        <Templates />
+        <UseCases />
         <Integrations />
         <ByoAi />
         <Pricing signedIn={signedIn} />
