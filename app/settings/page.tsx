@@ -43,12 +43,12 @@ export default async function Settings() {
                       {settings.activeKeyId !== k.id && (
                         <form action={setActiveKeyAction}>
                           <input type="hidden" name="id" value={k.id} />
-                          <button className="text-sm underline" type="submit">Make active</button>
+                          <button className="text-sm underline transition active:opacity-60" type="submit">Make active</button>
                         </form>
                       )}
                       <form action={deleteKeyAction}>
                         <input type="hidden" name="id" value={k.id} />
-                        <button className="text-sm text-destructive hover:underline" type="submit">Delete</button>
+                        <button className="text-sm text-destructive transition hover:underline active:opacity-60" type="submit">Delete</button>
                       </form>
                     </div>
                   </li>

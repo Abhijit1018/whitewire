@@ -8,6 +8,7 @@ import { createProjectAction } from "./actions";
 
 export function NewProjectDialog() {
   const [open, setOpen] = useState(false);
+  const [pending, setPending] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>New project</DialogTrigger>
@@ -15,13 +16,21 @@ export function NewProjectDialog() {
         <DialogTitle>New project</DialogTitle>
         <form
           action={async (formData) => {
-            await createProjectAction(formData);
-            setOpen(false);
+            if (pending) return;
+            setPending(true);
+            try {
+              await createProjectAction(formData);
+              setOpen(false);
+            } finally {
+              setPending(false);
+            }
           }}
           className="flex flex-col gap-4"
         >
-          <Input name="name" placeholder="Project name" autoFocus required />
-          <Button type="submit">Create</Button>
+          <Input name="name" placeholder="Project name" autoFocus required disabled={pending} />
+          <Button type="submit" disabled={pending}>
+            {pending ? "Creating…" : "Create"}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

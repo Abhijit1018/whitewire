@@ -1,4 +1,4 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { LandingNav } from "@/components/landing/landing-nav";
 import { Hero } from "@/components/landing/hero";
 import { LiveCanvasDemo } from "@/components/landing/live-canvas-demo";
@@ -13,11 +13,7 @@ import { FinalCta } from "@/components/landing/final-cta";
 import { LandingFooter } from "@/components/landing/footer";
 
 export default async function Landing() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const signedIn = Boolean(user);
+  const signedIn = await hasSession();
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-foreground">

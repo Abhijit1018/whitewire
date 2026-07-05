@@ -1,15 +1,12 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
 export const metadata = { title: "Terms · WhiteWire" };
 
 export default async function Terms() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const signedIn = await hasSession();
   return (
-    <MarketingShell signedIn={Boolean(user)}>
+    <MarketingShell signedIn={signedIn}>
       <PageHeader title="Terms of Service" subtitle="The short version" />
       <div className="space-y-5 text-sm text-muted-foreground">
         <p>By using WhiteWire you agree to use it lawfully and to keep your account credentials secure. You are responsible for the API keys you add and any usage or costs your model provider bills you for.</p>

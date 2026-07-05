@@ -1,15 +1,12 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
 export const metadata = { title: "Privacy · WhiteWire" };
 
 export default async function Privacy() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const signedIn = await hasSession();
   return (
-    <MarketingShell signedIn={Boolean(user)}>
+    <MarketingShell signedIn={signedIn}>
       <PageHeader title="Privacy Policy" subtitle="Your keys. Your data." />
       <div className="space-y-5 text-sm text-muted-foreground">
         <p>WhiteWire is bring-your-own-key. Your API keys are stored encrypted and are used only to make requests to the model provider you choose.</p>

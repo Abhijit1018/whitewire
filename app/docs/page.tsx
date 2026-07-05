@@ -1,4 +1,4 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
 export const metadata = { title: "Docs · WhiteWire" };
@@ -12,12 +12,9 @@ const STEPS = [
 ];
 
 export default async function Docs() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const signedIn = await hasSession();
   return (
-    <MarketingShell signedIn={Boolean(user)}>
+    <MarketingShell signedIn={signedIn}>
       <PageHeader title="Getting started" subtitle="From zero to your first diagram" />
       <ol className="space-y-4">
         {STEPS.map((s) => (

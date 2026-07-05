@@ -1,15 +1,12 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
 export const metadata = { title: "About · WhiteWire" };
 
 export default async function About() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const signedIn = await hasSession();
   return (
-    <MarketingShell signedIn={Boolean(user)}>
+    <MarketingShell signedIn={signedIn}>
       <PageHeader title="About WhiteWire" subtitle="Think. Visualize. Collaborate. Build." />
       <div className="space-y-5 text-muted-foreground">
         <p>
