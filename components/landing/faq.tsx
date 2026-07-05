@@ -13,7 +13,7 @@ export function Faq() {
     <section id="faq" className="scroll-mt-20 bg-surface-muted px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Questions, answered</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Questions, answered</h2>
         </Reveal>
         <div className="mt-10 space-y-3">
           {QA.map((item, i) => (

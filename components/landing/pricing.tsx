@@ -16,7 +16,7 @@ export function Pricing({ signedIn }: { signedIn: boolean }) {
     <section id="pricing" className="scroll-mt-20 border-t border-border bg-surface-muted py-24">
       <div className="mx-auto max-w-md px-6">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Simple pricing</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight">Simple pricing</h2>
           <p className="mt-3 text-muted-foreground">Pay for your own model usage. WhiteWire is free.</p>
         </Reveal>
         <Reveal className="mt-10" delay={0.1}>

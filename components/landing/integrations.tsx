@@ -7,7 +7,7 @@ export function Integrations() {
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Any model, any source</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Any model, any source</h2>
           <p className="mt-3 text-muted-foreground">
             Bring your own key — cloud or local. No lock-in, no hidden fees.
           </p>

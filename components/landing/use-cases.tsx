@@ -13,7 +13,7 @@ export function UseCases() {
     <section className="bg-surface-muted px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">One canvas, many jobs</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">One canvas, many jobs</h2>
           <p className="mt-3 text-muted-foreground">However you think, WhiteWire keeps up.</p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

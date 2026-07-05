@@ -12,7 +12,7 @@ export function ByoAi() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
       <Reveal className="text-center">
-        <h2 className="text-3xl font-bold tracking-tight">Your keys. Your freedom.</h2>
+        <h2 className="font-display text-4xl font-semibold tracking-tight">Your keys. Your freedom.</h2>
       </Reveal>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {POINTS.map((p, i) => (

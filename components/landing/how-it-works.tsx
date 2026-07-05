@@ -12,7 +12,7 @@ export function HowItWorks() {
     <section id="how" className="scroll-mt-20 border-y border-border bg-surface-muted py-24">
       <div className="mx-auto max-w-5xl px-6">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight">From scribble to shipped</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight">From scribble to shipped</h2>
         </Reveal>
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {STEPS.map((s, i) => (

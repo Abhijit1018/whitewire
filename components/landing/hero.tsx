@@ -1,131 +1,114 @@
 "use client";
 
 import Link from "next/link";
-import { Lock } from "lucide-react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import { Check } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Float } from "./motion";
+import { CanvasMock } from "./canvas-mock";
+import { HandUnderline, Scribble, CurveArrow } from "./hand";
 
-function FloatCard({
-  className,
-  amplitude,
-  duration,
-  delay,
-  children,
-}: {
-  className: string;
-  amplitude: number;
-  duration: number;
-  delay: number;
-  children: React.ReactNode;
-}) {
-  return (
-    <Float
-      className={cn("absolute hidden lg:block", className)}
-      amplitude={amplitude}
-      duration={duration}
-      delay={delay}
-    >
-      {children}
-    </Float>
-  );
-}
+const TRUST = ["No credit card", "Real-time collaboration", "Free forever"];
 
 export function Hero({ signedIn }: { signedIn: boolean }) {
   const reduce = useReducedMotion();
-  const { scrollY } = useScroll();
-  // Parallax: different depths drift at different rates (disabled under reduced motion).
-  const slow = useTransform(scrollY, [0, 500], [0, reduce ? 0 : -40]);
-  const fast = useTransform(scrollY, [0, 500], [0, reduce ? 0 : -90]);
+  const rise = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 16 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
+        };
 
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-dotted-grid px-6 pt-24 text-center">
-      {/* animated gradient blob backdrop */}
-      <motion.div
+    <section className="relative overflow-hidden px-6 pt-28 pb-16 md:pt-32">
+      {/* soft warm wash, top-left */}
+      <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 -z-10 size-[42rem] -translate-x-1/2 rounded-full bg-gradient-brand opacity-20 blur-3xl"
-        animate={reduce ? undefined : { scale: [1, 1.15, 1], x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -left-40 -top-40 -z-10 size-[38rem] rounded-full opacity-40 blur-3xl"
+        style={{ background: "radial-gradient(circle, oklch(0.85 0.09 55 / 0.5), transparent 70%)" }}
       />
 
-      <div className="relative z-10 mx-auto max-w-3xl">
-        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur">
-          <Lock className="size-3.5 text-brand-violet" />
-          Bring Your Own AI · Your Keys · Your Freedom
-        </span>
-        <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold leading-[1.05] tracking-tight">
-          <span className="text-gradient-brand">Think. Visualize.</span>
-          <br />
-          <span className="text-gradient-brand">Collaborate. Build.</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-          The AI-native canvas where ideas become specs, diagrams, wireframes, and docs. Any model,
-          local or cloud. You stay in control.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href={signedIn ? "/dashboard" : "/sign-up"}
-            className={cn(buttonVariants({ size: "lg" }), "bg-gradient-brand text-white hover:opacity-90")}
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_1.15fr]">
+        {/* copy */}
+        <div className="text-center lg:text-left">
+          <motion.div {...rise(0)}>
+            <Scribble className="justify-center lg:justify-start">Your infinite space for ideas</Scribble>
+          </motion.div>
+
+          <motion.h1
+            {...rise(0.06)}
+            className="mt-3 font-display text-[clamp(2.6rem,6.5vw,4.6rem)] font-semibold leading-[1.02] tracking-tight text-foreground"
           >
-            {signedIn ? "Open WhiteWire" : "Get started free"}
-          </Link>
-          <Link href="#how" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-            See how it works
-          </Link>
+            Think. Draw.
+            <br />
+            Create{" "}
+            <span className="relative inline-block text-brand-accent">
+              together.
+              <HandUnderline className="text-brand-accent/70" />
+            </span>
+          </motion.h1>
+
+          <motion.p
+            {...rise(0.12)}
+            className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-muted-foreground lg:mx-0"
+          >
+            WhiteWire is an infinite canvas for visual thinking, planning, and building, alone or with
+            your team.
+          </motion.p>
+
+          <motion.div
+            {...rise(0.18)}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+          >
+            <Link
+              href={signedIn ? "/dashboard" : "/sign-up"}
+              className={cn(buttonVariants({ size: "lg" }), "h-11 px-6 text-base shadow-sm")}
+            >
+              {signedIn ? "Open WhiteWire" : "Get started free"}
+            </Link>
+            <Link
+              href="#how"
+              className="group inline-flex h-11 items-center gap-1.5 px-3 text-base font-medium text-foreground"
+            >
+              Try a demo
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
+          </motion.div>
+
+          <motion.ul
+            {...rise(0.24)}
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground lg:justify-start"
+          >
+            {TRUST.map((t) => (
+              <li key={t} className="inline-flex items-center gap-1.5">
+                <Check className="size-4 text-brand-accent" />
+                {t}
+              </li>
+            ))}
+          </motion.ul>
         </div>
+
+        {/* product shot */}
+        <motion.div
+          {...(reduce
+            ? {}
+            : {
+                initial: { opacity: 0, y: 24, rotate: -1 },
+                animate: { opacity: 1, y: 0, rotate: 0 },
+                transition: { duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] as const },
+              })}
+          className="relative"
+        >
+          <CanvasMock />
+          {/* handwritten margin note + arrow */}
+          <div className="pointer-events-none absolute -top-8 right-6 hidden items-center gap-1 md:flex">
+            <span className="font-hand text-lg text-brand-accent">real-time, together</span>
+            <CurveArrow className="mt-4 text-brand-accent/70" />
+          </div>
+        </motion.div>
       </div>
-
-      {/* Floating decorations — parallax depth, hidden on mobile */}
-      <motion.div aria-hidden style={{ y: slow }} className="pointer-events-none absolute inset-0">
-        <FloatCard className="left-[6%] top-[22%]" amplitude={12} duration={5} delay={0}>
-          <div className="w-56 rounded-xl border border-border bg-white p-3 shadow-lg">
-            <p className="mb-2 text-xs font-medium text-muted-foreground">System architecture</p>
-            <div className="mb-2 h-1.5 w-full rounded-full bg-gradient-brand" />
-            <div className="flex gap-1.5">
-              <div className="h-8 flex-1 rounded border border-border" />
-              <div className="h-8 flex-1 rounded border border-border" />
-              <div className="h-8 flex-1 rounded border border-border" />
-            </div>
-          </div>
-        </FloatCard>
-        <FloatCard className="right-[6%] top-[18%]" amplitude={14} duration={6} delay={0.4}>
-          <div className="w-52 rounded-xl border border-border bg-white p-3 shadow-lg">
-            <p className="mb-2 text-xs font-medium text-muted-foreground">Wireframe</p>
-            <div className="h-3 w-2/3 rounded bg-muted" />
-            <div className="mt-2 flex gap-1.5">
-              <div className="h-10 flex-1 rounded border border-border" />
-              <div className="h-10 flex-1 rounded border border-border" />
-            </div>
-          </div>
-        </FloatCard>
-      </motion.div>
-
-      <motion.div aria-hidden style={{ y: fast }} className="pointer-events-none absolute inset-0">
-        <FloatCard className="right-[10%] top-[46%]" amplitude={10} duration={4.5} delay={0.2}>
-          <div className="-rotate-6 rounded-md bg-yellow-200 px-4 py-3 font-hand text-lg text-yellow-900 shadow-lg">
-            Add onboarding flow ✦
-          </div>
-        </FloatCard>
-        <FloatCard className="left-[12%] top-[52%]" amplitude={9} duration={5.5} delay={0.6}>
-          <div className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 shadow-lg">
-            <span className="flex -space-x-2">
-              <span className="size-6 rounded-full bg-gradient-brand ring-2 ring-white" />
-              <span className="size-6 rounded-full bg-blue-500 ring-2 ring-white" />
-              <span className="size-6 rounded-full bg-emerald-500 ring-2 ring-white" />
-            </span>
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              Live
-            </span>
-          </div>
-        </FloatCard>
-        <FloatCard className="left-[18%] top-[34%]" amplitude={11} duration={5} delay={0.9}>
-          <div className="grid size-11 place-items-center rounded-xl bg-gradient-brand text-white shadow-lg">
-            ✓
-          </div>
-        </FloatCard>
-      </motion.div>
     </section>
   );
 }

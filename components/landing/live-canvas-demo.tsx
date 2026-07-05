@@ -56,7 +56,7 @@ export function LiveCanvasDemo() {
   return (
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Watch an idea come alive</h2>
+        <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Watch an idea come alive</h2>
         <p className="mt-3 text-muted-foreground">
           Describe what you want — WhiteWire drafts the diagram on the canvas, node by node, in
           real time. One prompt, a full picture.

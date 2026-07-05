@@ -15,7 +15,7 @@ export function FeaturesBand() {
     <section id="features" className="scroll-mt-20 bg-neutral-950 py-24 text-white">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Everything, in one place</h2>
+          <h2 className="font-display text-4xl font-semibold tracking-tight">Everything, in one place</h2>
           <p className="mt-3 text-neutral-300">Think. Visualize. Collaborate. Build.</p>
         </Reveal>
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
