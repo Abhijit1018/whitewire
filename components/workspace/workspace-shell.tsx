@@ -3,6 +3,7 @@ import Link from "next/link";
 import { InspectorPanel } from "./inspector-panel";
 import { CanvasTools } from "@/components/canvas/canvas-tools";
 import { CommandBar } from "@/components/canvas/command-bar";
+import { OnboardingTour } from "@/components/onboarding/onboarding-tour";
 
 export function WorkspaceShell({
   projectId,
@@ -43,6 +44,7 @@ export function WorkspaceShell({
       <footer className="flex h-14 shrink-0 items-center border-t border-border bg-surface px-3 md:px-4">
         <CommandBar projectId={projectId} />
       </footer>
+      <OnboardingTour />
     </div>
   );
 }
