@@ -17,7 +17,7 @@
 ![Neon](https://img.shields.io/badge/Neon_Postgres-00E599?logo=postgresql&logoColor=white)
 ![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?logo=drizzle&logoColor=black)
 ![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?logo=tailwindcss&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-96_passing-3FB950?logo=vitest&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-119_passing-3FB950?logo=vitest&logoColor=white)
 
 </div>
 
@@ -236,9 +236,9 @@ pnpm db:migrate   # apply migrations
 - [x] Architect Assist agent
 - [x] Version history + prompt history
 - [x] Wireframes · model routing · pen sketching · **sketch → vision**
-- [ ] Realtime collaboration
-- [ ] Plugin marketplace
-- [ ] Onboarding tour
+- [x] Realtime collaboration (presence + live cursors + graph sync · Supabase Realtime)
+- [x] Plugin marketplace (first-party template / diagram / framework plugins · [docs](docs/plugins.md))
+- [x] Onboarding tour
 
 ---
 
