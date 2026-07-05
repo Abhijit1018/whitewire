@@ -48,84 +48,95 @@
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-brand-violet: var(--brand-violet);
   --color-brand-blue: var(--brand-blue);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-strong: var(--brand-accent-strong);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --font-hand: var(--font-caveat);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Warm paper neutrals — every neutral is tinted toward the terracotta hue
+     (h≈60, chroma ≤0.008) so nothing reads as flat machine grey. */
+  --background: oklch(0.994 0.004 70);
+  --foreground: oklch(0.19 0.008 55);
+  --card: oklch(0.994 0.004 70);
+  --card-foreground: oklch(0.19 0.008 55);
+  --popover: oklch(0.994 0.004 70);
+  --popover-foreground: oklch(0.19 0.008 55);
+  /* Primary = the terracotta accent; dark warm-white text sits AA on it. */
+  --primary: oklch(0.505 0.13 41);
+  --primary-foreground: oklch(0.99 0.004 75);
+  --secondary: oklch(0.965 0.006 70);
+  --secondary-foreground: oklch(0.24 0.01 55);
+  --muted: oklch(0.965 0.006 70);
+  --muted-foreground: oklch(0.548 0.012 58);
+  --accent: oklch(0.955 0.012 60);
+  --accent-foreground: oklch(0.32 0.09 42);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: oklch(0.912 0.007 68);
+  --input: oklch(0.912 0.007 68);
+  --ring: oklch(0.55 0.135 42);
+  --chart-1: oklch(0.62 0.15 45);
+  --chart-2: oklch(0.68 0.11 70);
+  --chart-3: oklch(0.5 0.06 55);
+  --chart-4: oklch(0.72 0.09 90);
+  --chart-5: oklch(0.4 0.05 45);
   --radius: 0.625rem;
-  /* WhiteWire brand */
-  --brand-violet: oklch(0.53 0.24 293);
-  --brand-blue: oklch(0.55 0.22 264);
-  /* app surfaces (grey/white) */
-  --surface: oklch(1 0 0);
-  --surface-muted: oklch(0.98 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* WhiteWire brand — a single committed terracotta. `brand-violet`/`brand-blue`
+     are kept as names (used across the app) but now hold the accent and a warm
+     apricot sibling, so `bg-gradient-brand` is one warm tonal wash, not a
+     two-hue purple→blue gradient. */
+  --brand-accent: oklch(0.55 0.135 42);
+  --brand-accent-strong: oklch(0.45 0.12 40);
+  --brand-violet: oklch(0.5 0.13 38);
+  --brand-blue: oklch(0.585 0.115 50);
+  /* app surfaces (warm paper) */
+  --surface: oklch(0.996 0.003 75);
+  --surface-muted: oklch(0.978 0.005 70);
+  --sidebar: oklch(0.982 0.005 72);
+  --sidebar-foreground: oklch(0.19 0.008 55);
+  --sidebar-primary: oklch(0.505 0.13 41);
+  --sidebar-primary-foreground: oklch(0.99 0.004 75);
+  --sidebar-accent: oklch(0.955 0.012 60);
+  --sidebar-accent-foreground: oklch(0.32 0.09 42);
+  --sidebar-border: oklch(0.912 0.007 68);
+  --sidebar-ring: oklch(0.55 0.135 42);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.17 0.005 55);
+  --foreground: oklch(0.965 0.004 75);
+  --card: oklch(0.215 0.006 55);
+  --card-foreground: oklch(0.965 0.004 75);
+  --popover: oklch(0.215 0.006 55);
+  --popover-foreground: oklch(0.965 0.004 75);
+  /* Accent lifts on dark surfaces so it stays legible. */
+  --primary: oklch(0.62 0.145 44);
+  --primary-foreground: oklch(0.99 0.004 75);
+  --secondary: oklch(0.278 0.008 55);
+  --secondary-foreground: oklch(0.965 0.004 75);
+  --muted: oklch(0.278 0.008 55);
+  --muted-foreground: oklch(0.715 0.012 65);
+  --accent: oklch(0.3 0.02 50);
+  --accent-foreground: oklch(0.965 0.004 75);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.62 0.145 44);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar: oklch(0.215 0.006 55);
+  --sidebar-foreground: oklch(0.965 0.004 75);
+  --sidebar-primary: oklch(0.62 0.145 44);
+  --sidebar-primary-foreground: oklch(0.99 0.004 75);
+  --sidebar-accent: oklch(0.3 0.02 50);
+  --sidebar-accent-foreground: oklch(0.965 0.004 75);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.62 0.145 44);
 }
 
 @layer base {
@@ -145,17 +156,17 @@
 }
 
 @layer utilities {
+  /* One warm tonal wash (clay → apricot), not a two-hue purple→blue gradient. */
   .bg-gradient-brand {
     background-image: linear-gradient(135deg, var(--brand-violet), var(--brand-blue));
   }
+  /* Gradient text reads as AI-generated slop — resolve to a single solid accent.
+     Kept as a class so every existing `.text-gradient-brand` site de-slops at once. */
   .text-gradient-brand {
-    background-image: linear-gradient(135deg, var(--brand-violet), var(--brand-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--brand-accent);
   }
   .bg-dotted-grid {
-    background-image: radial-gradient(oklch(0.85 0 0) 1px, transparent 1px);
+    background-image: radial-gradient(oklch(0.86 0.006 65) 1px, transparent 1px);
     background-size: 22px 22px;
   }
 }

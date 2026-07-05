@@ -22,8 +22,8 @@ import { CollabLayer } from "./collab-layer";
 const defaultEdgeOptions: DefaultEdgeOptions = {
   type: "smoothstep",
   animated: false,
-  style: { stroke: "#a5b4fc", strokeWidth: 1.5 },
-  markerEnd: { type: MarkerType.ArrowClosed, color: "#818cf8" },
+  style: { stroke: "oklch(0.78 0.07 52)", strokeWidth: 1.5 },
+  markerEnd: { type: MarkerType.ArrowClosed, color: "var(--brand-accent)" },
 };
 import { useDebouncedSaver } from "./use-autosave";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";

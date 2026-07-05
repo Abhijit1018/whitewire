@@ -8,18 +8,18 @@ import { WireframeNode } from "./wireframe-node";
 const KIND_STYLES: Record<string, string> = {
   idea: "bg-amber-100 text-amber-700",
   feature: "bg-blue-100 text-blue-700",
-  component: "bg-violet-100 text-violet-700",
+  component: "bg-rose-100 text-rose-700",
   generic: "bg-zinc-100 text-zinc-600",
 };
 
-const handleClass = "!h-2.5 !w-2.5 !border-2 !border-white !bg-indigo-400";
+const handleClass = "!h-2.5 !w-2.5 !border-2 !border-white !bg-brand-accent";
 
 export function AiNode({ data, selected }: NodeProps<AiNodeType>) {
   const kind = data.kind || "generic";
   return (
     <div
       className={`w-60 overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${
-        selected ? "border-indigo-500 ring-2 ring-indigo-200" : "border-zinc-200"
+        selected ? "border-brand-accent ring-2 ring-brand-accent/30" : "border-zinc-200"
       }`}
     >
       <Handle type="target" position={Position.Top} className={handleClass} />
@@ -52,7 +52,7 @@ export function TextNode({ id, data, selected }: NodeProps<AiNodeType>) {
   return (
     <div
       className={`w-56 rounded-lg border bg-white p-2 shadow-sm transition-shadow ${
-        selected ? "border-indigo-500 ring-2 ring-indigo-200" : "border-zinc-200"
+        selected ? "border-brand-accent ring-2 ring-brand-accent/30" : "border-zinc-200"
       }`}
     >
       <Handle type="target" position={Position.Top} className={handleClass} />
@@ -101,13 +101,13 @@ export function ShapeNode({ id, data, selected }: NodeProps<AiNodeType>) {
         minWidth={90}
         minHeight={60}
         isVisible={!!selected}
-        lineClassName="!border-indigo-400"
-        handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-indigo-500"
+        lineClassName="!border-brand-accent"
+        handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-brand-accent"
       />
       <Handle type="target" position={Position.Top} className={handleClass} />
       <div
         className={`flex h-full w-full items-center justify-center border-2 bg-white transition-colors ${
-          selected ? "border-indigo-500" : "border-zinc-400"
+          selected ? "border-brand-accent" : "border-zinc-400"
         }`}
         style={{ borderRadius: radius, transform: rotate ? "rotate(45deg)" : undefined }}
       >

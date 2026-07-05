@@ -205,7 +205,7 @@ export function Inspector({ projectId }: { projectId: string }) {
           defaultValue={text}
           onChange={(e) => updateNodeData(selectedNodeId, { text: e.target.value })}
           placeholder="Node text"
-          className="w-full rounded-md border border-zinc-200 px-2 py-1.5 text-sm font-medium leading-snug text-zinc-900 outline-none transition-colors focus:border-indigo-300"
+          className="w-full rounded-md border border-zinc-200 px-2 py-1.5 text-sm font-medium leading-snug text-zinc-900 outline-none transition-colors focus:border-brand-accent/40"
         />
       </header>
 
@@ -227,7 +227,7 @@ export function Inspector({ projectId }: { projectId: string }) {
             type="button"
             disabled={pending}
             onClick={generateWireframe}
-            className="rounded-md border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-indigo-700 transition-all hover:bg-indigo-100 active:scale-95 disabled:opacity-50"
+            className="rounded-md border border-brand-accent/30 bg-brand-accent/10 px-2.5 py-1 text-brand-accent transition-all hover:bg-brand-accent/15 active:scale-95 disabled:opacity-50"
           >
             Wireframe
           </button>
@@ -242,7 +242,7 @@ export function Inspector({ projectId }: { projectId: string }) {
             </h3>
             {gens.primary.length < gens.all.length && (
               <button
-                className="text-xs text-indigo-600 transition-colors hover:text-indigo-800"
+                className="text-xs text-brand-accent transition-colors hover:text-brand-accent-strong"
                 onClick={() => setShowAll((v) => !v)}
               >
                 {showAll ? "Less" : "More"}
@@ -256,7 +256,7 @@ export function Inspector({ projectId }: { projectId: string }) {
                 type="button"
                 disabled={pending}
                 onClick={() => generate(t)}
-                className="rounded-md border border-zinc-200 px-2.5 py-1 capitalize text-zinc-700 transition-all hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 active:scale-95 disabled:opacity-50"
+                className="rounded-md border border-zinc-200 px-2.5 py-1 capitalize text-zinc-700 transition-all hover:border-brand-accent/40 hover:bg-brand-accent/10 hover:text-brand-accent active:scale-95 disabled:opacity-50"
               >
                 {t}
               </button>
@@ -298,7 +298,7 @@ export function Inspector({ projectId }: { projectId: string }) {
                         {copied === a.id ? "Copied" : "Copy"}
                       </button>
                       <button
-                        className="text-xs text-indigo-600 transition-colors hover:text-indigo-800 disabled:opacity-50"
+                        className="text-xs text-brand-accent transition-colors hover:text-brand-accent-strong disabled:opacity-50"
                         disabled={pending}
                         onClick={() => generate(a.type as GenType)}
                       >
@@ -341,7 +341,7 @@ export function Inspector({ projectId }: { projectId: string }) {
             onChange={(e) => setAttText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && addAttachment()}
             placeholder="Add note / link / comment…"
-            className="flex-1 rounded-md border border-zinc-200 px-2 py-1 text-sm outline-none focus:border-indigo-300"
+            className="flex-1 rounded-md border border-zinc-200 px-2 py-1 text-sm outline-none focus:border-brand-accent/40"
           />
           <button
             type="button"
@@ -352,7 +352,7 @@ export function Inspector({ projectId }: { projectId: string }) {
             Add
           </button>
         </div>
-        <label className="mt-2 inline-flex cursor-pointer items-center gap-1 text-xs text-indigo-600 transition-colors hover:text-indigo-800">
+        <label className="mt-2 inline-flex cursor-pointer items-center gap-1 text-xs text-brand-accent transition-colors hover:text-brand-accent-strong">
           + Upload file
           <input type="file" className="hidden" onChange={handleFile} disabled={pending} />
         </label>
@@ -373,7 +373,7 @@ export function Inspector({ projectId }: { projectId: string }) {
                         href={fileUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="break-words text-indigo-600 hover:underline"
+                        className="break-words text-brand-accent hover:underline"
                       >
                         {fileName || "Open file"}
                       </a>
