@@ -25,6 +25,8 @@ export type AiNodeData = {
 };
 export type AiNode = Node<AiNodeData>;
 
+export type BgVariant = "dots" | "lines" | "cross" | "none";
+
 type WorkspaceState = {
   nodes: AiNode[];
   edges: Edge[];
@@ -33,8 +35,10 @@ type WorkspaceState = {
   selectedNodeKind: string;
   selectedNodeType: string;
   penMode: boolean;
+  bgVariant: BgVariant;
 
   setPenMode: (on: boolean) => void;
+  setBgVariant: (v: BgVariant) => void;
   onNodesChange: (changes: NodeChange<AiNode>[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
@@ -56,8 +60,10 @@ function makeStore() {
     selectedNodeKind: "",
     selectedNodeType: "",
     penMode: false,
+    bgVariant: "dots",
 
     setPenMode: (on) => set({ penMode: on }),
+    setBgVariant: (v) => set({ bgVariant: v }),
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
     onEdgesChange: (changes) => set({ edges: applyEdgeChanges(changes, get().edges) }),

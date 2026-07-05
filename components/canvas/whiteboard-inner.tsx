@@ -15,14 +15,15 @@ import {
 } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
-import { CanvasToolbar } from "./canvas-toolbar";
+import { CanvasToolsRail } from "./canvas-tools-rail";
 import { PenLayer } from "./pen-layer";
+import { CollabLayer } from "./collab-layer";
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   type: "smoothstep",
   animated: false,
-  style: { stroke: "#a5b4fc", strokeWidth: 1.5 },
-  markerEnd: { type: MarkerType.ArrowClosed, color: "#818cf8" },
+  style: { stroke: "oklch(0.78 0.07 52)", strokeWidth: 1.5 },
+  markerEnd: { type: MarkerType.ArrowClosed, color: "var(--brand-accent)" },
 };
 import { useDebouncedSaver } from "./use-autosave";
 import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
@@ -41,6 +42,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const setGraph = useWorkspaceStore((s) => s.setGraph);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const penMode = useWorkspaceStore((s) => s.penMode);
+  const bgVariant = useWorkspaceStore((s) => s.bgVariant);
 
   // Load the saved snapshot once.
   const initRef = useRef(false);
@@ -100,11 +102,25 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           elementsSelectable={!penMode}
           proOptions={{ hideAttribution: false }}
         >
-          <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#e4e4e7" />
+          {bgVariant !== "none" && (
+            <Background
+              variant={
+                bgVariant === "lines"
+                  ? BackgroundVariant.Lines
+                  : bgVariant === "cross"
+                    ? BackgroundVariant.Cross
+                    : BackgroundVariant.Dots
+              }
+              gap={22}
+              size={bgVariant === "cross" ? 6 : 1}
+              color="oklch(0.9 0.008 70)"
+            />
+          )}
           <Controls />
-          <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
+          <MiniMap pannable zoomable className="!rounded-lg !border !border-border" />
         </ReactFlow>
         {penMode && <PenLayer />}
+        <CollabLayer projectId={projectId} />
         {nodes.length === 0 && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
             <p className="rounded-lg bg-white/70 px-4 py-2 text-center text-sm text-zinc-500 shadow-sm">
@@ -113,7 +129,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
             </p>
           </div>
         )}
-        <CanvasToolbar projectId={projectId} />
+        <CanvasToolsRail projectId={projectId} />
       </div>
     </ReactFlowProvider>
   );

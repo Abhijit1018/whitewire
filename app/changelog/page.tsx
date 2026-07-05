@@ -1,4 +1,4 @@
-import { createClient } from "@/core/supabase/server";
+import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
 export const metadata = { title: "Changelog · WhiteWire" };
@@ -11,12 +11,9 @@ const ENTRIES = [
 ];
 
 export default async function Changelog() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const signedIn = await hasSession();
   return (
-    <MarketingShell signedIn={Boolean(user)}>
+    <MarketingShell signedIn={signedIn}>
       <PageHeader title="Changelog" subtitle="What's new" />
       <div className="space-y-6">
         {ENTRIES.map((e) => (

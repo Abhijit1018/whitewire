@@ -79,7 +79,7 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
         if (o) run();
       }}
     >
-      <DialogTrigger className="rounded-md border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-700 transition-all hover:bg-indigo-100 active:scale-95">
+      <DialogTrigger className="rounded-md border border-brand-accent/30 bg-brand-accent/10 px-3 py-1.5 text-sm text-brand-accent transition-all hover:bg-brand-accent/15 active:scale-95">
         Architect
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-lg">
@@ -108,7 +108,7 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
                       <button
                         type="button"
                         onClick={() => add(s.title, s.kind)}
-                        className="rounded border border-indigo-200 px-2 py-0.5 text-xs text-indigo-700 transition-colors hover:bg-indigo-50 active:scale-95"
+                        className="rounded border border-brand-accent/30 px-2 py-0.5 text-xs text-brand-accent transition-colors hover:bg-brand-accent/10 active:scale-95"
                       >
                         + Add
                       </button>

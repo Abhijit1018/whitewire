@@ -17,7 +17,7 @@ export function DrawNode({ data, selected }: NodeProps<AiNodeType>) {
     <svg
       width={w}
       height={h}
-      style={{ overflow: "visible", outline: selected ? "1px dashed #818cf8" : "none" }}
+      style={{ overflow: "visible", outline: selected ? "1px dashed var(--brand-accent)" : "none" }}
     >
       <path d={strokePath(points, size)} fill={color} />
     </svg>

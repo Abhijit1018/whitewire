@@ -1,0 +1,22 @@
+{
+  "issues": [
+    {
+      "signature": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+      "normalizedSignature": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 887ms - experiments (use with caution): · serveractions ○ compiling /sign-in ... get /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms) get /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms) get /dashboard 200|file:|line:|frame:",
+      "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 887ms - experiments (use with caution): · serveractions ○ compiling /sign-in ... get /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms) get /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms) get /dashboard 200|file:|line:|frame:",
+      "occurrenceCount": 1,
+      "firstSeen": 1783254013032,
+      "lastSeen": 1783254013032,
+      "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200"
+    },
+    {
+      "signature": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+      "normalizedSignature": "message:command failed with exit code 1: npm run dev|file:|line:|frame:",
+      "signatureText": "message:command failed with exit code 1: npm run dev|file:|line:|frame:",
+      "occurrenceCount": 1,
+      "firstSeen": 1783253237417,
+      "lastSeen": 1783253237417,
+      "errorMessage": "Command failed with exit code 1: npm run dev"
+    }
+  ]
+}

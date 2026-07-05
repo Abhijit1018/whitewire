@@ -4,6 +4,8 @@ import { applyCleanup } from "./cleanup-adapter";
 import { ExpandButton } from "./expand-button";
 import { ArchitectPanel } from "./architect-panel";
 import { HistoryPanel } from "./history-panel";
+import { PluginMenu } from "./plugin-menu";
+import { CanvasMenu } from "./canvas-menu";
 
 export function CanvasTools({ projectId }: { projectId: string }) {
   return (
@@ -18,6 +20,8 @@ export function CanvasTools({ projectId }: { projectId: string }) {
         Tidy up
       </button>
       <ExpandButton projectId={projectId} />
+      <PluginMenu />
+      <CanvasMenu />
     </div>
   );
 }

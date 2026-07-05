@@ -127,7 +127,7 @@ export function HistoryPanel({ projectId }: { projectId: string }) {
                   <button
                     onClick={() => restore(v.id)}
                     disabled={pending}
-                    className="text-xs text-indigo-600 transition-colors hover:text-indigo-800 disabled:opacity-50"
+                    className="text-xs text-brand-accent transition-colors hover:text-brand-accent-strong disabled:opacity-50"
                   >
                     Restore
                   </button>

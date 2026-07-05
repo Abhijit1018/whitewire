@@ -5,9 +5,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { addKeyAction } from "@/app/settings/keys-actions";
 
+// Known OpenAI-compatible providers → their base URLs, so users don't have to hunt.
+const PRESETS: { label: string; baseUrl: string }[] = [
+  { label: "OpenAI", baseUrl: "https://api.openai.com/v1" },
+  { label: "Groq", baseUrl: "https://api.groq.com/openai/v1" },
+  { label: "OpenRouter", baseUrl: "https://openrouter.ai/api/v1" },
+  { label: "DeepSeek", baseUrl: "https://api.deepseek.com/v1" },
+  { label: "Mistral", baseUrl: "https://api.mistral.ai/v1" },
+  { label: "Together AI", baseUrl: "https://api.together.xyz/v1" },
+  { label: "xAI (Grok)", baseUrl: "https://api.x.ai/v1" },
+  { label: "Fireworks", baseUrl: "https://api.fireworks.ai/inference/v1" },
+  { label: "Ollama (local)", baseUrl: "http://localhost:11434/v1" },
+  { label: "LM Studio (local)", baseUrl: "http://localhost:1234/v1" },
+  { label: "Custom…", baseUrl: "" },
+];
+
 export function AddKeyForm() {
   const [provider, setProvider] = useState("openai-compatible");
   const [baseUrl, setBaseUrl] = useState("");
+  const [preset, setPreset] = useState("OpenAI");
   const [apiKey, setApiKey] = useState("");
   const [models, setModels] = useState<string[]>([]);
   const [manual, setManual] = useState(false);
@@ -54,12 +70,37 @@ export function AddKeyForm() {
       </select>
       <Input name="label" placeholder="Label (e.g. My OpenAI)" required />
       {provider === "openai-compatible" && (
-        <Input
-          name="baseUrl"
-          value={baseUrl}
-          onChange={(e) => setBaseUrl(e.target.value)}
-          placeholder="Base URL (default https://api.openai.com/v1)"
-        />
+        <div className="space-y-2">
+          <select
+            value={preset}
+            onChange={(e) => {
+              const label = e.target.value;
+              setPreset(label);
+              const found = PRESETS.find((p) => p.label === label);
+              // "Custom…" clears so the user can type their own; others auto-fill.
+              if (found) setBaseUrl(found.baseUrl);
+              setModels([]);
+            }}
+            className="w-full rounded border px-3 py-2"
+            aria-label="Provider preset"
+          >
+            {PRESETS.map((p) => (
+              <option key={p.label} value={p.label}>
+                {p.label}
+                {p.baseUrl ? ` — ${p.baseUrl}` : ""}
+              </option>
+            ))}
+          </select>
+          <Input
+            name="baseUrl"
+            value={baseUrl}
+            onChange={(e) => {
+              setBaseUrl(e.target.value);
+              setPreset("Custom…");
+            }}
+            placeholder="Base URL (default https://api.openai.com/v1)"
+          />
+        </div>
       )}
       <Input
         name="apiKey"

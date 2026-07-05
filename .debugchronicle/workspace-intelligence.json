@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "snapshot": {
+    "generatedAt": 1783254013032,
+    "clusterById": {
+      "a83d19cfd79a76f1064640bed6b5221c07e07cb1": {
+        "clusterId": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+        "signature": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+        "signatureText": "message:command failed with exit code 1: npm run dev|file:|line:|frame:",
+        "occurrenceCount": 1,
+        "sessionCount": 1,
+        "firstSeen": 1783253237417,
+        "lastSeen": 1783253237417,
+        "eventIds": [
+          "88412a13-78bc-4f1e-89f7-de818c607fba"
+        ],
+        "filePaths": [],
+        "commitHashes": [],
+        "linkedClusterIds": [],
+        "knownIssue": true
+      },
+      "5f9a9459684dfd2ae88564b30bbd67faa19820c6": {
+        "clusterId": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+        "signature": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+        "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 887ms - experiments (use with caution): · serveractions ○ compiling /sign-in ... get /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms) get /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms) get /dashboard 200|file:|line:|frame:",
+        "occurrenceCount": 1,
+        "sessionCount": 1,
+        "firstSeen": 1783254013032,
+        "lastSeen": 1783254013032,
+        "eventIds": [
+          "3f9f3d02-f429-4ee5-9d83-a9d5134e101a"
+        ],
+        "filePaths": [],
+        "commitHashes": [],
+        "linkedClusterIds": [],
+        "knownIssue": true
+      }
+    },
+    "eventClusterMap": {
+      "88412a13-78bc-4f1e-89f7-de818c607fba": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+      "3f9f3d02-f429-4ee5-9d83-a9d5134e101a": "5f9a9459684dfd2ae88564b30bbd67faa19820c6"
+    },
+    "fileRiskByPath": {},
+    "fileHotspots": [],
+    "commitByHash": {},
+    "commitImpacts": [],
+    "dashboard": {
+      "projectHealthScore": 90,
+      "openIncidents": 2,
+      "recurringIssues": 0,
+      "highRiskFiles": 0,
+      "recentErrorVolume": 2,
+      "knownIssues": 2,
+      "generatedAt": 1783254013032
+    }
+  }
+}

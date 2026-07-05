@@ -4,7 +4,7 @@ import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import type { AiNode as AiNodeType } from "@/core/state/workspace-store";
 import type { WireframeElement } from "@/core/ai/wireframe";
 
-const handleClass = "!h-2.5 !w-2.5 !border-2 !border-white !bg-indigo-400";
+const handleClass = "!h-2.5 !w-2.5 !border-2 !border-white !bg-brand-accent";
 
 function elementStyle(type: string): string {
   switch (type) {
@@ -13,7 +13,7 @@ function elementStyle(type: string): string {
     case "header":
       return "font-semibold text-zinc-800 text-[11px] flex items-center";
     case "button":
-      return "bg-indigo-600 text-white rounded text-[9px] flex items-center justify-center";
+      return "bg-brand-accent text-white rounded text-[9px] flex items-center justify-center";
     case "input":
       return "border border-zinc-300 rounded bg-white text-[9px] text-zinc-400 flex items-center px-1";
     case "image":
@@ -33,15 +33,15 @@ export function WireframeNode({ data, selected }: NodeProps<AiNodeType>) {
   return (
     <div
       className={`flex h-full w-full flex-col overflow-hidden rounded-lg border bg-white shadow-sm ${
-        selected ? "border-indigo-500 ring-2 ring-indigo-200" : "border-zinc-300"
+        selected ? "border-brand-accent ring-2 ring-brand-accent/30" : "border-zinc-300"
       }`}
     >
       <NodeResizer
         minWidth={220}
         minHeight={160}
         isVisible={!!selected}
-        lineClassName="!border-indigo-400"
-        handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-indigo-500"
+        lineClassName="!border-brand-accent"
+        handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-brand-accent"
       />
       <Handle type="target" position={Position.Top} className={handleClass} />
       <div className="flex items-center gap-2 border-b border-zinc-100 bg-zinc-50 px-2 py-1">
