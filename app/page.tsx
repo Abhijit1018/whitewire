@@ -13,6 +13,7 @@ import { FinalCta } from "@/components/landing/final-cta";
 import { LandingFooter } from "@/components/landing/footer";
 import { BuiltFor } from "@/components/landing/built-for";
 import { Templates } from "@/components/landing/templates";
+import { Testimonial } from "@/components/landing/testimonial";
 
 export default async function Landing() {
   const signedIn = await hasSession();
@@ -30,6 +31,7 @@ export default async function Landing() {
         <UseCases />
         <Integrations />
         <ByoAi />
+        <Testimonial />
         <Pricing signedIn={signedIn} />
         <Faq />
         <FinalCta signedIn={signedIn} />

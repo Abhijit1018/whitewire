@@ -19,11 +19,11 @@ export function UseCases() {
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CASES.map((c, i) => (
             <Reveal key={c.title} delay={i * 0.08}>
-              <div className="h-full rounded-2xl border border-border bg-white p-6 transition-transform hover:-translate-y-1">
-                <div className="mb-4 grid size-11 place-items-center rounded-xl bg-gradient-brand text-white">
+              <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm transition-transform hover:-translate-y-1">
+                <div className="mb-4 grid size-11 place-items-center rounded-xl bg-brand-accent/10 text-brand-accent ring-1 ring-brand-accent/15">
                   <c.icon className="size-5" />
                 </div>
-                <h3 className="font-semibold">{c.title}</h3>
+                <h3 className="font-display font-semibold">{c.title}</h3>
                 <p className="mt-1.5 text-sm text-muted-foreground">{c.body}</p>
               </div>
             </Reveal>

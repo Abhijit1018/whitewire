@@ -40,7 +40,8 @@ export function LandingFooter() {
         <div>
           <Logo variant="full" appearance="light" />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            Think. Visualize. Collaborate. Build. The AI-native canvas — your keys, your freedom.
+            The infinite canvas for visual thinking. Think, draw, and create together. Your keys,
+            your freedom.
           </p>
         </div>
         {COLUMNS.map((col) => (

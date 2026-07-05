@@ -20,21 +20,21 @@ export function Pricing({ signedIn }: { signedIn: boolean }) {
           <p className="mt-3 text-muted-foreground">Pay for your own model usage. WhiteWire is free.</p>
         </Reveal>
         <Reveal className="mt-10" delay={0.1}>
-          <div className="rounded-2xl border border-border bg-white p-8 shadow-xl">
-            <p className="text-sm font-medium text-brand-violet">Free — bring your own key</p>
-            <p className="mt-2 text-4xl font-bold">
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-xl">
+            <p className="text-sm font-medium text-brand-accent">Free, bring your own key</p>
+            <p className="mt-2 font-display text-5xl font-semibold">
               $0<span className="text-base font-normal text-muted-foreground">/forever</span>
             </p>
             <ul className="mt-6 space-y-3">
               {INCLUDED.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm">
-                  <Check className="size-4 text-brand-blue" /> {item}
+                  <Check className="size-4 text-brand-accent" /> {item}
                 </li>
               ))}
             </ul>
             <Link
               href={signedIn ? "/dashboard" : "/sign-up"}
-              className={cn(buttonVariants({ size: "lg" }), "mt-8 w-full bg-gradient-brand text-white hover:opacity-90")}
+              className={cn(buttonVariants({ size: "lg" }), "mt-8 w-full")}
             >
               {signedIn ? "Open WhiteWire" : "Get started free"}
             </Link>
