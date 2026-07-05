@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "snapshot": {
+    "generatedAt": 1783251674036,
+    "clusterById": {},
+    "eventClusterMap": {},
+    "fileRiskByPath": {},
+    "fileHotspots": [],
+    "commitByHash": {},
+    "commitImpacts": [],
+    "dashboard": {
+      "projectHealthScore": 100,
+      "openIncidents": 0,
+      "recurringIssues": 0,
+      "highRiskFiles": 0,
+      "recentErrorVolume": 0,
+      "knownIssues": 0,
+      "generatedAt": 1783251674036
+    }
+  }
+}

@@ -42,6 +42,7 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   const setGraph = useWorkspaceStore((s) => s.setGraph);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const penMode = useWorkspaceStore((s) => s.penMode);
+  const bgVariant = useWorkspaceStore((s) => s.bgVariant);
 
   // Load the saved snapshot once.
   const initRef = useRef(false);
@@ -101,9 +102,22 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           elementsSelectable={!penMode}
           proOptions={{ hideAttribution: false }}
         >
-          <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#e4e4e7" />
+          {bgVariant !== "none" && (
+            <Background
+              variant={
+                bgVariant === "lines"
+                  ? BackgroundVariant.Lines
+                  : bgVariant === "cross"
+                    ? BackgroundVariant.Cross
+                    : BackgroundVariant.Dots
+              }
+              gap={22}
+              size={bgVariant === "cross" ? 6 : 1}
+              color="oklch(0.9 0.008 70)"
+            />
+          )}
           <Controls />
-          <MiniMap pannable zoomable className="!rounded-lg !border !border-zinc-200" />
+          <MiniMap pannable zoomable className="!rounded-lg !border !border-border" />
         </ReactFlow>
         {penMode && <PenLayer />}
         <CollabLayer projectId={projectId} />

@@ -1,0 +1,2 @@
+EXTENSION sendTimeline: entry panel=no
+EXTENSION sendTimeline: early return panel is null
