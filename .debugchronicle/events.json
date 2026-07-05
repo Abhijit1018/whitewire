@@ -1,1 +1,282 @@
-[]
+[
+  {
+    "id": "f7019ea2-5ebe-4fa2-80c1-721078625b34",
+    "timestamp": 1783253237386,
+    "type": "terminal_output",
+    "output": "Command failed with exit code 1: npm run dev",
+    "isError": true,
+    "description": "Terminal error: Command failed with exit code 1: npm run dev",
+    "details": {
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1
+    },
+    "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+  },
+  {
+    "id": "88412a13-78bc-4f1e-89f7-de818c607fba",
+    "timestamp": 1783253237417,
+    "type": "error",
+    "errorMessage": "Command failed with exit code 1: npm run dev",
+    "severity": "error",
+    "description": "Error detected in terminal: Command failed with exit code 1: npm run dev",
+    "details": {
+      "source": "terminal",
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1,
+      "analysis": {
+        "event": {
+          "id": "88412a13-78bc-4f1e-89f7-de818c607fba",
+          "timestamp": 1783253237417,
+          "type": "error",
+          "errorMessage": "Command failed with exit code 1: npm run dev",
+          "severity": "error",
+          "description": "Error detected in terminal: Command failed with exit code 1: npm run dev",
+          "details": {
+            "source": "terminal",
+            "terminalName": "node",
+            "commandLine": "npm run dev",
+            "exitCode": 1
+          },
+          "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+        },
+        "relatedEvents": [],
+        "suspiciousFiles": [],
+        "summary": "No recent file changes found related to this error.",
+        "rootCauseSummary": "No recent file changes found related to this error.",
+        "confidenceScore": 0,
+        "stackTraceFindings": [
+          "Command failed with exit code 1: npm run dev"
+        ],
+        "relatedFileChanges": [],
+        "rankedCauses": [],
+        "graph": {
+          "errorEventId": "88412a13-78bc-4f1e-89f7-de818c607fba",
+          "activeErrorNodeId": "error:88412a13-78bc-4f1e-89f7-de818c607fba",
+          "nodes": [
+            {
+              "id": "error:88412a13-78bc-4f1e-89f7-de818c607fba",
+              "type": "error",
+              "label": "Error detected in terminal: Command failed with exit code 1: npm run dev",
+              "eventId": "88412a13-78bc-4f1e-89f7-de818c607fba",
+              "metadata": {
+                "timestamp": 1783253237417,
+                "severity": "error"
+              }
+            }
+          ],
+          "edges": [],
+          "impactChain": [
+            "error:88412a13-78bc-4f1e-89f7-de818c607fba"
+          ],
+          "affectedFilesSummary": []
+        },
+        "impactChain": [
+          "error:88412a13-78bc-4f1e-89f7-de818c607fba"
+        ],
+        "affectedFilesSummary": [],
+        "recurringIssue": {
+          "signature": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+          "signatureText": "message:command failed with exit code 1: npm run dev|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783253237417,
+          "lastSeen": 1783253237417,
+          "errorMessage": "Command failed with exit code 1: npm run dev"
+        }
+      },
+      "intelligence": {
+        "recurringIssue": {
+          "signature": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
+          "signatureText": "message:command failed with exit code 1: npm run dev|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783253237417,
+          "lastSeen": 1783253237417,
+          "errorMessage": "Command failed with exit code 1: npm run dev"
+        },
+        "fixSuggestion": null
+      }
+    },
+    "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+  },
+  {
+    "id": "467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+    "timestamp": 1783254013031,
+    "type": "terminal_output",
+    "output": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200 in 3.8s (next.js: 940ms, proxy.ts: 185ms, application-code: 2.6s)\n\n POST /sign-in 303 in 5.5s (next.js: 6ms, proxy.ts: 6ms, application-code: 5.4s)\n\n  └─ ƒ signInAction({}) in 1664ms app/auth/actions.ts\n\n GET / 200 in 2.0s (next.js: 1791ms, proxy.ts: 7ms, application-code: 208ms)\n\n○ Compiling /p/[projectId] ...\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 10.9s (next.js: 6.9s, proxy.ts: 640ms, application-code: 3.3s)\n\n✓ Compiled in 201ms\n\n GET / 200 in 783ms (next.js: 255ms, proxy.ts: 187ms, application-code: 341ms)\n\n GET / 200 in 124ms (next.js: 12ms, proxy.ts: 15ms, application-code: 97ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 2.1s (next.js: 359ms, proxy.ts: 1508ms, application-code: 247ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 340ms (next.js: 41ms, proxy.ts: 225ms, application-code: 74ms)\n\n✓ Compiled in 165ms\n\n GET / 200 in 527ms (next.js: 151ms, proxy.ts: 145ms, application-code: 231ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1352ms (next.js: 275ms, proxy.ts: 875ms, application-code: 201ms)\n\n✓ Compiled in 104ms\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1046ms (next.js: 343ms, proxy.ts: 525ms, application-code: 178ms)\n\n GET / 200 in 1053ms (next.js: 199ms, proxy.ts: 158ms, application-code: 696ms)\n\n✓ Compiled in 334ms\n\n GET / 200 in 666ms (next.js: 189ms, proxy.ts: 168ms, application-code: 308ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1012ms (next.js: 53ms, proxy.ts: 845ms, application-code: 114ms)\n\n GET /marketplace 200 in 3.3s (next.js: 637ms, proxy.ts: 2.6s, application-code: 40ms)\n\n GET /settings 200 in 2.7s (next.js: 590ms, proxy.ts: 445ms, application-code: 1681ms)\n\n GET /account 200 in 945ms (next.js: 456ms, proxy.ts: 379ms, application-code: 110ms)\n\n GET /dashboard 200 in 950ms (next.js: 104ms, proxy.ts: 70ms, application-code: 775ms)\n\n GET /artifacts 200 in 966ms (next.js: 455ms, proxy.ts: 66ms, application-code: 445ms)\n\n GET / 200 in 710ms (next.js: 7ms, proxy.ts: 6ms, application-code: 697ms)\n\n✓ Compiled in 163ms\n\n GET / 200 in 783ms (next.js: 268ms, proxy.ts: 162ms, application-code: 353ms)\n\n GET / 200 in 776ms (next.js: 522ms, proxy.ts: 165ms, application-code: 89ms)\n\n GET /artifacts 200 in 1276ms (next.js: 57ms, proxy.ts: 1123ms, application-code: 96ms)\n\n GET / 200 in 276ms (next.js: 5ms, proxy.ts: 6ms, application-code: 265ms)\n\n⠙:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\\",
+    "isError": true,
+    "description": "Terminal error: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+    "details": {
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1
+    },
+    "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+  },
+  {
+    "id": "3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+    "timestamp": 1783254013032,
+    "type": "error",
+    "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200 ",
+    "severity": "error",
+    "description": "Error detected in terminal: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+    "details": {
+      "source": "terminal",
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1,
+      "analysis": {
+        "event": {
+          "id": "3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+          "timestamp": 1783254013032,
+          "type": "error",
+          "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200 ",
+          "severity": "error",
+          "description": "Error detected in terminal: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+          "details": {
+            "source": "terminal",
+            "terminalName": "node",
+            "commandLine": "npm run dev",
+            "exitCode": 1
+          },
+          "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+        },
+        "relatedEvents": [
+          {
+            "event": {
+              "id": "467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+              "timestamp": 1783254013031,
+              "type": "terminal_output",
+              "output": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200 in 3.8s (next.js: 940ms, proxy.ts: 185ms, application-code: 2.6s)\n\n POST /sign-in 303 in 5.5s (next.js: 6ms, proxy.ts: 6ms, application-code: 5.4s)\n\n  └─ ƒ signInAction({}) in 1664ms app/auth/actions.ts\n\n GET / 200 in 2.0s (next.js: 1791ms, proxy.ts: 7ms, application-code: 208ms)\n\n○ Compiling /p/[projectId] ...\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 10.9s (next.js: 6.9s, proxy.ts: 640ms, application-code: 3.3s)\n\n✓ Compiled in 201ms\n\n GET / 200 in 783ms (next.js: 255ms, proxy.ts: 187ms, application-code: 341ms)\n\n GET / 200 in 124ms (next.js: 12ms, proxy.ts: 15ms, application-code: 97ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 2.1s (next.js: 359ms, proxy.ts: 1508ms, application-code: 247ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 340ms (next.js: 41ms, proxy.ts: 225ms, application-code: 74ms)\n\n✓ Compiled in 165ms\n\n GET / 200 in 527ms (next.js: 151ms, proxy.ts: 145ms, application-code: 231ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1352ms (next.js: 275ms, proxy.ts: 875ms, application-code: 201ms)\n\n✓ Compiled in 104ms\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1046ms (next.js: 343ms, proxy.ts: 525ms, application-code: 178ms)\n\n GET / 200 in 1053ms (next.js: 199ms, proxy.ts: 158ms, application-code: 696ms)\n\n✓ Compiled in 334ms\n\n GET / 200 in 666ms (next.js: 189ms, proxy.ts: 168ms, application-code: 308ms)\n\n GET /p/a922dadb-4e8d-4157-b14b-6e09adf604f6 200 in 1012ms (next.js: 53ms, proxy.ts: 845ms, application-code: 114ms)\n\n GET /marketplace 200 in 3.3s (next.js: 637ms, proxy.ts: 2.6s, application-code: 40ms)\n\n GET /settings 200 in 2.7s (next.js: 590ms, proxy.ts: 445ms, application-code: 1681ms)\n\n GET /account 200 in 945ms (next.js: 456ms, proxy.ts: 379ms, application-code: 110ms)\n\n GET /dashboard 200 in 950ms (next.js: 104ms, proxy.ts: 70ms, application-code: 775ms)\n\n GET /artifacts 200 in 966ms (next.js: 455ms, proxy.ts: 66ms, application-code: 445ms)\n\n GET / 200 in 710ms (next.js: 7ms, proxy.ts: 6ms, application-code: 697ms)\n\n✓ Compiled in 163ms\n\n GET / 200 in 783ms (next.js: 268ms, proxy.ts: 162ms, application-code: 353ms)\n\n GET / 200 in 776ms (next.js: 522ms, proxy.ts: 165ms, application-code: 89ms)\n\n GET /artifacts 200 in 1276ms (next.js: 57ms, proxy.ts: 1123ms, application-code: 96ms)\n\n GET / 200 in 276ms (next.js: 5ms, proxy.ts: 6ms, application-code: 265ms)\n\n⠙:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\\",
+              "isError": true,
+              "description": "Terminal error: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+              "details": {
+                "terminalName": "node",
+                "commandLine": "npm run dev",
+                "exitCode": 1
+              },
+              "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+            },
+            "confidence": 0.4189991333333334,
+            "normalizedConfidence": 42,
+            "factors": {
+              "timeProximity": 0.9999966666666666,
+              "stackTraceRelevance": 0.55,
+              "repeatedEdits": 0,
+              "gitRecency": 0.2,
+              "fileFrequency": 0.08333333333333333,
+              "errorRecurrence": 0
+            },
+            "reason": "Possible influence: terminal output occurred before this error (42%)"
+          }
+        ],
+        "suspiciousFiles": [],
+        "summary": "Found 0 files possibly related to this error. Most likely suspect: \"unknown\" (42% confidence)",
+        "rootCauseSummary": "Found 0 files possibly related to this error. Most likely suspect: \"unknown\" (42% confidence)",
+        "confidenceScore": 42,
+        "stackTraceFindings": [
+          "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200"
+        ],
+        "relatedFileChanges": [],
+        "mostLikelyRootCause": {
+          "eventId": "467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+          "confidence": 0.4189991333333334,
+          "normalizedConfidence": 42,
+          "factors": {
+            "timeProximity": 0.9999966666666666,
+            "stackTraceRelevance": 0.55,
+            "repeatedEdits": 0,
+            "gitRecency": 0.2,
+            "fileFrequency": 0.08333333333333333,
+            "errorRecurrence": 0
+          },
+          "reason": "Possible influence: terminal output occurred before this error (42%)"
+        },
+        "rankedCauses": [
+          {
+            "eventId": "467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+            "confidence": 0.4189991333333334,
+            "normalizedConfidence": 42,
+            "factors": {
+              "timeProximity": 0.9999966666666666,
+              "stackTraceRelevance": 0.55,
+              "repeatedEdits": 0,
+              "gitRecency": 0.2,
+              "fileFrequency": 0.08333333333333333,
+              "errorRecurrence": 0
+            },
+            "reason": "Possible influence: terminal output occurred before this error (42%)"
+          }
+        ],
+        "graph": {
+          "errorEventId": "3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+          "activeErrorNodeId": "error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+          "nodes": [
+            {
+              "id": "error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+              "type": "error",
+              "label": "Error detected in terminal: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+              "eventId": "3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+              "metadata": {
+                "timestamp": 1783254013032,
+                "severity": "error"
+              }
+            },
+            {
+              "id": "terminal:467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+              "type": "terminal",
+              "label": "Terminal error: pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)",
+              "eventId": "467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+              "metadata": {
+                "output": ""
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "edge:terminal:467d5fb2-84ff-46fb-bbed-957a7f73b93a->error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+              "source": "terminal:467d5fb2-84ff-46fb-bbed-957a7f73b93a",
+              "target": "error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+              "relation": "same_session",
+              "weight": 0.4189991333333334
+            }
+          ],
+          "impactChain": [
+            "error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+            "terminal:467d5fb2-84ff-46fb-bbed-957a7f73b93a"
+          ],
+          "affectedFilesSummary": []
+        },
+        "impactChain": [
+          "error:3f9f3d02-f429-4ee5-9d83-a9d5134e101a",
+          "terminal:467d5fb2-84ff-46fb-bbed-957a7f73b93a"
+        ],
+        "affectedFilesSummary": [],
+        "recurringIssue": {
+          "signature": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+          "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 887ms - experiments (use with caution): · serveractions ○ compiling /sign-in ... get /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms) get /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms) get /dashboard 200|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783254013032,
+          "lastSeen": 1783254013032,
+          "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200"
+        }
+      },
+      "intelligence": {
+        "recurringIssue": {
+          "signature": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+          "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 887ms - experiments (use with caution): · serveractions ○ compiling /sign-in ... get /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms) get /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms) get /dashboard 200|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783254013032,
+          "lastSeen": 1783254013032,
+          "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 887ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n○ Compiling /sign-in ...\n\n GET /sign-in 200 in 4.9s (next.js: 4.1s, proxy.ts: 350ms, application-code: 421ms)\n\n GET /sign-in 200 in 83ms (next.js: 14ms, proxy.ts: 10ms, application-code: 59ms)\n\n GET /dashboard 200"
+        },
+        "fixSuggestion": null
+      }
+    },
+    "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+  }
+]

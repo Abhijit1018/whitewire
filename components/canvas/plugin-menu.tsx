@@ -55,7 +55,7 @@ export function PluginMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full z-30 mt-1 w-64 rounded-xl border border-border bg-surface p-1 shadow-lg"
+          className="absolute left-0 top-full z-50 mt-1 w-64 rounded-xl border border-border bg-surface p-1 shadow-xl"
         >
           {installed.length === 0 ? (
             <div className="px-3 py-3 text-sm text-muted-foreground">

@@ -91,7 +91,7 @@ export function CanvasMock({ className }: { className?: string }) {
 
         {/* board */}
         <div
-          className="relative min-h-[300px] flex-1 overflow-hidden"
+          className="relative min-h-[400px] flex-1 overflow-hidden"
           style={{
             backgroundColor: "oklch(0.985 0.006 74)",
             backgroundImage: "radial-gradient(oklch(0.86 0.006 65) 1px, transparent 1px)",
@@ -104,33 +104,39 @@ export function CanvasMock({ className }: { className?: string }) {
             <div className="mt-0.5 h-1 w-40 rounded-full bg-brand-accent/50" />
           </div>
 
-          {/* flow row */}
-          <div className="absolute left-6 top-24 flex items-center gap-2">
+          {/* Goals — dashed sticky, top-right, clear of the flow below */}
+          <div className="absolute right-4 top-5 w-32 rounded-lg border border-dashed border-brand-accent/50 bg-brand-accent/5 p-2.5">
+            <p className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-foreground">
+              Goals <Star className="size-3 fill-brand-accent text-brand-accent" />
+            </p>
+            {["Ship MVP", "Validate early", "Iterate fast"].map((g) => (
+              <p key={g} className="text-[10px] text-muted-foreground">• {g}</p>
+            ))}
+          </div>
+
+          {/* flow row — below the title/Goals band */}
+          <div className="absolute left-6 top-[136px] flex items-center gap-1.5">
             {["Discover", "Define", "Design", "Deliver"].map((s, i) => (
-              <div key={s} className="flex items-center gap-2">
-                <div className="rounded-lg border border-border bg-card px-3 py-2 text-center shadow-sm">
-                  <p className="text-[11px] font-medium text-foreground">{s}</p>
+              <div key={s} className="flex items-center gap-1.5">
+                <div className="rounded-md border border-border bg-card px-2.5 py-1.5 text-center shadow-sm">
+                  <p className="text-[10px] font-medium text-foreground">{s}</p>
                 </div>
-                {i < 3 && <span className="text-muted-foreground">→</span>}
+                {i < 3 && <span className="text-xs text-muted-foreground">→</span>}
               </div>
             ))}
           </div>
 
-          {/* Goals — dashed sticky */}
-          <div className="absolute right-5 top-6 w-40 rounded-lg border border-dashed border-brand-accent/50 bg-brand-accent/5 p-3">
-            <p className="mb-1 flex items-center gap-1 text-xs font-semibold text-foreground">
-              Goals <Star className="size-3 fill-brand-accent text-brand-accent" />
-            </p>
-            {["Ship MVP", "Validate early", "Iterate fast"].map((g) => (
-              <p key={g} className="text-[11px] text-muted-foreground">• {g}</p>
-            ))}
-          </div>
+          {/* Rohan cursor — right-center gap, below the flow */}
+          <span className="absolute right-[12%] top-[212px] flex items-center gap-1">
+            <MousePointer2 className="size-4" style={{ fill: "oklch(0.55 0.09 155)", color: "oklch(0.55 0.09 155)" }} />
+            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white" style={{ backgroundColor: "oklch(0.55 0.09 155)" }}>Rohan</span>
+          </span>
 
-          {/* Next steps — peach note */}
-          <div className="absolute bottom-6 right-8 w-44 -rotate-1 rounded-md bg-[oklch(0.9_0.05_55)] p-3 shadow-md">
-            <p className="mb-1 font-hand text-lg text-[oklch(0.35_0.08_45)]">Next Steps</p>
+          {/* Next steps — peach note, bottom-left, above the toolbar */}
+          <div className="absolute bottom-16 left-6 w-40 -rotate-1 rounded-md bg-[oklch(0.9_0.05_55)] p-2.5 shadow-md">
+            <p className="mb-1 font-hand text-base text-[oklch(0.35_0.08_45)]">Next Steps</p>
             {[["User interviews", false], ["Wireframes", true], ["Technical spike", false]].map(([t, done]) => (
-              <p key={t as string} className="flex items-center gap-1.5 text-[11px] text-[oklch(0.4_0.06_45)]">
+              <p key={t as string} className="flex items-center gap-1.5 text-[10px] text-[oklch(0.4_0.06_45)]">
                 <span className={cn("grid size-3 place-items-center rounded-full border", done ? "border-brand-accent bg-brand-accent text-white" : "border-current")}>
                   {done ? "✓" : ""}
                 </span>
@@ -139,14 +145,10 @@ export function CanvasMock({ className }: { className?: string }) {
             ))}
           </div>
 
-          {/* collaborator cursors */}
-          <span className="absolute left-8 bottom-16 flex items-center gap-1">
+          {/* Aanya cursor — right side, clear of notes */}
+          <span className="absolute right-[38%] top-[250px] flex items-center gap-1">
             <MousePointer2 className="size-4 fill-brand-accent text-brand-accent" />
             <span className="rounded bg-brand-accent px-1.5 py-0.5 text-[10px] font-medium text-white">Aanya</span>
-          </span>
-          <span className="absolute right-24 bottom-24 flex items-center gap-1">
-            <MousePointer2 className="size-4" style={{ fill: "oklch(0.55 0.09 155)", color: "oklch(0.55 0.09 155)" }} />
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white" style={{ backgroundColor: "oklch(0.55 0.09 155)" }}>Rohan</span>
           </span>
 
           {/* bottom toolbar */}

@@ -16,7 +16,9 @@ export function WorkspaceShell({
 }) {
   return (
     <div className="flex h-[100dvh] flex-col" data-project-id={projectId}>
-      <header className="flex h-12 shrink-0 items-center gap-3 overflow-x-auto border-b border-border bg-surface px-3 md:px-4">
+      {/* relative + z-30 so tool dropdowns overlay the canvas; NOT overflow-x-auto
+          (that forces overflow-y and clips any menu opening below the header). */}
+      <header className="relative z-30 flex h-12 shrink-0 items-center gap-3 border-b border-border bg-surface px-3 md:px-4">
         <nav className="flex shrink-0 items-center gap-2 text-sm">
           <Link
             href="/dashboard"

@@ -58,7 +58,7 @@ export function CanvasMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-30 mt-1 w-56 rounded-xl border border-border bg-surface p-3 shadow-lg"
+          className="absolute right-0 top-full z-50 mt-1 w-56 rounded-xl border border-border bg-surface p-3 shadow-xl"
         >
           <p className="mb-1.5 text-xs font-semibold text-muted-foreground">Grid</p>
           <div className="grid grid-cols-4 gap-1">
