@@ -1,7 +1,7 @@
 {
   "version": 1,
   "snapshot": {
-    "generatedAt": 1783316597389,
+    "generatedAt": 1783324947017,
     "clusterById": {
       "a83d19cfd79a76f1064640bed6b5221c07e07cb1": {
         "clusterId": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
@@ -50,25 +50,42 @@
         "commitHashes": [],
         "linkedClusterIds": [],
         "knownIssue": true
+      },
+      "289f28ac4a890516469bdeb64f767d98ffc25a31": {
+        "clusterId": "289f28ac4a890516469bdeb64f767d98ffc25a31",
+        "signature": "289f28ac4a890516469bdeb64f767d98ffc25a31",
+        "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 756ms - experiments (use with caution): · serveractions get / 200 in 2.3s (next.js: 234ms, proxy.ts: 1161ms, application-code: 944ms) get /dashboard 200 in 3.5s (next.js: 102ms, proxy.ts: 616ms, application-code: 2.8s) get /artifacts 200 in 2.3s (next.js: 40ms, pro|file:|line:|frame:",
+        "occurrenceCount": 1,
+        "sessionCount": 1,
+        "firstSeen": 1783324947017,
+        "lastSeen": 1783324947017,
+        "eventIds": [
+          "3b80fbf9-d00e-42e6-ab33-3da3437b955f"
+        ],
+        "filePaths": [],
+        "commitHashes": [],
+        "linkedClusterIds": [],
+        "knownIssue": true
       }
     },
     "eventClusterMap": {
       "88412a13-78bc-4f1e-89f7-de818c607fba": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
       "3f9f3d02-f429-4ee5-9d83-a9d5134e101a": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
-      "f2e774ad-069d-4f05-ae48-d6bb42c1c914": "300bf6b6c5d83673b0dfc09c61388862589a1f0e"
+      "f2e774ad-069d-4f05-ae48-d6bb42c1c914": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
+      "3b80fbf9-d00e-42e6-ab33-3da3437b955f": "289f28ac4a890516469bdeb64f767d98ffc25a31"
     },
     "fileRiskByPath": {},
     "fileHotspots": [],
     "commitByHash": {},
     "commitImpacts": [],
     "dashboard": {
-      "projectHealthScore": 86,
-      "openIncidents": 3,
+      "projectHealthScore": 81,
+      "openIncidents": 4,
       "recurringIssues": 0,
       "highRiskFiles": 0,
-      "recentErrorVolume": 3,
-      "knownIssues": 3,
-      "generatedAt": 1783316597389
+      "recentErrorVolume": 4,
+      "knownIssues": 4,
+      "generatedAt": 1783324947017
     }
   }
 }

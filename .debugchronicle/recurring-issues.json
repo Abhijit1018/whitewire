@@ -1,6 +1,15 @@
 {
   "issues": [
     {
+      "signature": "289f28ac4a890516469bdeb64f767d98ffc25a31",
+      "normalizedSignature": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 756ms - experiments (use with caution): · serveractions get / 200 in 2.3s (next.js: 234ms, proxy.ts: 1161ms, application-code: 944ms) get /dashboard 200 in 3.5s (next.js: 102ms, proxy.ts: 616ms, application-code: 2.8s) get /artifacts 200 in 2.3s (next.js: 40ms, pro|file:|line:|frame:",
+      "signatureText": "message:pm/pm run dev/ > whitewire@0.1.0 dev > next dev ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 756ms - experiments (use with caution): · serveractions get / 200 in 2.3s (next.js: 234ms, proxy.ts: 1161ms, application-code: 944ms) get /dashboard 200 in 3.5s (next.js: 102ms, proxy.ts: 616ms, application-code: 2.8s) get /artifacts 200 in 2.3s (next.js: 40ms, pro|file:|line:|frame:",
+      "occurrenceCount": 1,
+      "firstSeen": 1783324947017,
+      "lastSeen": 1783324947017,
+      "errorMessage": "pm\\pm run dev\\\n\n> whitewire@0.1.0 dev\n\n> next dev\n\next-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 756ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\n GET / 200 in 2.3s (next.js: 234ms, proxy.ts: 1161ms, application-code: 944ms)\n\n GET /dashboard 200 in 3.5s (next.js: 102ms, proxy.ts: 616ms, application-code: 2.8s)\n\n GET /artifacts 200 in 2.3s (next.js: 40ms, pro"
+    },
+    {
       "signature": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
       "normalizedSignature": "message:pm/pm run dev/⠙ > whitewire@0.1.0 dev > next dev ⠙ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 1770ms - experiments (use with caution): · serveractions typeerror: fetch failed at ignore-listed frames { [cause]: error [connecttimeouterror]: connect timeout error (attempted addresses: 104.18.38.10:443, timeout: 10000ms) at ignore-listed frames {|file:|line:|frame:",
       "signatureText": "message:pm/pm run dev/⠙ > whitewire@0.1.0 dev > next dev ⠙ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 1770ms - experiments (use with caution): · serveractions typeerror: fetch failed at ignore-listed frames { [cause]: error [connecttimeouterror]: connect timeout error (attempted addresses: 104.18.38.10:443, timeout: 10000ms) at ignore-listed frames {|file:|line:|frame:",
