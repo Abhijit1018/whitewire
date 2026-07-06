@@ -280,3 +280,903 @@ getReplayCards: non-hidden cards=4
 [DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
 [DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
 getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+HANDLER: filterGroup.click target=filter-chip
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: filter=error"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: filter=error"}
+filterGroup: filter=error
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+filterGroup: calling applyFilters()
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=error query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=error query= session=all"}
+applyFilters: entry filter=error query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=2"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=2"}
+computeVisible: visibleCount=2
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=2"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=2"}
+getReplayCards: non-hidden cards=2
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=2"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=2"}
+getReplayCards: sorted cards=2
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: filter=file_change"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+HANDLER: filterGroup.click target=filter-chip
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: filter=file_change"}
+filterGroup: filter=file_change
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+filterGroup: calling applyFilters()
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=file_change query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=file_change query= session=all"}
+applyFilters: entry filter=file_change query= session=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=0"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=0"}
+computeVisible: visibleCount=0
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=0 visibleEventsAfterFilter=0 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=0"}
+getReplayCards: non-hidden cards=0
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=0"}
+getReplayCards: sorted cards=0
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=0"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=0"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+HANDLER: filterGroup.click target=filter-chip
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: filter=terminal_output"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: filter=terminal_output"}
+filterGroup: filter=terminal_output
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+filterGroup: calling applyFilters()
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+applyFilters: entry filter=terminal_output query= session=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=terminal_output query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=terminal_output query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=2"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=2"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+computeVisible: visibleCount=2
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=2"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=2"}
+getReplayCards: non-hidden cards=2
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=2"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=2"}
+getReplayCards: sorted cards=2
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=2 visibleEventsAfterFilter=2 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"HANDLER: filterGroup.click target=filter-chip"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: filter=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: calling applyFilters()"}
+filterGroup: calling applyFilters()
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"filterGroup: filter=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+filterGroup: filter=all
+HANDLER: filterGroup.click target=filter-chip
+getReplayCards: non-hidden cards=4
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+UI click: stopSessionBtn
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"stopSession"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"stopSession"}
+HANDLER: stopSession case entered
+HANDLER: calling sessionService.stopSession()
+HANDLER: sessionService.stopSession() returned
+HANDLER: calling sendTimeline()
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=1 activeSession=none
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=1
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+HANDLER: sendTimeline() returned
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+parseGraphData: encoded.length=1540
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+parseGraphData: decoded.length=1153
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+parseGraphData: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+renderGraph: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: layouted nodes=2 edges=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+renderGraph: rendering nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+renderGraph: entry
+renderGraph: DOM updated with svg
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=1 activeSession=none
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=1
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: startSessionBtn name="}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: startSessionBtn name="}
+UI click: startSessionBtn name=
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"startSession","data":{}}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"startSession","data":{}}
+HANDLER: startSession case entered name=none
+HANDLER: calling sessionService.createSession()
+HANDLER: sessionService.createSession() returned
+HANDLER: calling sendTimeline()
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=Session 2
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+HANDLER: sendTimeline() returned
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: entry filter=all query= session=all
+UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+applyFilters: total cards found=4
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: entry"}
+renderGraph: entry
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+parseGraphData: encoded.length=1540
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+parseGraphData: decoded.length=1153
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+renderGraph: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: layouted nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+parseGraphData: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: rendering nodes=2 edges=1
+renderGraph: DOM updated with svg
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+getReplayCards: non-hidden cards=4
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=Session 2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"stopSession"}
+HANDLER: stopSession case entered
+UI click: stopSessionBtn
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"stopSession"}
+HANDLER: calling sessionService.stopSession()
+HANDLER: sessionService.stopSession() returned
+HANDLER: calling sendTimeline()
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=none
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+HANDLER: sendTimeline() returned
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: entry"}
+renderGraph: entry
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+parseGraphData: encoded.length=1540
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+parseGraphData: decoded.length=1153
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+parseGraphData: parsed nodes=2 edges=1
+getReplayCards: sorted cards=4
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+renderGraph: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: layouted nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+renderGraph: rendering nodes=2 edges=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+renderGraph: DOM updated with svg
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=none
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: refreshBtn"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: refreshBtn"}
+UI click: refreshBtn
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"refreshTimeline"}
+HANDLER: refreshTimeline case entered
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"refreshTimeline"}
+HANDLER: refreshTimeline case completed
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=none
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: stopSessionBtn"}
+UI click: stopSessionBtn
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"stopSession"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"stopSession"}
+HANDLER: stopSession case entered
+HANDLER: calling sessionService.stopSession()
+HANDLER: sessionService.stopSession() returned
+HANDLER: calling sendTimeline()
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=2 activeSession=none
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=2
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+HANDLER: sendTimeline() returned
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI click: startSessionBtn name="}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI click: startSessionBtn name="}
+UI click: startSessionBtn name=
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"startSession","data":{}}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"startSession","data":{}}
+HANDLER: startSession case entered name=none
+HANDLER: calling sessionService.createSession()
+HANDLER: sessionService.createSession() returned
+HANDLER: calling sendTimeline()
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=3 activeSession=Session 3
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=3
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+HANDLER: sendTimeline() returned
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+renderGraph: entry
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: encoded.length=1540"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+parseGraphData: decoded.length=1153
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: decoded.length=1153"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+renderGraph: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: layouted nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+renderGraph: rendering nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+parseGraphData: parsed nodes=2 edges=1
+parseGraphData: encoded.length=1540
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+renderGraph: DOM updated with svg
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+applyFilters: entry filter=all query= session=all
+applyFilters: total cards found=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+computeVisible: visibleCount=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=4 visibleEventsBeforeFilter=4 visibleEventsAfterFilter=4 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=4 sessions=3 activeSession=Session 3
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline payload.events.length=4 stats.totalEvents=4 sessions=3
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"HANDLER: playBtn.click entered"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"HANDLER: playBtn.click entered"}
+HANDLER: playBtn.click entered
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"startReplay: entry"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"startReplay: entry"}
+startReplay: entry
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"startReplay: cards.length=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"startReplay: cards.length=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+startReplay: cards.length=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"startReplay: playback started, rafId=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"startReplay: playback started, rafId=1"}
+startReplay: playback started, rafId=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"tickReplay: initializing lastTick=206390.716"}
+tickReplay: initializing lastTick=206390.716
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"tickReplay: initializing lastTick=206390.716"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=0"}
+stepReplay: advanced to currentIndex=0
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=0"}
+getReplayCards: total timeline-items=4
+getReplayCards: sorted cards=4
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: non-hidden cards=4
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=1"}
+stepReplay: advanced to currentIndex=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=2"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=2"}
+stepReplay: advanced to currentIndex=2
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: non-hidden cards=4
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=3"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"stepReplay: advanced to currentIndex=3"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: total timeline-items=4
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+stepReplay: advanced to currentIndex=3
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"stepReplay: currentIndex=3 >= cards.length-1=3, stopping"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"stepReplay: currentIndex=3 >= cards.length-1=3, stopping"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+stepReplay: currentIndex=3 >= cards.length-1=3, stopping
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=4"}
+getReplayCards: total timeline-items=4
+getReplayCards: non-hidden cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=4"}
+getReplayCards: sorted cards=4
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"tickReplay: stepReplay returned false, stopping"}
+tickReplay: stepReplay returned false, stopping
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"tickReplay: stepReplay returned false, stopping"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=4"}
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=6 sessions=3 activeSession=Session 3
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline payload.events.length=6 stats.totalEvents=6 sessions=3
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+EXTENSION sendTimeline: entry panel=yes
+[DebugChronicle] EXTENSION before sendTimeline()
+EXTENSION sendTimeline: collected data events=6 sessions=3 activeSession=Session 3
+EXTENSION sendTimeline payload.events.length=6 stats.totalEvents=6 sessions=3
+EXTENSION sendTimeline: calling getWebviewContent()
+EXTENSION sendTimeline: getWebviewContent() returned, setting html
+EXTENSION sendTimeline: html assigned to panel.webview.html
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all"}
+UI init: startSession=true, stopSession=true, refresh=true, clear=true, sessionFilter=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+applyFilters: total cards found=6
+computeVisible: visibleCount=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+getReplayCards: total timeline-items=6
+getReplayCards: non-hidden cards=6
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+getReplayCards: sorted cards=6
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: entry"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: encoded.length=1548"}
+renderGraph: entry
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: encoded.length=1548"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: decoded.length=1161"}
+parseGraphData: encoded.length=1548
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: decoded.length=1161"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"parseGraphData: parsed nodes=2 edges=1"}
+parseGraphData: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: parsed nodes=2 edges=1"}
+parseGraphData: decoded.length=1161
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: layouted nodes=2 edges=1"}
+renderGraph: layouted nodes=2 edges=1
+renderGraph: parsed nodes=2 edges=1
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+renderGraph: rendering nodes=2 edges=1
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"renderGraph: rendering nodes=2 edges=1"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"renderGraph: DOM updated with svg"}
+renderGraph: DOM updated with svg
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+getReplayCards: total timeline-items=6
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+getReplayCards: non-hidden cards=6
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+getReplayCards: sorted cards=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+computeVisible: visibleCount=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+applyFilters: total cards found=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+getReplayCards: total timeline-items=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+getReplayCards: non-hidden cards=6
+[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: entry filter=all query= session=all"}
+applyFilters: entry filter=all query= session=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"applyFilters: total cards found=6"}
+applyFilters: total cards found=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+computeVisible: visibleCount=6
+getReplayCards: sorted cards=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"computeVisible: visibleCount=6"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all"}
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: total timeline-items=6"}
+[DebugChronicle] RENDER before filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] RENDER after filters totalEvents=6 visibleEventsBeforeFilter=6 visibleEventsAfterFilter=6 focusCurrentFile=false currentFilePath= selectedSession=all currentSessionId=all
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: non-hidden cards=6"}
+getReplayCards: total timeline-items=6
+[DebugChronicle] WEBVIEW_MESSAGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+getReplayCards: non-hidden cards=6
+[DebugChronicle] WEBVIEW_BRIDGE {"command":"traceLog","data":"getReplayCards: sorted cards=6"}
+getReplayCards: sorted cards=6

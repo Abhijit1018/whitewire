@@ -2,7 +2,7 @@ import Link from "next/link";
 import { signInAction } from "@/app/auth/actions";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/auth/submit-button";
 
 export default async function SignInPage({
   searchParams,
@@ -16,12 +16,10 @@ export default async function SignInPage({
         {error && <p className="text-sm text-destructive">{error}</p>}
         <Input name="email" type="email" placeholder="Email" required className="h-10" />
         <Input name="password" type="password" placeholder="Password" required className="h-10" />
-        <Button type="submit" size="lg" className="w-full bg-gradient-brand text-white hover:opacity-90">
-          Sign in
-        </Button>
+        <SubmitButton pendingText="Signing in…">Sign in</SubmitButton>
         <p className="text-sm text-muted-foreground">
           No account?{" "}
-          <Link href="/sign-up" className="text-brand-violet hover:underline">
+          <Link href="/sign-up" className="text-brand-accent hover:underline">
             Sign up
           </Link>
         </p>

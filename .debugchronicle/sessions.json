@@ -3,6 +3,20 @@
     "id": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9",
     "name": "Session 1",
     "startedAt": 1783251674030,
+    "endedAt": 1783312714523,
+    "isActive": false
+  },
+  {
+    "id": "4bf30291-06a5-419f-b924-6a842bf4afc0",
+    "name": "Session 2",
+    "startedAt": 1783312717589,
+    "endedAt": 1783312720469,
+    "isActive": false
+  },
+  {
+    "id": "87842ca3-7d5b-48b2-a07a-4d7d64141c45",
+    "name": "Session 3",
+    "startedAt": 1783312737341,
     "isActive": true
   }
 ]

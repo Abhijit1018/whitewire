@@ -102,10 +102,11 @@ export function Hero({ signedIn }: { signedIn: boolean }) {
           className="relative"
         >
           <CanvasMock />
-          {/* handwritten margin note + arrow */}
-          <div className="pointer-events-none absolute -top-8 right-6 hidden items-center gap-1 md:flex">
+          {/* handwritten margin note — sits fully above the frame so it can't
+              overlap the mock's top bar (avatars / Share). */}
+          <div className="pointer-events-none absolute bottom-full right-10 mb-1 hidden items-end gap-1 md:flex">
             <span className="font-hand text-lg text-brand-accent">real-time, together</span>
-            <CurveArrow className="mt-4 text-brand-accent/70" />
+            <CurveArrow className="text-brand-accent/70" />
           </div>
         </motion.div>
       </div>

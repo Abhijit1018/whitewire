@@ -1,7 +1,7 @@
 {
   "version": 1,
   "snapshot": {
-    "generatedAt": 1783254013032,
+    "generatedAt": 1783316597389,
     "clusterById": {
       "a83d19cfd79a76f1064640bed6b5221c07e07cb1": {
         "clusterId": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
@@ -34,24 +34,41 @@
         "commitHashes": [],
         "linkedClusterIds": [],
         "knownIssue": true
+      },
+      "300bf6b6c5d83673b0dfc09c61388862589a1f0e": {
+        "clusterId": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
+        "signature": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
+        "signatureText": "message:pm/pm run dev/⠙ > whitewire@0.1.0 dev > next dev ⠙ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 1770ms - experiments (use with caution): · serveractions typeerror: fetch failed at ignore-listed frames { [cause]: error [connecttimeouterror]: connect timeout error (attempted addresses: 104.18.38.10:443, timeout: 10000ms) at ignore-listed frames {|file:|line:|frame:",
+        "occurrenceCount": 1,
+        "sessionCount": 1,
+        "firstSeen": 1783316597389,
+        "lastSeen": 1783316597389,
+        "eventIds": [
+          "f2e774ad-069d-4f05-ae48-d6bb42c1c914"
+        ],
+        "filePaths": [],
+        "commitHashes": [],
+        "linkedClusterIds": [],
+        "knownIssue": true
       }
     },
     "eventClusterMap": {
       "88412a13-78bc-4f1e-89f7-de818c607fba": "a83d19cfd79a76f1064640bed6b5221c07e07cb1",
-      "3f9f3d02-f429-4ee5-9d83-a9d5134e101a": "5f9a9459684dfd2ae88564b30bbd67faa19820c6"
+      "3f9f3d02-f429-4ee5-9d83-a9d5134e101a": "5f9a9459684dfd2ae88564b30bbd67faa19820c6",
+      "f2e774ad-069d-4f05-ae48-d6bb42c1c914": "300bf6b6c5d83673b0dfc09c61388862589a1f0e"
     },
     "fileRiskByPath": {},
     "fileHotspots": [],
     "commitByHash": {},
     "commitImpacts": [],
     "dashboard": {
-      "projectHealthScore": 90,
-      "openIncidents": 2,
+      "projectHealthScore": 86,
+      "openIncidents": 3,
       "recurringIssues": 0,
       "highRiskFiles": 0,
-      "recentErrorVolume": 2,
-      "knownIssues": 2,
-      "generatedAt": 1783254013032
+      "recentErrorVolume": 3,
+      "knownIssues": 3,
+      "generatedAt": 1783316597389
     }
   }
 }

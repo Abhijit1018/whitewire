@@ -29,15 +29,40 @@ export default async function Dashboard() {
               {projects.map((p) => (
                 <Card
                   key={p.id}
-                  className="group/proj flex flex-row items-center justify-between p-4 transition-shadow hover:shadow-md"
+                  className="group/proj relative flex flex-col gap-0 overflow-hidden p-0 transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <Link href={`/p/${p.id}`} className="font-medium hover:text-brand-violet">
-                    {p.name}
-                  </Link>
-                  <form action={deleteProjectAction}>
+                  {/* Stretched link makes the whole card clickable; delete sits above it (z-10). */}
+                  <Link
+                    href={`/p/${p.id}`}
+                    className="absolute inset-0 z-0 rounded-[inherit] focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label={`Open ${p.name}`}
+                  />
+                  {/* mini board preview */}
+                  <div
+                    className="relative h-28 border-b border-border"
+                    style={{
+                      backgroundColor: "oklch(0.985 0.006 74)",
+                      backgroundImage: "radial-gradient(oklch(0.88 0.006 65) 1px, transparent 1px)",
+                      backgroundSize: "14px 14px",
+                    }}
+                  >
+                    <span className="absolute left-4 top-4 h-5 w-16 rounded border border-border bg-card shadow-sm" />
+                    <span className="absolute left-24 top-8 h-5 w-14 rounded border border-border bg-card shadow-sm" />
+                    <span className="absolute left-8 top-14 h-5 w-20 rounded-md bg-brand-accent/15" />
+                    <span className="absolute right-5 top-6 size-8 rounded-full border border-dashed border-brand-accent/40" />
+                  </div>
+                  <div className="flex items-center justify-between gap-2 p-4">
+                    <p className="truncate font-display font-semibold text-foreground transition-colors group-hover/proj:text-brand-accent">
+                      {p.name}
+                    </p>
+                    <span className="shrink-0 text-xs text-muted-foreground opacity-0 transition group-hover/proj:opacity-100">
+                      Open →
+                    </span>
+                  </div>
+                  <form action={deleteProjectAction} className="absolute right-2 top-2 z-10">
                     <input type="hidden" name="id" value={p.id} />
                     <button
-                      className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-destructive/10 hover:text-destructive group-hover/proj:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring"
+                      className="rounded-md bg-card/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur transition hover:bg-destructive/10 hover:text-destructive group-hover/proj:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring active:scale-95"
                       type="submit"
                       aria-label={`Delete ${p.name}`}
                     >

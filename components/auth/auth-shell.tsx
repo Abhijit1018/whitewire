@@ -15,7 +15,7 @@ export function AuthShell({
           <Logo variant="full" appearance="dark" />
         </Link>
         <div>
-          <h2 className="text-3xl font-bold leading-tight">Think. Visualize.<br />Collaborate. Build.</h2>
+          <h2 className="font-display text-3xl font-semibold leading-tight">Think. Draw.<br />Create together.</h2>
           <p className="mt-4 max-w-sm text-white/80">
             The AI-native canvas. Your keys, your freedom.
           </p>

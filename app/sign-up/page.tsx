@@ -2,7 +2,7 @@ import Link from "next/link";
 import { signUpAction } from "@/app/auth/actions";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/auth/submit-button";
 
 export default async function SignUpPage({
   searchParams,
@@ -17,7 +17,7 @@ export default async function SignUpPage({
           <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             <p>{error}</p>
             {/already exists/i.test(error) && (
-              <Link href="/sign-in" className="mt-1 inline-block font-medium text-brand-violet hover:underline">
+              <Link href="/sign-in" className="mt-1 inline-block font-medium text-brand-accent hover:underline">
                 Go to sign in →
               </Link>
             )}
@@ -32,12 +32,10 @@ export default async function SignUpPage({
           minLength={6}
           className="h-10"
         />
-        <Button type="submit" size="lg" className="w-full bg-gradient-brand text-white hover:opacity-90">
-          Sign up
-        </Button>
+        <SubmitButton pendingText="Creating account…">Sign up</SubmitButton>
         <p className="text-sm text-muted-foreground">
           Have an account?{" "}
-          <Link href="/sign-in" className="text-brand-violet hover:underline">
+          <Link href="/sign-in" className="text-brand-accent hover:underline">
             Sign in
           </Link>
         </p>

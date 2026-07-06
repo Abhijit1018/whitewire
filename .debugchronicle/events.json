@@ -278,5 +278,183 @@
       }
     },
     "sessionId": "92e6c56c-7690-4bd8-b46d-bac5e3447ac9"
+  },
+  {
+    "id": "7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+    "timestamp": 1783316597386,
+    "type": "terminal_output",
+    "output": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\n GET /sign-in 200 in 8.1s (next.js: 456ms, proxy.ts: 6.8s, application-code: 801ms)\n\n GET / 200 in 364ms (next.js: 144ms, proxy.ts: 15ms, application-code: 204ms)\n\n GET /sign-in 200 in 61ms (next.js: 8ms, proxy.ts: 9ms, application-code: 44ms)\n\n GET /dashboard 200 in 4.3s (next.js: 130ms, proxy.ts: 1536ms, application-code: 2.7s)\n\n POST /sign-in 303 in 20.4s (next.js: 9ms, proxy.ts: 11ms, application-code: 20.3s)\n\n  └─ ƒ signInAction({}) in 15944ms app/auth/actions.ts\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:46:7)\n\n  44 |   const {\n\n  45 |     data: { user },\n\n> 46 |   } = await supabase.auth.getUser();\n\n     |       ^\n\n  47 |\n\n  48 |   if (!user && !isPublic(request.nextUrl.pathname)) {\n\n  49 |     const url = request.nextUrl.clone(); {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 10.1s (next.js: 10ms, proxy.ts: 10.1s, application-code: 44ms)\n\n✓ Compiled in 649ms\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 11.5s (next.js: 233ms, proxy.ts: 11.1s, application-code: 131ms)\n\n✓ Compiled in 686ms\n\n✓ Compiled in 1219ms\n\n✓ Compiled in 520ms\n\n GET /sign-in 200 in 3.8s (next.js: 1300ms, proxy.ts: 1832ms, application-code: 624ms)\n\n GET /sign-in 200 in 674ms (next.js: 20ms, proxy.ts: 525ms, application-code: 130ms)\n\n GET /sign-in 200 in 3.1s (next.js: 17ms, proxy.ts: 2.9s, application-code: 117ms)\n\n GET /sign-in 200 in 4.3s (next.js: 13ms, proxy.ts: 4.1s, application-code: 110ms)\n\n GET /sign-in 200 in 7.6s (next.js: 18ms, proxy.ts: 7.4s, application-code: 129ms)\n\n GET /sign-in 200 in 10.6s (next.js: 7ms, proxy.ts: 10.6s, application-code: 33ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 11.4s (next.js: 124ms, proxy.ts: 10.6s, application-code: 716ms)\n\n GET /sign-in 200 in 11.7s (next.js: 133ms, proxy.ts: 10.7s, application-code: 819ms)\n\n GET /sign-in 200 in 11.0s (next.js: 248ms, proxy.ts: 10.4s, application-code: 272ms)\n\n GET /sign-in 200 in 11.1s (next.js: 175ms, proxy.ts: 10.8s, application-code: 122ms)\n\n GET /sign-in 200 in 11.3s (next.js: 201ms, proxy.ts: 10.9s, application-code: 206ms)\n\n✓ Compiled in 1664ms\n\n GET /sign-in 200 in 2.0s (next.js: 410ms, proxy.ts: 998ms, application-code: 610ms)\n\n GET /sign-in 200 in 26.8s (next.js: 9ms, proxy.ts: 26.7s, application-code: 88ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 10.5s (next.js: 25ms, proxy.ts: 10.3s, application-code: 148ms)\n\n GET /sign-in 200 in 10.9s (next.js: 77ms, proxy.ts: 10.8s, application-code: 86ms)\n\n GET /sign-in 200 in 10.3s (next.js: 104ms, proxy.ts: 10.2s, application-code: 55ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted address: bhisjmgaxxritqhwhkrw.supabase.co:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async signInAction (app\\auth\\actions.ts:11:21)\n\n   9 |   const password = String(formData.get(\"password\") ?? \"\");\n\n  10 |   const supabase = await createClient();\n\n> 11 |   const { error } = await supabase.auth.signInWithPassword({ email, password });\n\n     |                     ^\n\n  12 |   if (error) redirect(\"/sign-in?error=\" + encodeURIComponent(error.message));\n\n  13 |   redirect(\"/dashboard\");\n\n  14 | } {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in?error=fetch+failed 200 in 10.8s (next.js: 17ms, proxy.ts: 10.7s, application-code: 62ms)\n\n POST /sign-in 303 in 33.0s (next.js: 16ms, proxy.ts: 10.8s, application-code: 22.1s)\n\n  └─ ƒ signInAction({}) in 11262ms app/auth/actions.ts\n\n GET /sign-in?error=fetch%20failed 200 in 832ms (next.js: 10ms, proxy.ts: 486ms, application-code: 336ms)\n\n✓ Compiled in 415ms\n\n GET /sign-in?error=fetch+failed 200 in 1780ms (next.js: 457ms, proxy.ts: 1043ms, application-code: 279ms)\n\n GET /sign-in?error=fetch+failed 200 in 363ms (next.js: 16ms, proxy.ts: 246ms, application-code: 101ms)\n\n GET / 200 in 973ms (next.js: 153ms, proxy.ts: 628ms, application-code: 193ms)\n\n✓ Compiled in 396ms\n\n GET / 200 in 1844ms (next.js: 437ms, proxy.ts: 890ms, application-code: 517ms)\n\n GET / 200 in 1632ms (next.js: 14ms, proxy.ts: 16ms, application-code: 1602ms)\n\n GET /sign-in 200 in 351ms (next.js: 136ms, proxy.ts: 9ms, application-code: 206ms)\n\n GET /sign-in 200 in 1347ms (next.js: 408ms, proxy.ts: 15ms, application-code: 924ms)\n\n GET /sign-in 200 in 687ms (next.js: 231ms, proxy.ts: 229ms, application-code: 227ms)\n\n GET / 200 in 3.9s (next.js: 181ms, proxy.ts: 3.4s, application-code: 238ms)\n\n GET / 200 in 1692ms (next.js: 8ms, proxy.ts: 1593ms, application-code: 92ms)\n\n⠙npm notice\n\nnpm notice New minor version of npm available! 11.6.1 -> 11.18.0\n\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0\n\nnpm notice To update run: npm install -g npm@11.18.0\n\nnpm notice\n\n⠙:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\\",
+    "isError": true,
+    "description": "Terminal error: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+    "details": {
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1
+    },
+    "sessionId": "87842ca3-7d5b-48b2-a07a-4d7d64141c45"
+  },
+  {
+    "id": "f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+    "timestamp": 1783316597389,
+    "type": "error",
+    "errorMessage": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n ",
+    "severity": "error",
+    "description": "Error detected in terminal: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+    "details": {
+      "source": "terminal",
+      "terminalName": "node",
+      "commandLine": "npm run dev",
+      "exitCode": 1,
+      "analysis": {
+        "event": {
+          "id": "f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+          "timestamp": 1783316597389,
+          "type": "error",
+          "errorMessage": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n ",
+          "severity": "error",
+          "description": "Error detected in terminal: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+          "details": {
+            "source": "terminal",
+            "terminalName": "node",
+            "commandLine": "npm run dev",
+            "exitCode": 1
+          },
+          "sessionId": "87842ca3-7d5b-48b2-a07a-4d7d64141c45"
+        },
+        "relatedEvents": [
+          {
+            "event": {
+              "id": "7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+              "timestamp": 1783316597386,
+              "type": "terminal_output",
+              "output": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\nError [AuthApiError]: Invalid Refresh Token: Refresh Token Not Found\n\n    at ignore-listed frames {\n\n  __isAuthError: true,\n\n  status: 400,\n\n  code: 'refresh_token_not_found'\n\n}\n\n GET /sign-in 200 in 8.1s (next.js: 456ms, proxy.ts: 6.8s, application-code: 801ms)\n\n GET / 200 in 364ms (next.js: 144ms, proxy.ts: 15ms, application-code: 204ms)\n\n GET /sign-in 200 in 61ms (next.js: 8ms, proxy.ts: 9ms, application-code: 44ms)\n\n GET /dashboard 200 in 4.3s (next.js: 130ms, proxy.ts: 1536ms, application-code: 2.7s)\n\n POST /sign-in 303 in 20.4s (next.js: 9ms, proxy.ts: 11ms, application-code: 20.3s)\n\n  └─ ƒ signInAction({}) in 15944ms app/auth/actions.ts\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:46:7)\n\n  44 |   const {\n\n  45 |     data: { user },\n\n> 46 |   } = await supabase.auth.getUser();\n\n     |       ^\n\n  47 |\n\n  48 |   if (!user && !isPublic(request.nextUrl.pathname)) {\n\n  49 |     const url = request.nextUrl.clone(); {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 10.1s (next.js: 10ms, proxy.ts: 10.1s, application-code: 44ms)\n\n✓ Compiled in 649ms\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 11.5s (next.js: 233ms, proxy.ts: 11.1s, application-code: 131ms)\n\n✓ Compiled in 686ms\n\n✓ Compiled in 1219ms\n\n✓ Compiled in 520ms\n\n GET /sign-in 200 in 3.8s (next.js: 1300ms, proxy.ts: 1832ms, application-code: 624ms)\n\n GET /sign-in 200 in 674ms (next.js: 20ms, proxy.ts: 525ms, application-code: 130ms)\n\n GET /sign-in 200 in 3.1s (next.js: 17ms, proxy.ts: 2.9s, application-code: 117ms)\n\n GET /sign-in 200 in 4.3s (next.js: 13ms, proxy.ts: 4.1s, application-code: 110ms)\n\n GET /sign-in 200 in 7.6s (next.js: 18ms, proxy.ts: 7.4s, application-code: 129ms)\n\n GET /sign-in 200 in 10.6s (next.js: 7ms, proxy.ts: 10.6s, application-code: 33ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 11.4s (next.js: 124ms, proxy.ts: 10.6s, application-code: 716ms)\n\n GET /sign-in 200 in 11.7s (next.js: 133ms, proxy.ts: 10.7s, application-code: 819ms)\n\n GET /sign-in 200 in 11.0s (next.js: 248ms, proxy.ts: 10.4s, application-code: 272ms)\n\n GET /sign-in 200 in 11.1s (next.js: 175ms, proxy.ts: 10.8s, application-code: 122ms)\n\n GET /sign-in 200 in 11.3s (next.js: 201ms, proxy.ts: 10.9s, application-code: 206ms)\n\n✓ Compiled in 1664ms\n\n GET /sign-in 200 in 2.0s (next.js: 410ms, proxy.ts: 998ms, application-code: 610ms)\n\n GET /sign-in 200 in 26.8s (next.js: 9ms, proxy.ts: 26.7s, application-code: 88ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in 200 in 10.5s (next.js: 25ms, proxy.ts: 10.3s, application-code: 148ms)\n\n GET /sign-in 200 in 10.9s (next.js: 77ms, proxy.ts: 10.8s, application-code: 86ms)\n\n GET /sign-in 200 in 10.3s (next.js: 104ms, proxy.ts: 10.2s, application-code: 55ms)\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted address: bhisjmgaxxritqhwhkrw.supabase.co:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async signInAction (app\\auth\\actions.ts:11:21)\n\n   9 |   const password = String(formData.get(\"password\") ?? \"\");\n\n  10 |   const supabase = await createClient();\n\n> 11 |   const { error } = await supabase.auth.signInWithPassword({ email, password });\n\n     |                     ^\n\n  12 |   if (error) redirect(\"/sign-in?error=\" + encodeURIComponent(error.message));\n\n  13 |   redirect(\"/dashboard\");\n\n  14 | } {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\nTypeError: fetch failed\n\n    at async updateSession (core\\supabase\\middleware.ts:64:20)\n\n  62 |   let user = null;\n\n  63 |   try {\n\n> 64 |     const result = await supabase.auth.getUser();\n\n     |                    ^\n\n  65 |     user = result.data.user;\n\n  66 |   } catch {\n\n  67 |     user = null; {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, 172.64.149.246:443, timeout: 10000ms)\n\n      at ignore-listed frames {\n\n    code: 'UND_ERR_CONNECT_TIMEOUT'\n\n  }\n\n}\n\n GET /sign-in?error=fetch+failed 200 in 10.8s (next.js: 17ms, proxy.ts: 10.7s, application-code: 62ms)\n\n POST /sign-in 303 in 33.0s (next.js: 16ms, proxy.ts: 10.8s, application-code: 22.1s)\n\n  └─ ƒ signInAction({}) in 11262ms app/auth/actions.ts\n\n GET /sign-in?error=fetch%20failed 200 in 832ms (next.js: 10ms, proxy.ts: 486ms, application-code: 336ms)\n\n✓ Compiled in 415ms\n\n GET /sign-in?error=fetch+failed 200 in 1780ms (next.js: 457ms, proxy.ts: 1043ms, application-code: 279ms)\n\n GET /sign-in?error=fetch+failed 200 in 363ms (next.js: 16ms, proxy.ts: 246ms, application-code: 101ms)\n\n GET / 200 in 973ms (next.js: 153ms, proxy.ts: 628ms, application-code: 193ms)\n\n✓ Compiled in 396ms\n\n GET / 200 in 1844ms (next.js: 437ms, proxy.ts: 890ms, application-code: 517ms)\n\n GET / 200 in 1632ms (next.js: 14ms, proxy.ts: 16ms, application-code: 1602ms)\n\n GET /sign-in 200 in 351ms (next.js: 136ms, proxy.ts: 9ms, application-code: 206ms)\n\n GET /sign-in 200 in 1347ms (next.js: 408ms, proxy.ts: 15ms, application-code: 924ms)\n\n GET /sign-in 200 in 687ms (next.js: 231ms, proxy.ts: 229ms, application-code: 227ms)\n\n GET / 200 in 3.9s (next.js: 181ms, proxy.ts: 3.4s, application-code: 238ms)\n\n GET / 200 in 1692ms (next.js: 8ms, proxy.ts: 1593ms, application-code: 92ms)\n\n⠙npm notice\n\nnpm notice New minor version of npm available! 11.6.1 -> 11.18.0\n\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0\n\nnpm notice To update run: npm install -g npm@11.18.0\n\nnpm notice\n\n⠙:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\\",
+              "isError": true,
+              "description": "Terminal error: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+              "details": {
+                "terminalName": "node",
+                "commandLine": "npm run dev",
+                "exitCode": 1
+              },
+              "sessionId": "87842ca3-7d5b-48b2-a07a-4d7d64141c45"
+            },
+            "confidence": 0.4189974000000001,
+            "normalizedConfidence": 42,
+            "factors": {
+              "timeProximity": 0.99999,
+              "stackTraceRelevance": 0.55,
+              "repeatedEdits": 0,
+              "gitRecency": 0.2,
+              "fileFrequency": 0.08333333333333333,
+              "errorRecurrence": 0
+            },
+            "reason": "Possible influence: terminal output occurred before this error (42%)"
+          }
+        ],
+        "suspiciousFiles": [],
+        "summary": "Found 0 files possibly related to this error. Most likely suspect: \"unknown\" (42% confidence)",
+        "rootCauseSummary": "Found 0 files possibly related to this error. Most likely suspect: \"unknown\" (42% confidence)",
+        "confidenceScore": 42,
+        "stackTraceFindings": [
+          "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {"
+        ],
+        "relatedFileChanges": [],
+        "mostLikelyRootCause": {
+          "eventId": "7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+          "confidence": 0.4189974000000001,
+          "normalizedConfidence": 42,
+          "factors": {
+            "timeProximity": 0.99999,
+            "stackTraceRelevance": 0.55,
+            "repeatedEdits": 0,
+            "gitRecency": 0.2,
+            "fileFrequency": 0.08333333333333333,
+            "errorRecurrence": 0
+          },
+          "reason": "Possible influence: terminal output occurred before this error (42%)"
+        },
+        "rankedCauses": [
+          {
+            "eventId": "7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+            "confidence": 0.4189974000000001,
+            "normalizedConfidence": 42,
+            "factors": {
+              "timeProximity": 0.99999,
+              "stackTraceRelevance": 0.55,
+              "repeatedEdits": 0,
+              "gitRecency": 0.2,
+              "fileFrequency": 0.08333333333333333,
+              "errorRecurrence": 0
+            },
+            "reason": "Possible influence: terminal output occurred before this error (42%)"
+          }
+        ],
+        "graph": {
+          "errorEventId": "f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+          "activeErrorNodeId": "error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+          "nodes": [
+            {
+              "id": "error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+              "type": "error",
+              "label": "Error detected in terminal: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+              "eventId": "f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+              "metadata": {
+                "timestamp": 1783316597389,
+                "severity": "error"
+              }
+            },
+            {
+              "id": "terminal:7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+              "type": "terminal",
+              "label": "Terminal error: pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopac",
+              "eventId": "7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+              "metadata": {
+                "output": ""
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "edge:terminal:7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4->error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+              "source": "terminal:7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4",
+              "target": "error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+              "relation": "same_session",
+              "weight": 0.4189974000000001
+            }
+          ],
+          "impactChain": [
+            "error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+            "terminal:7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4"
+          ],
+          "affectedFilesSummary": []
+        },
+        "impactChain": [
+          "error:f2e774ad-069d-4f05-ae48-d6bb42c1c914",
+          "terminal:7a7d9061-8bfb-4aa9-80dd-642e18ac1cb4"
+        ],
+        "affectedFilesSummary": [],
+        "recurringIssue": {
+          "signature": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
+          "signatureText": "message:pm/pm run dev/⠙ > whitewire@0.1.0 dev > next dev ⠙ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 1770ms - experiments (use with caution): · serveractions typeerror: fetch failed at ignore-listed frames { [cause]: error [connecttimeouterror]: connect timeout error (attempted addresses: 104.18.38.10:443, timeout: 10000ms) at ignore-listed frames {|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783316597389,
+          "lastSeen": 1783316597389,
+          "errorMessage": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {"
+        }
+      },
+      "intelligence": {
+        "recurringIssue": {
+          "signature": "300bf6b6c5d83673b0dfc09c61388862589a1f0e",
+          "signatureText": "message:pm/pm run dev/⠙ > whitewire@0.1.0 dev > next dev ⠙ext-server (v16.2.9)/▲ next.js 16.2.9 (turbopack) - local: http://localhost:3000 - network: http://100.87.210.74:3000 - environments: .env.local ✓ ready in 1770ms - experiments (use with caution): · serveractions typeerror: fetch failed at ignore-listed frames { [cause]: error [connecttimeouterror]: connect timeout error (attempted addresses: 104.18.38.10:443, timeout: 10000ms) at ignore-listed frames {|file:|line:|frame:",
+          "occurrenceCount": 1,
+          "seenBefore": 0,
+          "firstSeen": 1783316597389,
+          "lastSeen": 1783316597389,
+          "errorMessage": "pm\\pm run dev\\⠙\n\n> whitewire@0.1.0 dev\n\n> next dev\n\n⠙ext-server (v16.2.9)\\▲ Next.js 16.2.9 (Turbopack)\n\n- Local:         http://localhost:3000\n\n- Network:       http://100.87.210.74:3000\n\n- Environments: .env.local\n\n✓ Ready in 1770ms\n\n- Experiments (use with caution):\n\n  · serverActions\n\nTypeError: fetch failed\n\n    at ignore-listed frames {\n\n  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)\n\n      at ignore-listed frames {"
+        },
+        "fixSuggestion": null
+      }
+    },
+    "sessionId": "87842ca3-7d5b-48b2-a07a-4d7d64141c45"
   }
 ]
