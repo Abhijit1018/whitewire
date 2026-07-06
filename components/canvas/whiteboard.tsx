@@ -15,12 +15,13 @@ const WhiteboardInner = dynamic(() => import("./whiteboard-inner"), {
 export type WhiteboardProps = {
   projectId: string;
   initial: Record<string, unknown> | null;
+  canEdit?: boolean;
 };
 
-export function Whiteboard({ projectId, initial }: WhiteboardProps) {
+export function Whiteboard({ projectId, initial, canEdit = true }: WhiteboardProps) {
   return (
     <CanvasErrorBoundary>
-      <WhiteboardInner projectId={projectId} initial={initial} />
+      <WhiteboardInner projectId={projectId} initial={initial} canEdit={canEdit} />
     </CanvasErrorBoundary>
   );
 }

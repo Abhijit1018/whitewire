@@ -31,9 +31,10 @@ import { saveCanvasAction } from "@/app/p/[projectId]/canvas-actions";
 export type WhiteboardInnerProps = {
   projectId: string;
   initial: Record<string, unknown> | null;
+  canEdit?: boolean;
 };
 
-export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerProps) {
+export default function WhiteboardInner({ projectId, initial, canEdit = true }: WhiteboardInnerProps) {
   const nodes = useWorkspaceStore((s) => s.nodes);
   const edges = useWorkspaceStore((s) => s.edges);
   const onNodesChange = useWorkspaceStore((s) => s.onNodesChange);
@@ -61,12 +62,14 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
   );
   const saver = useDebouncedSaver(save, 1500);
   useEffect(() => {
+    // Viewers never persist — only owners/editors autosave.
+    if (!canEdit) return;
     const unsub = useWorkspaceStore.subscribe((state) => {
       const cleanNodes = state.nodes.map(({ selected, dragging, ...n }) => n);
       saver({ nodes: cleanNodes, edges: state.edges });
     });
     return unsub;
-  }, [saver]);
+  }, [saver, canEdit]);
 
   const onSelectionChange = useCallback(
     ({ nodes: sel }: OnSelectionChangeParams) => {
@@ -98,8 +101,9 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           fitView
           minZoom={0.2}
           panOnDrag={!penMode}
-          nodesDraggable={!penMode}
-          elementsSelectable={!penMode}
+          nodesDraggable={canEdit && !penMode}
+          elementsSelectable={canEdit && !penMode}
+          nodesConnectable={canEdit}
           proOptions={{ hideAttribution: false }}
         >
           {bgVariant !== "none" && (
@@ -119,17 +123,18 @@ export default function WhiteboardInner({ projectId, initial }: WhiteboardInnerP
           <Controls />
           <MiniMap pannable zoomable className="!rounded-lg !border !border-border" />
         </ReactFlow>
-        {penMode && <PenLayer />}
+        {penMode && canEdit && <PenLayer />}
         <CollabLayer projectId={projectId} />
         {nodes.length === 0 && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
             <p className="rounded-lg bg-white/70 px-4 py-2 text-center text-sm text-zinc-500 shadow-sm">
-              Describe an idea in the bar below to build a connected board — or add
-              nodes from the left toolbar.
+              {canEdit
+                ? "Describe an idea in the bar below to build a connected board — or add nodes from the left toolbar."
+                : "This board is empty."}
             </p>
           </div>
         )}
-        <CanvasToolsRail projectId={projectId} />
+        {canEdit && <CanvasToolsRail projectId={projectId} />}
       </div>
     </ReactFlowProvider>
   );

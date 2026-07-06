@@ -20,6 +20,8 @@ beforeAll(async () => {
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       owner_id text NOT NULL REFERENCES users(id),
       name text NOT NULL,
+      share_enabled boolean NOT NULL DEFAULT false,
+      share_role text NOT NULL DEFAULT 'editor',
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
     );

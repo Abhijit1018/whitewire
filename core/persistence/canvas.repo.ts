@@ -16,6 +16,32 @@ export async function getCanvas(
   return row?.snapshot;
 }
 
+/** Read the canvas by project id. Caller must have already verified access. */
+export async function getCanvasByProjectId(
+  db: Db,
+  projectId: string,
+): Promise<Record<string, unknown> | undefined> {
+  const [row] = await db
+    .select({ snapshot: canvasDocs.snapshot })
+    .from(canvasDocs)
+    .where(eq(canvasDocs.projectId, projectId));
+  return row?.snapshot;
+}
+
+/** Upsert the canvas snapshot. Caller must have already verified edit access. */
+export async function saveCanvasSnapshot(
+  db: Db,
+  input: { projectId: string; snapshot: Record<string, unknown> },
+): Promise<void> {
+  await db
+    .insert(canvasDocs)
+    .values({ projectId: input.projectId, snapshot: input.snapshot })
+    .onConflictDoUpdate({
+      target: canvasDocs.projectId,
+      set: { snapshot: input.snapshot, updatedAt: new Date() },
+    });
+}
+
 export async function saveCanvas(
   db: Db,
   input: { projectId: string; ownerId: string; snapshot: Record<string, unknown> },

@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp, jsonb, unique } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid, timestamp, jsonb, unique, boolean } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(), // Supabase auth user id (uuid)
@@ -10,6 +10,9 @@ export const projects = pgTable("projects", {
   id: uuid("id").primaryKey().defaultRandom(),
   ownerId: text("owner_id").notNull().references(() => users.id),
   name: text("name").notNull(),
+  // Link sharing: when enabled, anyone signed-in with the link gets `shareRole`.
+  shareEnabled: boolean("share_enabled").notNull().default(false),
+  shareRole: text("share_role").notNull().default("editor"), // editor | viewer
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });

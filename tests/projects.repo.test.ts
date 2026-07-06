@@ -7,6 +7,9 @@ import {
   renameProject,
   deleteProject,
   getProjectById,
+  getProjectAccess,
+  setSharing,
+  canEditRole,
 } from "@/core/persistence/projects.repo";
 
 beforeEach(async () => {
@@ -66,5 +69,44 @@ describe("projects.repo", () => {
     expect(found?.name).toBe("Find me");
     const notFound = await getProjectById(testDb, { id: p.id, ownerId: "intruder" });
     expect(notFound).toBeUndefined();
+  });
+});
+
+describe("project access & link sharing", () => {
+  it("grants the owner the owner role", async () => {
+    const p = await createProject(testDb, { ownerId: "u1", name: "Mine" });
+    const access = await getProjectAccess(testDb, { projectId: p.id, userId: "u1" });
+    expect(access?.role).toBe("owner");
+  });
+
+  it("denies a non-owner when sharing is off", async () => {
+    const p = await createProject(testDb, { ownerId: "u1", name: "Private" });
+    const access = await getProjectAccess(testDb, { projectId: p.id, userId: "u2" });
+    expect(access).toBeNull();
+  });
+
+  it("grants the shared role to a non-owner when sharing is on", async () => {
+    const p = await createProject(testDb, { ownerId: "u1", name: "Shared" });
+    await setSharing(testDb, { projectId: p.id, ownerId: "u1", enabled: true, role: "editor" });
+    const editor = await getProjectAccess(testDb, { projectId: p.id, userId: "u2" });
+    expect(editor?.role).toBe("editor");
+
+    await setSharing(testDb, { projectId: p.id, ownerId: "u1", enabled: true, role: "viewer" });
+    const viewer = await getProjectAccess(testDb, { projectId: p.id, userId: "u2" });
+    expect(viewer?.role).toBe("viewer");
+  });
+
+  it("only the owner can change sharing", async () => {
+    const p = await createProject(testDb, { ownerId: "u1", name: "Shared" });
+    const bad = await setSharing(testDb, { projectId: p.id, ownerId: "intruder", enabled: true, role: "editor" });
+    expect(bad).toBeUndefined();
+    // sharing stays off, so an outsider still has no access
+    expect(await getProjectAccess(testDb, { projectId: p.id, userId: "u2" })).toBeNull();
+  });
+
+  it("canEditRole allows owner/editor, blocks viewer", () => {
+    expect(canEditRole("owner")).toBe(true);
+    expect(canEditRole("editor")).toBe(true);
+    expect(canEditRole("viewer")).toBe(false);
   });
 });
