@@ -27,7 +27,20 @@ export async function createProjectAction(formData: FormData) {
   const { syncCurrentUser } = await import("@/lib/auth");
   const ownerId = await syncCurrentUser();
   const name = String(formData.get("name") ?? "");
-  await createProjectLogic(db, ownerId, name);
+  const templateId = String(formData.get("template") ?? "blank");
+  const project = await createProjectLogic(db, ownerId, name);
+
+  // Seed the new board from a template plugin (the same registry the canvas
+  // Plugins menu uses), so "Start from" isn't just cosmetic.
+  if (templateId && templateId !== "blank") {
+    const { getPlugin } = await import("@/core/plugins/registry");
+    const { saveCanvas } = await import("@/core/persistence/canvas.repo");
+    const plugin = getPlugin(templateId);
+    if (plugin) {
+      const { nodes, edges } = plugin.run({ center: { x: 400, y: 300 } });
+      await saveCanvas(db, { projectId: project.id, ownerId, snapshot: { nodes, edges } });
+    }
+  }
   revalidatePath("/dashboard");
 }
 
