@@ -4,13 +4,12 @@ import { useRef, useState } from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { strokePath } from "./freehand";
-
-const PEN_COLOR = "#3f3f46";
-const PEN_SIZE = 6;
+import { penSize } from "@/core/canvas/style";
 
 export function PenLayer() {
   const { screenToFlowPosition } = useReactFlow();
   const addNode = useWorkspaceStore((s) => s.addNode);
+  const toolDefaults = useWorkspaceStore((s) => s.toolDefaults);
   const ref = useRef<HTMLDivElement>(null);
   const drawing = useRef(false);
   const flowPts = useRef<number[][]>([]);
@@ -55,8 +54,9 @@ export function PenLayer() {
           purpose: "",
           model: "",
           points: pts.map(([x, y]) => [x - minX, y - minY]),
-          color: PEN_COLOR,
-          size: PEN_SIZE,
+          color: toolDefaults.stroke,
+          size: penSize(toolDefaults.strokeWidth),
+          style: { ...toolDefaults },
         },
       });
     }
@@ -76,7 +76,7 @@ export function PenLayer() {
     >
       {screenPts.length > 0 && (
         <svg className="pointer-events-none absolute inset-0 h-full w-full">
-          <path d={strokePath(screenPts, PEN_SIZE)} fill={PEN_COLOR} />
+          <path d={strokePath(screenPts, penSize(toolDefaults.strokeWidth))} fill={toolDefaults.stroke} opacity={toolDefaults.opacity} />
         </svg>
       )}
     </div>
