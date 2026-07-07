@@ -1,9 +1,35 @@
 "use client";
 
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode as AiNodeType } from "@/core/state/workspace-store";
 import { DrawNode } from "./draw-node";
 import { WireframeNode } from "./wireframe-node";
+import { RoughShape } from "./rough-shape";
+import { type ShapeId } from "@/core/canvas/shapes";
+import { DEFAULT_STYLE, type ShapeStyle } from "@/core/canvas/style";
+
+function hashSeed(id: string): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return Math.abs(h) || 1;
+}
+
+function RoughShapeFill({ id, shape, style, seed, selected }: { id: string; shape: ShapeId; style: ShapeStyle; seed: number; selected: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(([e]) => setSize({ w: e.contentRect.width, h: e.contentRect.height }));
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`h-full w-full ${selected ? "rounded outline outline-1 outline-brand-accent/40" : ""}`}>
+      {size.w > 0 && <RoughShape shape={shape} width={size.w} height={size.h} style={style} seed={seed} />}
+    </div>
+  );
+}
 
 const KIND_STYLES: Record<string, string> = {
   idea: "bg-amber-100 text-amber-700",
@@ -92,28 +118,25 @@ export function NoteNode({ id, data, selected }: NodeProps<AiNodeType>) {
 
 export function ShapeNode({ id, data, selected }: NodeProps<AiNodeType>) {
   const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
-  const shape = data.shape ?? "rectangle";
-  const radius = shape === "ellipse" ? "9999px" : "10px";
-  const rotate = shape === "diamond";
+  const shape = (data.shape ?? "rectangle") as ShapeId;
+  const style = data.style ?? DEFAULT_STYLE;
+  const seed = useMemo(() => hashSeed(id), [id]);
   return (
     <div className="relative h-full w-full">
       <NodeResizer
-        minWidth={90}
-        minHeight={60}
+        minWidth={40}
+        minHeight={40}
         isVisible={!!selected}
         lineClassName="!border-brand-accent"
         handleClassName="!h-2 !w-2 !rounded-sm !border-white !bg-brand-accent"
       />
       <Handle type="target" position={Position.Top} className={handleClass} />
-      <div
-        className={`flex h-full w-full items-center justify-center border-2 bg-white transition-colors ${
-          selected ? "border-brand-accent" : "border-zinc-400"
-        }`}
-        style={{ borderRadius: radius, transform: rotate ? "rotate(45deg)" : undefined }}
-      >
+      <div className="relative h-full w-full">
+        <div className="absolute inset-0">
+          <RoughShapeFill id={id} shape={shape} style={style} seed={seed} selected={!!selected} />
+        </div>
         <input
-          className="nodrag w-[78%] bg-transparent text-center text-sm text-zinc-800 outline-none"
-          style={{ transform: rotate ? "rotate(-45deg)" : undefined }}
+          className="nodrag absolute left-1/2 top-1/2 w-[78%] -translate-x-1/2 -translate-y-1/2 bg-transparent text-center text-sm text-zinc-800 outline-none"
           defaultValue={data.text}
           placeholder="Label"
           onChange={(e) => updateNodeData(id, { text: e.target.value })}

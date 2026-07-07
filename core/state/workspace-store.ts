@@ -11,6 +11,8 @@ import {
 } from "@xyflow/react";
 
 import type { WireframeSpec } from "@/core/ai/wireframe";
+import type { CanvasTool } from "@/core/canvas/tools";
+import { type ShapeStyle, DEFAULT_STYLE } from "@/core/canvas/style";
 
 export type AiNodeData = {
   text: string;
@@ -22,6 +24,7 @@ export type AiNodeData = {
   color?: string;
   size?: number;
   wireframe?: WireframeSpec;
+  style?: ShapeStyle;
 };
 export type AiNode = Node<AiNodeData>;
 
@@ -36,9 +39,14 @@ type WorkspaceState = {
   selectedNodeType: string;
   penMode: boolean;
   bgVariant: BgVariant;
+  activeTool: CanvasTool;
+  toolDefaults: ShapeStyle;
 
   setPenMode: (on: boolean) => void;
   setBgVariant: (v: BgVariant) => void;
+  setActiveTool: (t: CanvasTool) => void;
+  setToolDefaults: (patch: Partial<ShapeStyle>) => void;
+  applyStyleToSelection: (patch: Partial<ShapeStyle>) => void;
   onNodesChange: (changes: NodeChange<AiNode>[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
@@ -51,7 +59,7 @@ type WorkspaceState = {
   setSelection: (sel: { id: string | null; text: string; kind: string; type: string }) => void;
 };
 
-function makeStore() {
+export function makeStore() {
   return create<WorkspaceState>((set, get) => ({
     nodes: [],
     edges: [],
@@ -61,8 +69,22 @@ function makeStore() {
     selectedNodeType: "",
     penMode: false,
     bgVariant: "dots",
+    activeTool: "select",
+    toolDefaults: { ...DEFAULT_STYLE },
 
-    setPenMode: (on) => set({ penMode: on }),
+    setActiveTool: (t) => set({ activeTool: t, penMode: t === "pen" }),
+    setPenMode: (on) => get().setActiveTool(on ? "pen" : "select"),
+    setToolDefaults: (patch) =>
+      set({ toolDefaults: { ...get().toolDefaults, ...patch } }),
+    applyStyleToSelection: (patch) =>
+      set((state) => ({
+        toolDefaults: { ...state.toolDefaults, ...patch },
+        nodes: state.nodes.map((n) =>
+          n.selected
+            ? { ...n, data: { ...n.data, style: { ...state.toolDefaults, ...(n.data.style ?? {}), ...patch } } }
+            : n,
+        ),
+      })),
     setBgVariant: (v) => set({ bgVariant: v }),
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),

@@ -15,7 +15,8 @@ import {
 } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
-import { CanvasToolsRail } from "./canvas-tools-rail";
+import { CanvasToolbar } from "./canvas-toolbar";
+import { StylePanel } from "./style-panel";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
 
@@ -129,12 +130,13 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
             <p className="rounded-lg bg-white/70 px-4 py-2 text-center text-sm text-zinc-500 shadow-sm">
               {canEdit
-                ? "Describe an idea in the bar below to build a connected board — or add nodes from the left toolbar."
+                ? "Describe an idea in the bar below to build a connected board — or add shapes from the toolbar above."
                 : "This board is empty."}
             </p>
           </div>
         )}
-        {canEdit && <CanvasToolsRail projectId={projectId} />}
+        {canEdit && <CanvasToolbar projectId={projectId} />}
+        {canEdit && <StylePanel />}
       </div>
     </ReactFlowProvider>
   );

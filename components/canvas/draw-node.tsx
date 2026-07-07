@@ -6,8 +6,9 @@ import { strokePath } from "./freehand";
 
 export function DrawNode({ data, selected }: NodeProps<AiNodeType>) {
   const points = data.points ?? [];
-  const color = data.color ?? "#3f3f46";
+  const color = data.style?.stroke ?? data.color ?? "#3f3f46";
   const size = data.size ?? 6;
+  const opacity = data.style?.opacity ?? 1;
   const xs = points.map((p) => p[0]);
   const ys = points.map((p) => p[1]);
   const w = (xs.length ? Math.max(...xs) : 0) + size * 2;
@@ -19,7 +20,7 @@ export function DrawNode({ data, selected }: NodeProps<AiNodeType>) {
       height={h}
       style={{ overflow: "visible", outline: selected ? "1px dashed var(--brand-accent)" : "none" }}
     >
-      <path d={strokePath(points, size)} fill={color} />
+      <path d={strokePath(points, size)} fill={color} opacity={opacity} />
     </svg>
   );
 }
