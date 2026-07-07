@@ -4,9 +4,7 @@ import { PHASE1_TOOLS, toolForShortcut } from "@/core/canvas/tools";
 describe("PHASE1_TOOLS", () => {
   it("includes only tools wired this phase (no arrow/line/image/code/eraser/frame yet)", () => {
     const tools = PHASE1_TOOLS.map((t) => t.tool);
-    expect(tools).toEqual([
-      "select", "hand", "pen", "rectangle", "ellipse", "diamond", "text", "note", "aiNode",
-    ]);
+    expect(tools).toEqual(["select", "hand", "pen", "text", "note", "aiNode"]);
   });
 
   it("marks select/hand/pen as modes and the rest as inserts", () => {
@@ -14,7 +12,7 @@ describe("PHASE1_TOOLS", () => {
     expect(byTool.select).toBe("mode");
     expect(byTool.hand).toBe("mode");
     expect(byTool.pen).toBe("mode");
-    expect(byTool.rectangle).toBe("insert");
+    expect(byTool.text).toBe("insert");
     expect(byTool.aiNode).toBe("insert");
   });
 });
@@ -22,9 +20,12 @@ describe("PHASE1_TOOLS", () => {
 describe("toolForShortcut", () => {
   it("maps single letters to tools (case-insensitive)", () => {
     expect(toolForShortcut("v")).toBe("select");
-    expect(toolForShortcut("R")).toBe("rectangle");
     expect(toolForShortcut("p")).toBe("pen");
     expect(toolForShortcut("i")).toBe("aiNode");
+  });
+
+  it("no longer maps shape shortcuts in this phase", () => {
+    expect(toolForShortcut("r")).toBeNull();
   });
 
   it("returns null for unmapped keys", () => {

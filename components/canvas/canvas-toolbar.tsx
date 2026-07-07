@@ -4,9 +4,10 @@ import { useEffect } from "react";
 import { useReactFlow, type Edge } from "@xyflow/react";
 import {
   MousePointer2, Hand, Pencil, Square, Circle, Diamond, Type, StickyNote,
-  Sparkles, ScanLine, type LucideIcon,
+  Sparkles, ScanLine, ChevronDown, Shapes, type LucideIcon,
 } from "lucide-react";
 import { PHASE1_TOOLS, toolForShortcut, type CanvasTool } from "@/core/canvas/tools";
+import { SHAPES, type ShapeId } from "@/core/canvas/shapes";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { drawNodesToPng } from "./strokes-to-image";
 import { applyCleanup } from "./cleanup-adapter";
@@ -37,8 +38,10 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   const setActiveTool = useWorkspaceStore((s) => s.setActiveTool);
   const addNode = useWorkspaceStore((s) => s.addNode);
   const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
+  const toolDefaults = useWorkspaceStore((s) => s.toolDefaults);
   const [pending, startTransition] = useTransition();
   const [msg, setMsg] = useState<string | null>(null);
+  const [shapeMenuOpen, setShapeMenuOpen] = useState(false);
 
   function insert(tool: CanvasTool) {
     const def = INSERT_DEFAULTS[tool];
@@ -49,8 +52,21 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
       type: def.type,
       position,
       style: def.style,
-      data: { text: "", kind: "generic", purpose: "", model: "", ...def.data },
+      data: { text: "", kind: "generic", purpose: "", model: "", ...def.data, style: { ...toolDefaults } },
     });
+  }
+
+  function insertShape(shapeId: ShapeId) {
+    const isLine = shapeId === "line" || shapeId === "arrow";
+    const position = screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    addNode({
+      id: crypto.randomUUID(),
+      type: "shapeNode",
+      position,
+      style: isLine ? { width: 160, height: 60 } : { width: 140, height: 100 },
+      data: { text: "", kind: "generic", purpose: "", model: "", shape: shapeId, style: { ...toolDefaults } },
+    });
+    setShapeMenuOpen(false);
   }
 
   function activate(tool: CanvasTool, behavior: "mode" | "insert") {
@@ -106,18 +122,53 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           const Icon = ICONS[t.tool];
           const active = t.behavior === "mode" && activeTool === t.tool;
           return (
-            <button
-              key={t.tool}
-              type="button"
-              title={t.shortcut ? `${t.label} (${t.shortcut.toUpperCase()})` : t.label}
-              onClick={() => activate(t.tool, t.behavior)}
-              className={cn(
-                "flex size-9 items-center justify-center rounded-lg transition-colors active:scale-95",
-                active ? "bg-brand-accent/12 text-brand-accent" : "text-muted-foreground hover:bg-muted",
+            <span key={t.tool} className="contents">
+              <button
+                type="button"
+                title={t.shortcut ? `${t.label} (${t.shortcut.toUpperCase()})` : t.label}
+                onClick={() => activate(t.tool, t.behavior)}
+                className={cn(
+                  "flex size-9 items-center justify-center rounded-lg transition-colors active:scale-95",
+                  active ? "bg-brand-accent/12 text-brand-accent" : "text-muted-foreground hover:bg-muted",
+                )}
+              >
+                <Icon className="size-4" />
+              </button>
+              {t.tool === "pen" && (
+                <div className="relative">
+                  <button
+                    type="button"
+                    title="Shapes"
+                    onClick={() => setShapeMenuOpen((o) => !o)}
+                    className="flex h-9 items-center gap-0.5 rounded-lg px-2 text-muted-foreground transition-colors hover:bg-muted"
+                  >
+                    <Shapes className="size-4" />
+                    <ChevronDown className="size-3" />
+                  </button>
+                  {shapeMenuOpen && (
+                    <div className="absolute left-0 top-11 z-40 w-56 rounded-xl border border-border bg-card p-2 shadow-lg">
+                      {(["basic", "flowchart", "decorative"] as const).map((cat) => (
+                        <div key={cat} className="mb-1.5 last:mb-0">
+                          <p className="px-1.5 pb-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{cat}</p>
+                          <div className="grid grid-cols-2 gap-0.5">
+                            {SHAPES.filter((s) => s.category === cat).map((s) => (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={() => insertShape(s.id)}
+                                className="rounded-md px-2 py-1.5 text-left text-xs text-foreground transition-colors hover:bg-muted"
+                              >
+                                {s.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
-            >
-              <Icon className="size-4" />
-            </button>
+            </span>
           );
         })}
         <div className="mx-1 h-6 w-px bg-border" />
