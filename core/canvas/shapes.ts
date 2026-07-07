@@ -81,5 +81,6 @@ export function shapePrimitive(id: ShapeId, w: number, h: number, edges: "sharp"
       const d = `M ${l + iw * 0.25} ${b} C ${l} ${b} ${l} ${cy} ${l + iw * 0.2} ${cy} C ${l + iw * 0.2} ${t + ih * 0.1} ${l + iw * 0.55} ${t} ${l + iw * 0.6} ${t + ih * 0.25} C ${r - iw * 0.1} ${t + ih * 0.05} ${r} ${cy * 0.9} ${r - iw * 0.15} ${cy} C ${r} ${cy} ${r} ${b} ${l + iw * 0.75} ${b} Z`;
       return { kind: "path", d };
     }
+    default: return { kind: "rect", round: false };
   }
 }

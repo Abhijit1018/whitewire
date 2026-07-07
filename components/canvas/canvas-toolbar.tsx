@@ -12,7 +12,7 @@ import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { drawNodesToPng } from "./strokes-to-image";
 import { applyCleanup } from "./cleanup-adapter";
 import { interpretSketchAction } from "@/app/p/[projectId]/sketch-actions";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<CanvasTool, LucideIcon> = {
@@ -24,9 +24,6 @@ const ICONS: Record<CanvasTool, LucideIcon> = {
 };
 
 const INSERT_DEFAULTS: Partial<Record<CanvasTool, { type: string; data: Record<string, unknown>; style?: React.CSSProperties }>> = {
-  rectangle: { type: "shapeNode", data: { shape: "rectangle" }, style: { width: 150, height: 90 } },
-  ellipse: { type: "shapeNode", data: { shape: "ellipse" }, style: { width: 120, height: 120 } },
-  diamond: { type: "shapeNode", data: { shape: "diamond" }, style: { width: 120, height: 120 } },
   text: { type: "textNode", data: {} },
   note: { type: "noteNode", data: {} },
   aiNode: { type: "aiNode", data: { text: "New idea", kind: "idea" } },
@@ -42,6 +39,7 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   const [pending, startTransition] = useTransition();
   const [msg, setMsg] = useState<string | null>(null);
   const [shapeMenuOpen, setShapeMenuOpen] = useState(false);
+  const shapeMenuRef = useRef<HTMLDivElement>(null);
 
   function insert(tool: CanvasTool) {
     const def = INSERT_DEFAULTS[tool];
@@ -92,6 +90,25 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Close the shapes dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!shapeMenuOpen) return;
+    function onPointerDown(e: PointerEvent) {
+      if (shapeMenuRef.current && !shapeMenuRef.current.contains(e.target as Node)) {
+        setShapeMenuOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setShapeMenuOpen(false);
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [shapeMenuOpen]);
+
   function readSketch() {
     startTransition(async () => {
       setMsg(null);
@@ -135,7 +152,7 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
                 <Icon className="size-4" />
               </button>
               {t.tool === "pen" && (
-                <div className="relative">
+                <div className="relative" ref={shapeMenuRef}>
                   <button
                     type="button"
                     title="Shapes"

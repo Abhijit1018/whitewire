@@ -49,4 +49,7 @@ describe("shapePrimitive", () => {
   it("heart → a path primitive", () => {
     expect(shapePrimitive("heart", 100, 60, "sharp").kind).toBe("path");
   });
+  it("unknown shape id → falls back to a sharp rect instead of crashing", () => {
+    expect(shapePrimitive("bogus" as any, 100, 60, "sharp")).toEqual({ kind: "rect", round: false });
+  });
 });
