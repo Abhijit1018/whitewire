@@ -1,0 +1,141 @@
+"use client";
+
+import { useEffect } from "react";
+import { useReactFlow, type Edge } from "@xyflow/react";
+import {
+  MousePointer2, Hand, Pencil, Square, Circle, Diamond, Type, StickyNote,
+  Sparkles, ScanLine, type LucideIcon,
+} from "lucide-react";
+import { PHASE1_TOOLS, toolForShortcut, type CanvasTool } from "@/core/canvas/tools";
+import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
+import { drawNodesToPng } from "./strokes-to-image";
+import { applyCleanup } from "./cleanup-adapter";
+import { interpretSketchAction } from "@/app/p/[projectId]/sketch-actions";
+import { useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
+
+const ICONS: Record<CanvasTool, LucideIcon> = {
+  select: MousePointer2, hand: Hand, pen: Pencil, rectangle: Square, ellipse: Circle,
+  diamond: Diamond, text: Type, note: StickyNote, aiNode: Sparkles,
+  // not shown in Phase 1 but typed for completeness:
+  arrow: MousePointer2, line: MousePointer2, image: MousePointer2, code: MousePointer2,
+  eraser: MousePointer2, frame: MousePointer2,
+};
+
+const INSERT_DEFAULTS: Partial<Record<CanvasTool, { type: string; data: Record<string, unknown>; style?: React.CSSProperties }>> = {
+  rectangle: { type: "shapeNode", data: { shape: "rectangle" }, style: { width: 150, height: 90 } },
+  ellipse: { type: "shapeNode", data: { shape: "ellipse" }, style: { width: 120, height: 120 } },
+  diamond: { type: "shapeNode", data: { shape: "diamond" }, style: { width: 120, height: 120 } },
+  text: { type: "textNode", data: {} },
+  note: { type: "noteNode", data: {} },
+  aiNode: { type: "aiNode", data: { text: "New idea", kind: "idea" } },
+};
+
+export function CanvasToolbar({ projectId }: { projectId: string }) {
+  const { screenToFlowPosition } = useReactFlow();
+  const activeTool = useWorkspaceStore((s) => s.activeTool);
+  const setActiveTool = useWorkspaceStore((s) => s.setActiveTool);
+  const addNode = useWorkspaceStore((s) => s.addNode);
+  const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
+  const [pending, startTransition] = useTransition();
+  const [msg, setMsg] = useState<string | null>(null);
+
+  function insert(tool: CanvasTool) {
+    const def = INSERT_DEFAULTS[tool];
+    if (!def) return;
+    const position = screenToFlowPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    addNode({
+      id: crypto.randomUUID(),
+      type: def.type,
+      position,
+      style: def.style,
+      data: { text: "", kind: "generic", purpose: "", model: "", ...def.data },
+    });
+  }
+
+  function activate(tool: CanvasTool, behavior: "mode" | "insert") {
+    if (behavior === "insert") insert(tool);
+    else setActiveTool(tool);
+  }
+
+  // Keyboard shortcuts (ignored while typing in inputs).
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const el = e.target as HTMLElement;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) return;
+      const tool = toolForShortcut(e.key);
+      if (!tool) return;
+      const meta = PHASE1_TOOLS.find((t) => t.tool === tool);
+      if (!meta) return;
+      e.preventDefault();
+      activate(tool, meta.behavior);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function readSketch() {
+    startTransition(async () => {
+      setMsg(null);
+      const png = await drawNodesToPng(useWorkspaceStore.getState().nodes);
+      if (!png) { setMsg("Draw with the Pen first."); return; }
+      const res = await interpretSketchAction(projectId, png);
+      if (res.error) { setMsg(res.error); return; }
+      const bp = res.nodes ?? [];
+      if (bp.length === 0) return;
+      const ids = bp.map(() => crypto.randomUUID());
+      const newNodes: AiNode[] = bp.map((n, i) => ({
+        id: ids[i], type: "aiNode",
+        position: { x: 120 + (i % 4) * 280, y: 100 + Math.floor(i / 4) * 180 },
+        data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
+      }));
+      const newEdges: Edge[] = (res.edges ?? []).map(([a, b]) => ({
+        id: crypto.randomUUID(), source: ids[a], target: ids[b],
+      }));
+      addNodesEdges(newNodes, newEdges);
+      applyCleanup();
+    });
+  }
+
+  return (
+    <div className="absolute left-1/2 top-3 z-30 -translate-x-1/2">
+      <div className="flex items-center gap-1 rounded-2xl border border-border bg-card/95 p-1.5 shadow-sm backdrop-blur">
+        {PHASE1_TOOLS.map((t) => {
+          const Icon = ICONS[t.tool];
+          const active = t.behavior === "mode" && activeTool === t.tool;
+          return (
+            <button
+              key={t.tool}
+              type="button"
+              title={t.shortcut ? `${t.label} (${t.shortcut.toUpperCase()})` : t.label}
+              onClick={() => activate(t.tool, t.behavior)}
+              className={cn(
+                "flex size-9 items-center justify-center rounded-lg transition-colors active:scale-95",
+                active ? "bg-brand-accent/12 text-brand-accent" : "text-muted-foreground hover:bg-muted",
+              )}
+            >
+              <Icon className="size-4" />
+            </button>
+          );
+        })}
+        <div className="mx-1 h-6 w-px bg-border" />
+        <button
+          type="button"
+          title="Read sketch"
+          onClick={readSketch}
+          disabled={pending}
+          className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50"
+        >
+          <ScanLine className="size-4" />
+        </button>
+      </div>
+      {msg && (
+        <p className="mt-1 rounded-xl border border-border bg-card/90 px-2 py-1 text-center text-[11px] text-destructive shadow-sm">
+          {msg}
+        </p>
+      )}
+    </div>
+  );
+}

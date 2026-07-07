@@ -15,7 +15,7 @@ import {
 } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
-import { CanvasToolsRail } from "./canvas-tools-rail";
+import { CanvasToolbar } from "./canvas-toolbar";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
 
@@ -134,7 +134,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
             </p>
           </div>
         )}
-        {canEdit && <CanvasToolsRail projectId={projectId} />}
+        {canEdit && <CanvasToolbar projectId={projectId} />}
       </div>
     </ReactFlowProvider>
   );
