@@ -21,6 +21,7 @@ import { CanvasToolbar } from "./canvas-toolbar";
 import { CanvasContextMenu, type ContextMenuState } from "./canvas-context-menu";
 import { SelectionToolbar } from "./selection-toolbar";
 import { HelperLines } from "./helper-lines";
+import { CommandPalette } from "./command-palette";
 import { StylePanel } from "./style-panel";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
@@ -228,6 +229,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
         {canEdit && contextMenu && (
           <CanvasContextMenu menu={contextMenu} onClose={() => setContextMenu(null)} />
         )}
+        {canEdit && <CommandPalette />}
       </div>
     </ReactFlowProvider>
   );
