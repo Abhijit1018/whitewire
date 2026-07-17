@@ -14,6 +14,7 @@ import { applyCleanup } from "./cleanup-adapter";
 import { interpretSketchAction } from "@/app/p/[projectId]/sketch-actions";
 import { useRef, useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
+import { useCollisionDodge } from "./use-collision-dodge";
 
 const ICONS: Record<CanvasTool, LucideIcon> = {
   select: MousePointer2, hand: Hand, pen: Pencil, rectangle: Square, ellipse: Circle,
@@ -40,6 +41,18 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   const [msg, setMsg] = useState<string | null>(null);
   const [shapeMenuOpen, setShapeMenuOpen] = useState(false);
   const shapeMenuRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const { collapsed, openPanelKey } = useCollisionDodge(wrapperRef);
+  const [userExpanded, setUserExpanded] = useState(false);
+  // Reset the manual "keep tools open" override whenever the set of open
+  // dropdowns changes (a new one opens, or the current one closes).
+  useEffect(() => {
+    setUserExpanded(false);
+  }, [openPanelKey]);
+  // Compact = a dropdown overlaps us AND the user hasn't forced tools back open.
+  const compact = collapsed && !userExpanded;
+  const activeMeta = PHASE1_TOOLS.find((t) => t.tool === activeTool) ?? PHASE1_TOOLS[0];
+  const ActiveIcon = ICONS[activeMeta.tool];
 
   function insert(tool: CanvasTool) {
     const def = INSERT_DEFAULTS[tool];
@@ -133,71 +146,103 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="absolute left-1/2 top-3 z-30 -translate-x-1/2">
-      <div className="flex items-center gap-1 rounded-2xl border border-border bg-card/95 p-1.5 shadow-sm backdrop-blur">
-        {PHASE1_TOOLS.map((t) => {
-          const Icon = ICONS[t.tool];
-          const active = t.behavior === "mode" && activeTool === t.tool;
-          return (
-            <span key={t.tool} className="contents">
-              <button
-                type="button"
-                title={t.shortcut ? `${t.label} (${t.shortcut.toUpperCase()})` : t.label}
-                onClick={() => activate(t.tool, t.behavior)}
-                className={cn(
-                  "flex size-9 items-center justify-center rounded-lg transition-colors active:scale-95",
-                  active ? "bg-brand-accent/12 text-brand-accent" : "text-muted-foreground hover:bg-muted",
-                )}
-              >
-                <Icon className="size-4" />
-              </button>
-              {t.tool === "pen" && (
-                <div className="relative" ref={shapeMenuRef}>
-                  <button
-                    type="button"
-                    title="Shapes"
-                    onClick={() => setShapeMenuOpen((o) => !o)}
-                    className="flex h-9 items-center gap-0.5 rounded-lg px-2 text-muted-foreground transition-colors hover:bg-muted"
-                  >
-                    <Shapes className="size-4" />
-                    <ChevronDown className="size-3" />
-                  </button>
-                  {shapeMenuOpen && (
-                    <div className="absolute left-0 top-11 z-40 w-56 rounded-xl border border-border bg-card p-2 shadow-lg">
-                      {(["basic", "flowchart", "decorative"] as const).map((cat) => (
-                        <div key={cat} className="mb-1.5 last:mb-0">
-                          <p className="px-1.5 pb-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{cat}</p>
-                          <div className="grid grid-cols-2 gap-0.5">
-                            {SHAPES.filter((s) => s.category === cat).map((s) => (
-                              <button
-                                key={s.id}
-                                type="button"
-                                onClick={() => insertShape(s.id)}
-                                className="rounded-md px-2 py-1.5 text-left text-xs text-foreground transition-colors hover:bg-muted"
-                              >
-                                {s.label}
-                              </button>
+    <div ref={wrapperRef} className="absolute left-1/2 top-3 z-30 -translate-x-1/2">
+      <div className="flex items-center rounded-2xl border border-border bg-card/95 p-1.5 shadow-sm backdrop-blur">
+        {/* Full toolbar: collapses to zero width (grid 1fr→0fr) when a header
+            dropdown overlaps us, so the dropdown gets its space back. */}
+        <div
+          className={cn(
+            "grid transition-[grid-template-columns] duration-200 ease-out",
+            compact ? "grid-cols-[0fr]" : "grid-cols-[1fr]",
+          )}
+          aria-hidden={compact}
+        >
+          <div className="overflow-hidden">
+            <div
+              className={cn(
+                "flex items-center gap-1 transition-opacity duration-150",
+                compact && "pointer-events-none opacity-0",
+              )}
+            >
+              {PHASE1_TOOLS.map((t) => {
+                const Icon = ICONS[t.tool];
+                const active = t.behavior === "mode" && activeTool === t.tool;
+                return (
+                  <span key={t.tool} className="contents">
+                    <button
+                      type="button"
+                      title={t.shortcut ? `${t.label} (${t.shortcut.toUpperCase()})` : t.label}
+                      onClick={() => activate(t.tool, t.behavior)}
+                      className={cn(
+                        "flex size-9 items-center justify-center rounded-lg transition-colors active:scale-95",
+                        active ? "bg-brand-accent/12 text-brand-accent" : "text-muted-foreground hover:bg-muted",
+                      )}
+                    >
+                      <Icon className="size-4" />
+                    </button>
+                    {t.tool === "pen" && (
+                      <div className="relative" ref={shapeMenuRef}>
+                        <button
+                          type="button"
+                          title="Shapes"
+                          onClick={() => setShapeMenuOpen((o) => !o)}
+                          className="flex h-9 items-center gap-0.5 rounded-lg px-2 text-muted-foreground transition-colors hover:bg-muted"
+                        >
+                          <Shapes className="size-4" />
+                          <ChevronDown className="size-3" />
+                        </button>
+                        {shapeMenuOpen && (
+                          <div className="absolute left-0 top-11 z-40 w-56 rounded-xl border border-border bg-card p-2 shadow-lg">
+                            {(["basic", "flowchart", "decorative"] as const).map((cat) => (
+                              <div key={cat} className="mb-1.5 last:mb-0">
+                                <p className="px-1.5 pb-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{cat}</p>
+                                <div className="grid grid-cols-2 gap-0.5">
+                                  {SHAPES.filter((s) => s.category === cat).map((s) => (
+                                    <button
+                                      key={s.id}
+                                      type="button"
+                                      onClick={() => insertShape(s.id)}
+                                      className="rounded-md px-2 py-1.5 text-left text-xs text-foreground transition-colors hover:bg-muted"
+                                    >
+                                      {s.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
                             ))}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </span>
-          );
-        })}
-        <div className="mx-1 h-6 w-px bg-border" />
-        <button
-          type="button"
-          title="Read sketch"
-          onClick={readSketch}
-          disabled={pending}
-          className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50"
-        >
-          <ScanLine className="size-4" />
-        </button>
+                        )}
+                      </div>
+                    )}
+                  </span>
+                );
+              })}
+              <div className="mx-1 h-6 w-px bg-border" />
+              <button
+                type="button"
+                title="Read sketch"
+                onClick={readSketch}
+                disabled={pending}
+                className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50"
+              >
+                <ScanLine className="size-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* Compact stand-in: shows the active tool + a chevron to pop tools back
+            out. Only present (and clickable) while shrunk. */}
+        {compact && (
+          <button
+            type="button"
+            title="Expand toolbar"
+            onClick={() => setUserExpanded(true)}
+            className="flex h-9 items-center gap-0.5 rounded-lg px-2 text-brand-accent transition-colors hover:bg-muted"
+          >
+            <ActiveIcon className="size-4" />
+            <ChevronDown className="size-3 text-muted-foreground" />
+          </button>
+        )}
       </div>
       {msg && (
         <p className="mt-1 rounded-xl border border-border bg-card/90 px-2 py-1 text-center text-[11px] text-destructive shadow-sm">

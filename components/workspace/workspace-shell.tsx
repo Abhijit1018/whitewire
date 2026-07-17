@@ -65,7 +65,9 @@ export function WorkspaceShell({
         </div>
       </header>
       <div className="flex flex-1 overflow-hidden">
-        <section className="relative flex-1 bg-surface-muted">{children}</section>
+        {/* `isolate` confines the canvas's floating toolbar (z-30) to its own
+            stacking context so it can't tie with the header and cover its dropdowns. */}
+        <section className="relative isolate flex-1 bg-surface-muted">{children}</section>
         <InspectorPanel projectId={projectId} />
       </div>
       {canEdit && (

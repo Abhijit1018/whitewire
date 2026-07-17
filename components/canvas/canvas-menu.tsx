@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Grid3x3, Download } from "lucide-react";
 import { useWorkspaceStore, type BgVariant } from "@/core/state/workspace-store";
 import { exportBoard } from "./export-canvas";
+import { useFloatingPanelRect } from "./use-floating-panel-rect";
 import { cn } from "@/lib/utils";
 
 const GRIDS: { value: BgVariant; label: string }[] = [
@@ -22,6 +23,7 @@ export function CanvasMenu() {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const panelRef = useFloatingPanelRect("canvas-menu", open);
 
   useEffect(() => {
     if (!open) return;
@@ -57,6 +59,7 @@ export function CanvasMenu() {
       </button>
       {open && (
         <div
+          ref={panelRef}
           role="menu"
           className="absolute right-0 top-full z-50 mt-1 w-56 rounded-xl border border-border bg-surface p-3 shadow-xl"
         >

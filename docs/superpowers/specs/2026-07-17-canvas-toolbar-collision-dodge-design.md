@@ -1,8 +1,16 @@
 # Canvas Toolbar Collision Dodge — Design
 
-**Date:** 2026-07-17
+**Date:** 2026-07-17 (revised 2026-07-17: rail → shrink-pill collapse)
 **Status:** Approved (brainstorm) → pending spec review
 **Author:** Abhijeet + Claude
+
+> **Revision note:** The collapse behavior was changed from "relocate to a
+> right-edge vertical rail" to "shrink in place into a compact pill" (see
+> [Collapsed toolbar behavior](#collapsed-toolbar-behavior)). The detection
+> architecture (store + hooks + `rectsIntersect`) is unchanged. This dodge is
+> **Phase 0** of a larger canvas-freedom roadmap; Phases 1-4 (right-click
+> context menu, multi-select + group/lock, smart align + snap, command palette)
+> are tracked separately, each with its own spec.
 
 ## Problem
 
@@ -88,19 +96,28 @@ Lives alongside the toolbar (`core/canvas/use-collision-dodge.ts`). Used only by
 ## Collapsed toolbar behavior
 
 `CanvasToolbar` renders the same buttons/handlers in both states — only the
-shell layout changes:
+shell width changes. The toolbar stays anchored **top-center** (`left-1/2 top-3
+-translate-x-1/2`) in both states; it does **not** relocate.
 
-- **Expanded (current):** horizontal pill, centered, `top-3`.
-- **Collapsed:** vertical rail docked to the canvas viewport's right edge
-  (`right-3`, vertically centered). This is the only edge free of other
-  overlays: `StylePanel` occupies top-left, `InspectorPanel` is a separate flex
-  column further right (outside the canvas section), and header dropdowns live
-  top-center.
-- Same icon set, stacked in a column instead of a row; transition via
-  `transform`/`opacity` so it reads as one toolbar shrinking and relocating.
-- The toolbar's own "Shapes" flyout (`shapeMenuOpen` in canvas-toolbar.tsx)
-  currently opens *below* itself. While `collapsed`, it opens *leftward*
-  instead, so it doesn't run off the canvas edge.
+- **Expanded (current):** horizontal pill showing every tool button.
+- **Collapsed:** the pill shrinks in place to a single icon. Every button
+  *except the currently active tool* transitions to `max-w-0 opacity-0` inside
+  an `overflow-hidden` container, so the pill smoothly narrows to one button.
+  Shrinking the toolbar's rect down to a single centered icon clears both the
+  left-anchored `PluginMenu` and the right-anchored `CanvasMenu`, giving the
+  open dropdown its space.
+- A small chevron affordance stays visible while collapsed. Clicking it sets a
+  local `userExpanded` override that forces the full row back even while a
+  dropdown is open, so tools remain reachable if the user wants one. Opening a
+  fresh dropdown (or closing the current one) resets `userExpanded`.
+- Animation is pure CSS (`transition-all`), driven by each hidden button
+  transitioning its `max-width`/`opacity` — no DOM swap, no layout thrash, so it
+  reads as one pill smoothly shrinking and re-growing.
+- The toolbar's own "Shapes" flyout still opens *below* itself in both states
+  (the toolbar never leaves the top edge), so no repositioning is needed.
+- Complements the `isolate` stacking fix already applied to the canvas
+  `<section>` in `workspace-shell.tsx`, which keeps the header dropdown painted
+  above the toolbar throughout the shrink/grow transition.
 
 ## Edge cases
 
@@ -108,11 +125,15 @@ shell layout changes:
   collapses if *any* rect intersects.
 - Window resize while a panel is open: resize listeners on both hooks keep
   rects fresh, so `collapsed` recomputes correctly.
-- Toolbar's shapes sub-menu while collapsed: repositioned per above so it stays
-  on-screen.
-- Narrow/mobile viewports: out of scope for this pass — the collapsed rail
-  (~44px wide) should fit, but no further mobile-specific layout work is
-  planned here.
+- User forces the row back open (`userExpanded`) while a dropdown is still open:
+  the toolbar re-expands to full width and may visually overlap the dropdown
+  again — this is an explicit user action, and `isolate` keeps the dropdown on
+  top. `userExpanded` resets when the dropdown set changes or closes.
+- Active tool while collapsed: the single visible icon is the active tool, so
+  the current mode stays legible even in the compact state.
+- Narrow/mobile viewports: out of scope for this pass — shrinking to a single
+  centered icon only helps on narrow screens, but no further mobile-specific
+  layout work is planned here.
 
 ## Testing
 

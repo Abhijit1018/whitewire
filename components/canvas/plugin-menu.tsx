@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { PLUGINS } from "@/core/plugins/registry";
 import { useInstalledPlugins } from "@/components/marketplace/use-installed-plugins";
+import { useFloatingPanelRect } from "./use-floating-panel-rect";
 
 /** Where to drop a plugin's nodes: below existing content, or a sensible default. */
 function dropCenter() {
@@ -21,6 +22,7 @@ export function PluginMenu() {
   const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const panelRef = useFloatingPanelRect("plugin-menu", open);
 
   useEffect(() => {
     if (!open) return;
@@ -54,6 +56,7 @@ export function PluginMenu() {
       </button>
       {open && (
         <div
+          ref={panelRef}
           role="menu"
           className="absolute left-0 top-full z-50 mt-1 w-64 rounded-xl border border-border bg-surface p-1 shadow-xl"
         >
