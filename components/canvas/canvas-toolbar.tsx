@@ -157,7 +157,9 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           )}
           aria-hidden={compact}
         >
-          <div className="overflow-hidden">
+          {/* Clip only while shrinking; when expanded, stay visible so the
+              Shapes flyout (which opens below the row) isn't cut off. */}
+          <div className={compact ? "overflow-hidden" : "overflow-visible"}>
             <div
               className={cn(
                 "flex items-center gap-1 transition-opacity duration-150",

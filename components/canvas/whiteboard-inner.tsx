@@ -46,6 +46,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
   const setGraph = useWorkspaceStore((s) => s.setGraph);
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const penMode = useWorkspaceStore((s) => s.penMode);
+  const activeTool = useWorkspaceStore((s) => s.activeTool);
   const bgVariant = useWorkspaceStore((s) => s.bgVariant);
   const duplicateNode = useWorkspaceStore((s) => s.duplicateNode);
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
@@ -141,7 +142,10 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           defaultEdgeOptions={defaultEdgeOptions}
           fitView
           minZoom={0.2}
-          panOnDrag={!penMode}
+          // Hand → left-drag pans. Select → left-drag box-selects, middle-drag
+          // pans. Pen → neither (PenLayer owns the pointer).
+          panOnDrag={penMode ? false : activeTool === "hand" ? true : [1]}
+          selectionOnDrag={!penMode && activeTool === "select"}
           nodesDraggable={canEdit && !penMode}
           elementsSelectable={canEdit && !penMode}
           nodesConnectable={canEdit}
