@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Background,
   BackgroundVariant,
@@ -16,6 +16,7 @@ import {
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
 import { CanvasToolbar } from "./canvas-toolbar";
+import { CanvasContextMenu, type ContextMenuState } from "./canvas-context-menu";
 import { StylePanel } from "./style-panel";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
@@ -45,6 +46,24 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
   const setSelection = useWorkspaceStore((s) => s.setSelection);
   const penMode = useWorkspaceStore((s) => s.penMode);
   const bgVariant = useWorkspaceStore((s) => s.bgVariant);
+  const duplicateNode = useWorkspaceStore((s) => s.duplicateNode);
+  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
+
+  // Ctrl/Cmd+D duplicates the selected node (ignored while typing).
+  useEffect(() => {
+    if (!canEdit) return;
+    function onKey(e: KeyboardEvent) {
+      if (!(e.key === "d" || e.key === "D") || !(e.metaKey || e.ctrlKey)) return;
+      const el = e.target as HTMLElement | null;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) return;
+      const id = useWorkspaceStore.getState().selectedNodeId;
+      if (!id) return;
+      e.preventDefault();
+      duplicateNode(id);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [canEdit, duplicateNode]);
 
   // Load the saved snapshot once.
   const initRef = useRef(false);
@@ -87,6 +106,24 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
     [setSelection],
   );
 
+  const onNodeContextMenu = useCallback(
+    (e: React.MouseEvent, node: AiNode) => {
+      if (!canEdit) return;
+      e.preventDefault();
+      setContextMenu({ x: e.clientX, y: e.clientY, nodeId: node.id });
+    },
+    [canEdit],
+  );
+
+  const onPaneContextMenu = useCallback(
+    (e: React.MouseEvent | MouseEvent) => {
+      if (!canEdit) return;
+      e.preventDefault();
+      setContextMenu({ x: e.clientX, y: e.clientY, nodeId: null });
+    },
+    [canEdit],
+  );
+
   return (
     <ReactFlowProvider>
       <div className="relative h-full w-full">
@@ -97,6 +134,8 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           onSelectionChange={onSelectionChange}
+          onNodeContextMenu={onNodeContextMenu}
+          onPaneContextMenu={onPaneContextMenu}
           nodeTypes={nodeTypes}
           defaultEdgeOptions={defaultEdgeOptions}
           fitView
@@ -137,6 +176,9 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
         )}
         {canEdit && <CanvasToolbar projectId={projectId} />}
         {canEdit && <StylePanel />}
+        {canEdit && contextMenu && (
+          <CanvasContextMenu menu={contextMenu} onClose={() => setContextMenu(null)} />
+        )}
       </div>
     </ReactFlowProvider>
   );

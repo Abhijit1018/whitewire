@@ -25,6 +25,7 @@ export type AiNodeData = {
   size?: number;
   wireframe?: WireframeSpec;
   style?: ShapeStyle;
+  locked?: boolean;
 };
 export type AiNode = Node<AiNodeData>;
 
@@ -56,6 +57,11 @@ type WorkspaceState = {
   addNodesEdges: (nodes: AiNode[], edges: Edge[]) => void;
   updateNodeData: (id: string, data: Partial<AiNodeData>) => void;
   deleteNode: (id: string) => void;
+  duplicateNode: (id: string) => void;
+  bringNodeToFront: (id: string) => void;
+  sendNodeToBack: (id: string) => void;
+  setNodeLocked: (id: string, locked: boolean) => void;
+  applyStyleToNode: (id: string, patch: Partial<ShapeStyle>) => void;
   setSelection: (sel: { id: string | null; text: string; kind: string; type: string }) => void;
 };
 
@@ -106,6 +112,53 @@ export function makeStore() {
         nodes: state.nodes.filter((n) => n.id !== id),
         edges: state.edges.filter((e) => e.source !== id && e.target !== id),
         selectedNodeId: state.selectedNodeId === id ? null : state.selectedNodeId,
+      })),
+    duplicateNode: (id) =>
+      set((state) => {
+        const src = state.nodes.find((n) => n.id === id);
+        if (!src) return state;
+        const clone: AiNode = {
+          ...src,
+          id: crypto.randomUUID(),
+          position: { x: src.position.x + 24, y: src.position.y + 24 },
+          selected: false,
+          data: { ...src.data },
+        };
+        return { nodes: [...state.nodes, clone] };
+      }),
+    bringNodeToFront: (id) =>
+      set((state) => {
+        const idx = state.nodes.findIndex((n) => n.id === id);
+        if (idx === -1) return state;
+        const next = [...state.nodes];
+        const [n] = next.splice(idx, 1);
+        next.push(n);
+        return { nodes: next };
+      }),
+    sendNodeToBack: (id) =>
+      set((state) => {
+        const idx = state.nodes.findIndex((n) => n.id === id);
+        if (idx === -1) return state;
+        const next = [...state.nodes];
+        const [n] = next.splice(idx, 1);
+        next.unshift(n);
+        return { nodes: next };
+      }),
+    setNodeLocked: (id, locked) =>
+      set((state) => ({
+        nodes: state.nodes.map((n) =>
+          n.id === id
+            ? { ...n, draggable: !locked, connectable: !locked, data: { ...n.data, locked } }
+            : n,
+        ),
+      })),
+    applyStyleToNode: (id, patch) =>
+      set((state) => ({
+        nodes: state.nodes.map((n) =>
+          n.id === id
+            ? { ...n, data: { ...n.data, style: { ...state.toolDefaults, ...(n.data.style ?? {}), ...patch } } }
+            : n,
+        ),
       })),
     setSelection: ({ id, text, kind, type }) =>
       set({
