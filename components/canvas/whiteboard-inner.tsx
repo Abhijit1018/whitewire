@@ -11,13 +11,16 @@ import {
   ReactFlowProvider,
   type DefaultEdgeOptions,
   type Edge,
+  type NodeChange,
   type OnSelectionChangeParams,
 } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
+import { getHelperLines } from "@/core/canvas/helper-lines";
 import { nodeTypes } from "./ai-node";
 import { CanvasToolbar } from "./canvas-toolbar";
 import { CanvasContextMenu, type ContextMenuState } from "./canvas-context-menu";
 import { SelectionToolbar } from "./selection-toolbar";
+import { HelperLines } from "./helper-lines";
 import { StylePanel } from "./style-panel";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
@@ -48,8 +51,45 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
   const penMode = useWorkspaceStore((s) => s.penMode);
   const activeTool = useWorkspaceStore((s) => s.activeTool);
   const bgVariant = useWorkspaceStore((s) => s.bgVariant);
+  const snapToGrid = useWorkspaceStore((s) => s.snapToGrid);
   const duplicateNode = useWorkspaceStore((s) => s.duplicateNode);
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
+  const [helperLines, setHelperLines] = useState<{ horizontal?: number; vertical?: number }>({});
+
+  // Wrap node changes: while dragging a single node, snap it to alignment
+  // guides against the other nodes and surface the active guide lines.
+  const handleNodesChange = useCallback(
+    (changes: NodeChange<AiNode>[]) => {
+      const drags = changes.filter(
+        (c) => c.type === "position" && c.dragging === true && c.position,
+      );
+      if (drags.length === 1) {
+        const change = drags[0];
+        if (change.type === "position" && change.position) {
+          const all = useWorkspaceStore.getState().nodes;
+          const node = all.find((n) => n.id === change.id);
+          const size = (n?: AiNode) => ({
+            width: n?.measured?.width ?? n?.width ?? 0,
+            height: n?.measured?.height ?? n?.height ?? 0,
+          });
+          if (node) {
+            const dragged = { id: change.id, x: change.position.x, y: change.position.y, ...size(node) };
+            const others = all
+              .filter((n) => n.id !== change.id)
+              .map((n) => ({ id: n.id, x: n.position.x, y: n.position.y, ...size(n) }));
+            const lines = getHelperLines(dragged, others);
+            if (lines.snapX !== undefined) change.position.x = lines.snapX;
+            if (lines.snapY !== undefined) change.position.y = lines.snapY;
+            setHelperLines({ horizontal: lines.horizontal, vertical: lines.vertical });
+          }
+        }
+      } else {
+        setHelperLines({});
+      }
+      onNodesChange(changes);
+    },
+    [onNodesChange],
+  );
 
   // Ctrl/Cmd+D duplicates the selected node (ignored while typing).
   useEffect(() => {
@@ -132,7 +172,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
         <ReactFlow
           nodes={nodes}
           edges={edges}
-          onNodesChange={onNodesChange}
+          onNodesChange={handleNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           onSelectionChange={onSelectionChange}
@@ -146,6 +186,8 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           // pans. Pen → neither (PenLayer owns the pointer).
           panOnDrag={penMode ? false : activeTool === "hand" ? true : [1]}
           selectionOnDrag={!penMode && activeTool === "select"}
+          snapToGrid={snapToGrid}
+          snapGrid={[22, 22]}
           nodesDraggable={canEdit && !penMode}
           elementsSelectable={canEdit && !penMode}
           nodesConnectable={canEdit}
@@ -167,6 +209,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           )}
           <Controls />
           <MiniMap pannable zoomable className="!rounded-lg !border !border-border" />
+          {canEdit && <HelperLines horizontal={helperLines.horizontal} vertical={helperLines.vertical} />}
         </ReactFlow>
         {penMode && canEdit && <PenLayer />}
         <CollabLayer projectId={projectId} />

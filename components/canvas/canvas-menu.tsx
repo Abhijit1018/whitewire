@@ -19,6 +19,8 @@ const EXPORTS = ["png", "svg", "pdf"] as const;
 export function CanvasMenu() {
   const bgVariant = useWorkspaceStore((s) => s.bgVariant);
   const setBgVariant = useWorkspaceStore((s) => s.setBgVariant);
+  const snapToGrid = useWorkspaceStore((s) => s.snapToGrid);
+  const setSnapToGrid = useWorkspaceStore((s) => s.setSnapToGrid);
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -81,6 +83,29 @@ export function CanvasMenu() {
               </button>
             ))}
           </div>
+
+          <div className="my-3 h-px bg-border" />
+
+          <button
+            type="button"
+            onClick={() => setSnapToGrid(!snapToGrid)}
+            className="flex w-full items-center justify-between rounded-md px-1 py-1 text-xs font-semibold text-muted-foreground transition-colors hover:bg-muted"
+          >
+            <span>Snap to grid</span>
+            <span
+              className={cn(
+                "relative h-4 w-7 rounded-full transition-colors",
+                snapToGrid ? "bg-brand-accent" : "bg-border",
+              )}
+            >
+              <span
+                className={cn(
+                  "absolute top-0.5 size-3 rounded-full bg-white transition-transform",
+                  snapToGrid ? "translate-x-3.5" : "translate-x-0.5",
+                )}
+              />
+            </span>
+          </button>
 
           <div className="my-3 h-px bg-border" />
 

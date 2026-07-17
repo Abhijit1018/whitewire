@@ -44,11 +44,13 @@ type WorkspaceState = {
   selectedNodeType: string;
   penMode: boolean;
   bgVariant: BgVariant;
+  snapToGrid: boolean;
   activeTool: CanvasTool;
   toolDefaults: ShapeStyle;
 
   setPenMode: (on: boolean) => void;
   setBgVariant: (v: BgVariant) => void;
+  setSnapToGrid: (on: boolean) => void;
   setActiveTool: (t: CanvasTool) => void;
   setToolDefaults: (patch: Partial<ShapeStyle>) => void;
   applyStyleToSelection: (patch: Partial<ShapeStyle>) => void;
@@ -92,6 +94,7 @@ export function makeStore() {
     selectedNodeType: "",
     penMode: false,
     bgVariant: "dots",
+    snapToGrid: false,
     activeTool: "select",
     toolDefaults: { ...DEFAULT_STYLE },
 
@@ -109,6 +112,7 @@ export function makeStore() {
         ),
       })),
     setBgVariant: (v) => set({ bgVariant: v }),
+    setSnapToGrid: (on) => set({ snapToGrid: on }),
     onNodesChange: (changes) =>
       set({ nodes: applyNodeChanges(changes, get().nodes) as AiNode[] }),
     onEdgesChange: (changes) => set({ edges: applyEdgeChanges(changes, get().edges) }),
