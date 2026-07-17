@@ -45,3 +45,6 @@ dist/
 
 .vercel
 .env*
+
+# claude code local overrides
+.claude/settings.local.json
