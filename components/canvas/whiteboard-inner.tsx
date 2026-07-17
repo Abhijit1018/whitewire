@@ -17,6 +17,7 @@ import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { nodeTypes } from "./ai-node";
 import { CanvasToolbar } from "./canvas-toolbar";
 import { CanvasContextMenu, type ContextMenuState } from "./canvas-context-menu";
+import { SelectionToolbar } from "./selection-toolbar";
 import { StylePanel } from "./style-panel";
 import { PenLayer } from "./pen-layer";
 import { CollabLayer } from "./collab-layer";
@@ -175,6 +176,7 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
           </div>
         )}
         {canEdit && <CanvasToolbar projectId={projectId} />}
+        {canEdit && <SelectionToolbar />}
         {canEdit && <StylePanel />}
         {canEdit && contextMenu && (
           <CanvasContextMenu menu={contextMenu} onClose={() => setContextMenu(null)} />

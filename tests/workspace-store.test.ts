@@ -137,3 +137,76 @@ describe("applyStyleToNode", () => {
     expect(store.getState().toolDefaults.stroke).toBe(DEFAULT_STYLE.stroke); // unchanged
   });
 });
+
+function seedThree() {
+  store.getState().setGraph(
+    [
+      { id: "a", type: "aiNode", position: { x: 0, y: 0 }, width: 100, height: 40,
+        data: { text: "A", kind: "idea", purpose: "", model: "" } },
+      { id: "b", type: "aiNode", position: { x: 50, y: 100 }, width: 60, height: 20,
+        data: { text: "B", kind: "idea", purpose: "", model: "" } },
+      { id: "c", type: "aiNode", position: { x: 200, y: 30 }, width: 40, height: 80,
+        data: { text: "C", kind: "idea", purpose: "", model: "" } },
+    ] as never,
+    [
+      { id: "e1", source: "a", target: "b" },
+      { id: "e2", source: "b", target: "c" },
+    ],
+  );
+}
+
+describe("alignNodes", () => {
+  it("left-aligns only the given ids to their shared min x", () => {
+    seedThree();
+    store.getState().alignNodes(["a", "b", "c"], "left");
+    const map = Object.fromEntries(store.getState().nodes.map((n) => [n.id, n.position.x]));
+    expect(map).toEqual({ a: 0, b: 0, c: 0 });
+  });
+
+  it("ignores nodes not in the id list", () => {
+    seedThree();
+    store.getState().alignNodes(["a", "b"], "left"); // c excluded
+    expect(store.getState().nodes.find((n) => n.id === "c")!.position.x).toBe(200);
+  });
+});
+
+describe("distributeNodes", () => {
+  it("moves the middle node so centers are evenly spaced", () => {
+    seedThree();
+    store.getState().distributeNodes(["a", "b", "c"], "h");
+    // centers x: a=50, b=80, c=220 → middle center 135 → b.x = 135 - 30
+    expect(store.getState().nodes.find((n) => n.id === "b")!.position.x).toBe(105);
+  });
+});
+
+describe("lockNodes / deleteNodes / duplicateNodes / applyStyleToNodes", () => {
+  it("lockNodes locks all given ids", () => {
+    seedThree();
+    store.getState().lockNodes(["a", "b"], true);
+    const locked = store.getState().nodes.filter((n) => n.data.locked).map((n) => n.id);
+    expect(locked.sort()).toEqual(["a", "b"]);
+    expect(store.getState().nodes.find((n) => n.id === "a")!.draggable).toBe(false);
+  });
+
+  it("deleteNodes removes the ids and any edges touching them", () => {
+    seedThree();
+    store.getState().deleteNodes(["b"]);
+    expect(store.getState().nodes.map((n) => n.id).sort()).toEqual(["a", "c"]);
+    expect(store.getState().edges).toHaveLength(0); // both edges touched b
+  });
+
+  it("duplicateNodes appends an offset clone per id", () => {
+    seedThree();
+    store.getState().duplicateNodes(["a", "c"]);
+    expect(store.getState().nodes).toHaveLength(5);
+    const clones = store.getState().nodes.slice(3);
+    expect(clones.every((n) => n.selected === false)).toBe(true);
+  });
+
+  it("applyStyleToNodes styles all given ids", () => {
+    seedThree();
+    store.getState().applyStyleToNodes(["a", "c"], { stroke: "#123456" });
+    const strokes = store.getState().nodes.map((n) => n.data.style?.stroke);
+    expect(strokes).toEqual(["#123456", undefined, "#123456"]);
+  });
+});

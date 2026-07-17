@@ -13,6 +13,10 @@ import {
 import type { WireframeSpec } from "@/core/ai/wireframe";
 import type { CanvasTool } from "@/core/canvas/tools";
 import { type ShapeStyle, DEFAULT_STYLE } from "@/core/canvas/style";
+import {
+  computeAlign, computeDistribute,
+  type AlignEdge, type AlignNode, type DistributeAxis,
+} from "@/core/canvas/align";
 
 export type AiNodeData = {
   text: string;
@@ -62,8 +66,21 @@ type WorkspaceState = {
   sendNodeToBack: (id: string) => void;
   setNodeLocked: (id: string, locked: boolean) => void;
   applyStyleToNode: (id: string, patch: Partial<ShapeStyle>) => void;
+  alignNodes: (ids: string[], edge: AlignEdge) => void;
+  distributeNodes: (ids: string[], axis: DistributeAxis) => void;
+  lockNodes: (ids: string[], locked: boolean) => void;
+  deleteNodes: (ids: string[]) => void;
+  duplicateNodes: (ids: string[]) => void;
+  applyStyleToNodes: (ids: string[], patch: Partial<ShapeStyle>) => void;
   setSelection: (sel: { id: string | null; text: string; kind: string; type: string }) => void;
 };
+
+/** Resolve a node's on-screen size from whatever RF has populated. */
+function nodeSize(n: AiNode): { width: number; height: number } {
+  const w = n.width ?? n.measured?.width ?? (typeof n.style?.width === "number" ? n.style.width : 0) ?? 0;
+  const h = n.height ?? n.measured?.height ?? (typeof n.style?.height === "number" ? n.style.height : 0) ?? 0;
+  return { width: w, height: h };
+}
 
 export function makeStore() {
   return create<WorkspaceState>((set, get) => ({
@@ -160,6 +177,77 @@ export function makeStore() {
             : n,
         ),
       })),
+    alignNodes: (ids, edge) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        const targets: AlignNode[] = state.nodes
+          .filter((n) => set_.has(n.id))
+          .map((n) => ({ id: n.id, x: n.position.x, y: n.position.y, ...nodeSize(n) }));
+        const patch = computeAlign(targets, edge);
+        return {
+          nodes: state.nodes.map((n) =>
+            patch[n.id] ? { ...n, position: { ...n.position, ...patch[n.id] } } : n,
+          ),
+        };
+      }),
+    distributeNodes: (ids, axis) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        const targets: AlignNode[] = state.nodes
+          .filter((n) => set_.has(n.id))
+          .map((n) => ({ id: n.id, x: n.position.x, y: n.position.y, ...nodeSize(n) }));
+        const patch = computeDistribute(targets, axis);
+        return {
+          nodes: state.nodes.map((n) =>
+            patch[n.id] ? { ...n, position: { ...n.position, ...patch[n.id] } } : n,
+          ),
+        };
+      }),
+    lockNodes: (ids, locked) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        return {
+          nodes: state.nodes.map((n) =>
+            set_.has(n.id)
+              ? { ...n, draggable: !locked, connectable: !locked, data: { ...n.data, locked } }
+              : n,
+          ),
+        };
+      }),
+    deleteNodes: (ids) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        return {
+          nodes: state.nodes.filter((n) => !set_.has(n.id)),
+          edges: state.edges.filter((e) => !set_.has(e.source) && !set_.has(e.target)),
+          selectedNodeId: set_.has(state.selectedNodeId ?? "") ? null : state.selectedNodeId,
+        };
+      }),
+    duplicateNodes: (ids) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        const clones: AiNode[] = state.nodes
+          .filter((n) => set_.has(n.id))
+          .map((src) => ({
+            ...src,
+            id: crypto.randomUUID(),
+            position: { x: src.position.x + 24, y: src.position.y + 24 },
+            selected: false,
+            data: { ...src.data },
+          }));
+        return { nodes: [...state.nodes, ...clones] };
+      }),
+    applyStyleToNodes: (ids, patch) =>
+      set((state) => {
+        const set_ = new Set(ids);
+        return {
+          nodes: state.nodes.map((n) =>
+            set_.has(n.id)
+              ? { ...n, data: { ...n.data, style: { ...state.toolDefaults, ...(n.data.style ?? {}), ...patch } } }
+              : n,
+          ),
+        };
+      }),
     setSelection: ({ id, text, kind, type }) =>
       set({
         selectedNodeId: id,
