@@ -3,24 +3,23 @@
 import { useState, useTransition } from "react";
 import type { Edge } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
+import { notify, notifyActionError } from "@/core/state/notify-store";
 import { commandGenerateAction } from "@/app/p/[projectId]/ai-actions";
 import { applyCleanup } from "./cleanup-adapter";
 
 export function CommandBar({ projectId }: { projectId: string }) {
   const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const [prompt, setPrompt] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   function submit() {
     if (!prompt.trim()) return;
     const text = prompt.trim();
     startTransition(async () => {
-      setError(null);
       try {
         const res = await commandGenerateAction(projectId, text);
         if (res.error) {
-          setError(res.error);
+          notifyActionError(res.error, res.code);
           return;
         }
         const bp = res.nodes ?? [];
@@ -41,7 +40,7 @@ export function CommandBar({ projectId }: { projectId: string }) {
         applyCleanup();
         setPrompt("");
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Generation failed");
+        notify({ kind: "error", message: e instanceof Error ? e.message : "Generation failed" });
       }
     });
   }
@@ -63,7 +62,6 @@ export function CommandBar({ projectId }: { projectId: string }) {
       >
         {pending ? "Generating…" : "Generate"}
       </button>
-      {error && <span className="text-sm text-destructive">{error}</span>}
     </div>
   );
 }

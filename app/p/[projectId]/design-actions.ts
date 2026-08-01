@@ -1,11 +1,12 @@
 "use server";
 
 import type { WireframeSpec } from "@/core/ai/wireframe";
+import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 export async function wireframeAction(
   projectId: string,
   description: string,
-): Promise<{ spec?: WireframeSpec; error?: string }> {
+): Promise<{ spec?: WireframeSpec; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { generateNode } = await import("@/core/ai/generate");
@@ -21,14 +22,14 @@ export async function wireframeAction(
     }
     return { spec: parseWireframe(raw) };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Wireframe failed" };
+    return toActionFailure(e, "Wireframe failed");
   }
 }
 
 export async function refineAction(
   projectId: string,
   text: string,
-): Promise<{ text?: string; error?: string }> {
+): Promise<{ text?: string; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { generateNode } = await import("@/core/ai/generate");
@@ -42,6 +43,6 @@ export async function refineAction(
     const cleaned = raw.split("\n").find((l) => l.trim())?.replace(/^["']|["']$/g, "").trim();
     return { text: (cleaned ?? "").slice(0, 120) };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Refine failed" };
+    return toActionFailure(e, "Refine failed");
   }
 }

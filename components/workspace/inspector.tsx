@@ -13,6 +13,7 @@ import {
   uploadFileAction,
 } from "@/app/p/[projectId]/attachment-actions";
 import { wireframeAction, refineAction } from "@/app/p/[projectId]/design-actions";
+import { notify, notifyActionError } from "@/core/state/notify-store";
 
 type Artifact = { id: string; type: string; content: string; sourceHash: string };
 type Attachment = { id: string; type: string; content: string };
@@ -29,7 +30,6 @@ export function Inspector({ projectId }: { projectId: string }) {
 
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [attType, setAttType] = useState<(typeof ATTACH_TYPES)[number]>("note");
@@ -46,7 +46,6 @@ export function Inspector({ projectId }: { projectId: string }) {
   }
 
   useEffect(() => {
-    setError(null);
     setShowAll(false);
     setAttText("");
     if (!selectedNodeId) {
@@ -54,7 +53,9 @@ export function Inspector({ projectId }: { projectId: string }) {
       setAttachments([]);
       return;
     }
-    refresh(selectedNodeId).catch(() => setError("Failed to load node data"));
+    refresh(selectedNodeId).catch(() =>
+      notify({ kind: "error", message: "Failed to load node data" }),
+    );
   }, [selectedNodeId, projectId]);
 
   if (!selectedNodeId) {
@@ -80,16 +81,15 @@ export function Inspector({ projectId }: { projectId: string }) {
     const nodeId = selectedNodeId;
     if (!nodeId) return;
     startTransition(async () => {
-      setError(null);
       try {
         const res = await generateArtifactAction(projectId, nodeId, type, text);
         if (res.error) {
-          setError(res.error);
+          notifyActionError(res.error, res.code);
           return;
         }
         await refresh(nodeId);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Generation failed");
+        notify({ kind: "error", message: e instanceof Error ? e.message : "Generation failed" });
       }
     });
   }
@@ -98,10 +98,9 @@ export function Inspector({ projectId }: { projectId: string }) {
     const nodeId = selectedNodeId;
     if (!nodeId) return;
     startTransition(async () => {
-      setError(null);
       const res = await refineAction(projectId, text);
       if (res.error) {
-        setError(res.error);
+        notifyActionError(res.error, res.code);
         return;
       }
       if (res.text) updateNodeData(nodeId, { text: res.text });
@@ -112,10 +111,9 @@ export function Inspector({ projectId }: { projectId: string }) {
     const nodeId = selectedNodeId;
     if (!nodeId) return;
     startTransition(async () => {
-      setError(null);
       const res = await wireframeAction(projectId, text);
       if (res.error) {
-        setError(res.error);
+        notifyActionError(res.error, res.code);
         return;
       }
       const spec = res.spec;
@@ -143,13 +141,12 @@ export function Inspector({ projectId }: { projectId: string }) {
     const nodeId = selectedNodeId;
     if (!nodeId || !attText.trim()) return;
     startTransition(async () => {
-      setError(null);
       try {
         await addAttachmentAction(projectId, nodeId, attType, attText);
         setAttText("");
         await refresh(nodeId);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Add failed");
+        notify({ kind: "error", message: e instanceof Error ? e.message : "Add failed" });
       }
     });
   }
@@ -162,7 +159,7 @@ export function Inspector({ projectId }: { projectId: string }) {
         await deleteAttachmentAction(id);
         await refresh(nodeId);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Delete failed");
+        notify({ kind: "error", message: e instanceof Error ? e.message : "Delete failed" });
       }
     });
   }
@@ -175,10 +172,9 @@ export function Inspector({ projectId }: { projectId: string }) {
     const fd = new FormData();
     fd.set("file", file);
     startTransition(async () => {
-      setError(null);
       const res = await uploadFileAction(projectId, nodeId, fd);
       if (res.error) {
-        setError(res.error);
+        notify({ kind: "error", message: res.error });
         return;
       }
       await refresh(nodeId);
@@ -208,10 +204,6 @@ export function Inspector({ projectId }: { projectId: string }) {
           className="w-full rounded-md border border-zinc-200 px-2 py-1.5 text-sm font-medium leading-snug text-zinc-900 outline-none transition-colors focus:border-brand-accent/40"
         />
       </header>
-
-      {error && (
-        <p className="rounded-md bg-red-50 px-2.5 py-1.5 text-red-600">{error}</p>
-      )}
 
       {isAi && (
         <div className="flex flex-wrap gap-1.5">

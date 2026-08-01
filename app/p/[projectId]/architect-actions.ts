@@ -1,11 +1,12 @@
 "use server";
 
 import type { ArchitectResult } from "@/core/ai/architect";
+import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 export async function architectAction(
   projectId: string,
   board: string,
-): Promise<{ result?: ArchitectResult; error?: string }> {
+): Promise<{ result?: ArchitectResult; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { generateNode } = await import("@/core/ai/generate");
@@ -21,6 +22,6 @@ export async function architectAction(
     }
     return { result: parseArchitectResponse(raw) };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Architect failed" };
+    return toActionFailure(e, "Architect failed");
   }
 }

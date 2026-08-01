@@ -125,7 +125,10 @@ export function AddKeyForm() {
           </button>
         )}
       </div>
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {/* Reserved space: the message appears without nudging the fields below it. */}
+      <p className="min-h-5 text-sm text-destructive" role="alert">
+        {error}
+      </p>
 
       {models.length > 0 && !manual ? (
         <select name="model" required className="w-full rounded border px-3 py-2">

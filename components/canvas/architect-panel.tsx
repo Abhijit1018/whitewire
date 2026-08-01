@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -43,7 +44,7 @@ function ListSection({ title, items }: { title: string; items: string[] }) {
 export function ArchitectPanel({ projectId }: { projectId: string }) {
   const [open, setOpen] = useState(false);
   const [result, setResult] = useState<ArchitectResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ message: string; needsKey: boolean } | null>(null);
   const [pending, startTransition] = useTransition();
   const addNode = useWorkspaceStore((s) => s.addNode);
 
@@ -53,8 +54,12 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
       setError(null);
       setResult(null);
       const res = await architectAction(projectId, board);
-      if (res.error) setError(res.error);
-      else setResult(res.result ?? null);
+      if (res.error) {
+        setError({
+          message: res.error,
+          needsKey: res.code === "no_key" || res.code === "no_model",
+        });
+      } else setResult(res.result ?? null);
     });
   }
 
@@ -87,7 +92,19 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
           <DialogTitle>Architect Assist</DialogTitle>
         </DialogHeader>
         {pending && <p className="text-sm text-muted-foreground">Analyzing your board…</p>}
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && (
+          <div className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+            <p>{error.message}</p>
+            {error.needsKey && (
+              <Link
+                href="/settings"
+                className="mt-1 inline-block font-medium underline underline-offset-2"
+              >
+                Add a key →
+              </Link>
+            )}
+          </div>
+        )}
         {result && (
           <div className="space-y-5 text-sm">
             {result.suggestions.length > 0 && (

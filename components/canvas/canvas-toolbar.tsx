@@ -9,9 +9,10 @@ import {
 import { PHASE1_TOOLS, toolForShortcut, type CanvasTool } from "@/core/canvas/tools";
 import { SHAPES, type ShapeId } from "@/core/canvas/shapes";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
-import { drawNodesToPng } from "./strokes-to-image";
+import { describeSketch } from "./recognize-adapter";
 import { applyCleanup } from "./cleanup-adapter";
-import { interpretSketchAction } from "@/app/p/[projectId]/sketch-actions";
+import { interpretSketchGraphAction } from "@/app/p/[projectId]/sketch-actions";
+import { notify, notifyActionError } from "@/core/state/notify-store";
 import { useRef, useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import { useCollisionDodge } from "./use-collision-dodge";
@@ -38,7 +39,6 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const toolDefaults = useWorkspaceStore((s) => s.toolDefaults);
   const [pending, startTransition] = useTransition();
-  const [msg, setMsg] = useState<string | null>(null);
   const [shapeMenuOpen, setShapeMenuOpen] = useState(false);
   const shapeMenuRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -124,11 +124,16 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
 
   function readSketch() {
     startTransition(async () => {
-      setMsg(null);
-      const png = await drawNodesToPng(useWorkspaceStore.getState().nodes);
-      if (!png) { setMsg("Draw with the Pen first."); return; }
-      const res = await interpretSketchAction(projectId, png);
-      if (res.error) { setMsg(res.error); return; }
+      const description = await describeSketch(useWorkspaceStore.getState().nodes);
+      if (!description) {
+        notify({ kind: "info", message: "Draw some shapes with the Pen first." });
+        return;
+      }
+      const res = await interpretSketchGraphAction(projectId, description);
+      if (res.error) {
+        notifyActionError(res.error, res.code);
+        return;
+      }
       const bp = res.nodes ?? [];
       if (bp.length === 0) return;
       const ids = bp.map(() => crypto.randomUUID());
@@ -246,11 +251,6 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           </button>
         )}
       </div>
-      {msg && (
-        <p className="mt-1 rounded-xl border border-border bg-card/90 px-2 py-1 text-center text-[11px] text-destructive shadow-sm">
-          {msg}
-        </p>
-      )}
     </div>
   );
 }

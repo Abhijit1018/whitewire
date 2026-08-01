@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Caveat, Fraunces } from "next/font/google";
 import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import { RouteProgress } from "@/components/app-shell/route-progress";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <RouteProgress />
         {children}
+        <Toaster />
       </body>
     </html>
   );

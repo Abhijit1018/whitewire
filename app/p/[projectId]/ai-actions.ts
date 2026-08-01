@@ -1,6 +1,7 @@
 "use server";
 
 import type { BlueprintNode } from "@/core/ai/blueprint";
+import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 async function logPrompt(
   projectId: string,
@@ -21,7 +22,12 @@ async function logPrompt(
 export async function commandGenerateAction(
   projectId: string,
   prompt: string,
-): Promise<{ nodes?: BlueprintNode[]; edges?: [number, number][]; error?: string }> {
+): Promise<{
+  nodes?: BlueprintNode[];
+  edges?: [number, number][];
+  error?: string;
+  code?: ModelErrorCode | "failed";
+}> {
   try {
     const { generateNode } = await import("@/core/ai/generate");
     const { resolveModel } = await import("@/core/ai/resolve-model");
@@ -37,14 +43,14 @@ export async function commandGenerateAction(
     }
     return { nodes: bp.nodes, edges: bp.edges };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Generation failed" };
+    return toActionFailure(e, "Generation failed");
   }
 }
 
 export async function expandAction(
   projectId: string,
   text: string,
-): Promise<{ items?: string[]; error?: string }> {
+): Promise<{ items?: string[]; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { generateNode } = await import("@/core/ai/generate");
     const { buildExpandPrompt, parseExpandResponse } = await import("@/core/ai/prompts");
@@ -54,6 +60,6 @@ export async function expandAction(
     await logPrompt(projectId, ownerId, "expand", text, raw);
     return { items: parseExpandResponse(raw) };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Expand failed" };
+    return toActionFailure(e, "Expand failed");
   }
 }

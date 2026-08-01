@@ -46,7 +46,7 @@
 | 📦 **Linked artifacts** | Per node: **Schema · API · ORM · ERD · UI · Docs**. ERDs render as real **Mermaid** diagrams. Artifacts show a **stale** badge when the source changes. |
 | 🖼️ **Wireframes** | Generate low-fi UI mockups as canvas nodes. |
 | 🏗️ **Architect Assist** | An agent reviews the whole board and suggests what's missing / components to add — one click to drop them in. |
-| 👁️ **Smart canvas** | **Refine** rewrites a node's text; **Read sketch** sends a rasterized drawing to a vision model and returns clean nodes. |
+| 👁️ **Smart canvas** | **Refine** rewrites a node's text; **Read sketch** recognizes your pen strokes as shapes, arrows and handwriting locally, then turns them into clean nodes — no vision model needed. |
 | 🔀 **Model routing** | Assign different models per task (reasoning / code / docs). |
 | 📎 **Attachments** | Notes, links, comments, snippets, and **file uploads** (Vercel Blob). |
 | 🕘 **History** | Version snapshots + restore, and a log of every generation. |
@@ -59,7 +59,7 @@
 ```mermaid
 flowchart TD
     A([Describe an idea]) --> B[AI builds a connected board]
-    S([Draw a sketch ✏️]) -->|Read with vision model| B
+    S([Draw a sketch ✏️]) -->|Shape recognition + local OCR| B
     B --> C[Expand a node → children]
     B --> W[Generate a Wireframe]
     C --> D[Generate artifacts]
@@ -203,8 +203,12 @@ BLOB_READ_WRITE_TOKEN=         # Vercel Blob (for file uploads)
 
 In-app: **Settings → add a provider key → Make active**. Groq is great for
 testing (base URL `https://api.groq.com/openai/v1`, model
-`llama-3.3-70b-versatile`). For **Read sketch**, set a vision model
-(`gpt-4o`, `claude-3-5-sonnet`, `gemini-2.0-flash`) active.
+`llama-3.3-70b-versatile`). **Read sketch** works on any text model — pen
+strokes are recognized in the browser and handed over as geometry, so no vision
+capability is required.
+
+For Google sign-in, add an OAuth client in Supabase → Auth → Providers → Google
+and allow-list `http://localhost:3000/**` plus your production origin.
 
 </details>
 
@@ -235,7 +239,7 @@ pnpm db:migrate   # apply migrations
 - [x] Linked artifacts (Schema / API / ORM / ERD / UI / Docs) · attachments · file upload
 - [x] Architect Assist agent
 - [x] Version history + prompt history
-- [x] Wireframes · model routing · pen sketching · **sketch → vision**
+- [x] Wireframes · model routing · pen sketching · **sketch → shape recognition + OCR**
 - [x] Realtime collaboration (presence + live cursors + graph sync · Supabase Realtime)
 - [x] Plugin marketplace (first-party template / diagram / framework plugins · [docs](docs/plugins.md))
 - [x] Onboarding tour

@@ -1,6 +1,7 @@
 "use server";
 
 import type { GenType } from "@/core/artifacts/kinds";
+import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 const GEN_TYPES = ["schema", "api", "orm", "erd", "ui", "docs"];
 
@@ -9,7 +10,7 @@ export async function generateArtifactAction(
   sourceNodeId: string,
   type: string,
   sourceText: string,
-): Promise<{ error?: string }> {
+): Promise<{ error?: string; code?: ModelErrorCode | "failed" }> {
   if (!GEN_TYPES.includes(type)) return { error: "invalid artifact type" };
   if (!sourceText.trim()) return { error: "Node has no text to generate from" };
   try {
@@ -39,7 +40,7 @@ export async function generateArtifactAction(
     }
     return {};
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Generation failed" };
+    return toActionFailure(e, "Generation failed");
   }
 }
 
