@@ -1,14 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import type { Edge } from "@xyflow/react";
-import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { notify, notifyActionError } from "@/core/state/notify-store";
 import { commandGenerateAction } from "@/app/p/[projectId]/ai-actions";
-import { applyCleanup } from "./cleanup-adapter";
+import { applyScene } from "./scene-adapter";
 
 export function CommandBar({ projectId }: { projectId: string }) {
-  const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const [prompt, setPrompt] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -22,22 +19,10 @@ export function CommandBar({ projectId }: { projectId: string }) {
           notifyActionError(res.error, res.code);
           return;
         }
-        const bp = res.nodes ?? [];
-        if (bp.length === 0) return;
-        const ids = bp.map(() => crypto.randomUUID());
-        const newNodes: AiNode[] = bp.map((n, i) => ({
-          id: ids[i],
-          type: "aiNode",
-          position: { x: 120 + (i % 4) * 280, y: 100 + Math.floor(i / 4) * 180 },
-          data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
-        }));
-        const newEdges: Edge[] = (res.edges ?? []).map(([a, b]) => ({
-          id: crypto.randomUUID(),
-          source: ids[a],
-          target: ids[b],
-        }));
-        addNodesEdges(newNodes, newEdges);
-        applyCleanup();
+        if (!res.scene || res.scene.nodes.length === 0) return;
+        // The scene arrives already sized and grouped, so it is placed as laid
+        // out rather than pushed through the uniform grid tidy-up.
+        applyScene(res.scene, { x: 120, y: 100 });
         setPrompt("");
       } catch (e) {
         notify({ kind: "error", message: e instanceof Error ? e.message : "Generation failed" });

@@ -30,6 +30,10 @@ export type AiNodeData = {
   wireframe?: WireframeSpec;
   style?: ShapeStyle;
   locked?: boolean;
+  /** Schema table payload — see core/ai/scene.ts */
+  table?: { columns: { name: string; type: string; key?: "pk" | "fk" }[] };
+  code?: { language: string; source: string };
+  media?: { url?: string; caption?: string };
 };
 export type AiNode = Node<AiNodeData>;
 

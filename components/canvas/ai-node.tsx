@@ -5,6 +5,7 @@ import { Handle, NodeResizer, Position, type NodeProps } from "@xyflow/react";
 import { useWorkspaceStore, type AiNode as AiNodeType } from "@/core/state/workspace-store";
 import { DrawNode } from "./draw-node";
 import { WireframeNode } from "./wireframe-node";
+import { GroupNode, TableNode, CodeNode, ImageNode, VideoNode } from "./rich-nodes";
 import { RoughShape } from "./rough-shape";
 import { type ShapeId } from "@/core/canvas/shapes";
 import { DEFAULT_STYLE, type ShapeStyle } from "@/core/canvas/style";
@@ -154,4 +155,9 @@ export const nodeTypes = {
   shapeNode: ShapeNode,
   drawNode: DrawNode,
   wireframeNode: WireframeNode,
+  groupNode: GroupNode,
+  tableNode: TableNode,
+  codeNode: CodeNode,
+  imageNode: ImageNode,
+  videoNode: VideoNode,
 };

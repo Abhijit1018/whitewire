@@ -1,6 +1,6 @@
 "use server";
 
-import type { BlueprintNode } from "@/core/ai/blueprint";
+import type { Scene } from "@/core/ai/scene";
 import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 async function logPrompt(
@@ -22,26 +22,30 @@ async function logPrompt(
 export async function commandGenerateAction(
   projectId: string,
   prompt: string,
-): Promise<{
-  nodes?: BlueprintNode[];
-  edges?: [number, number][];
-  error?: string;
-  code?: ModelErrorCode | "failed";
-}> {
+): Promise<{ scene?: Scene; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { generateNode } = await import("@/core/ai/generate");
     const { resolveModel } = await import("@/core/ai/resolve-model");
-    const { buildBlueprintPrompt, parseBlueprint } = await import("@/core/ai/blueprint");
+    const { buildScenePrompt } = await import("@/core/ai/scene-prompt");
+    const { parseScene } = await import("@/core/ai/scene");
     const { model, ownerId } = await resolveModel(projectId, "reasoning");
-    const raw = await generateNode(model, buildBlueprintPrompt(prompt));
+    const raw = await generateNode(model, buildScenePrompt(prompt));
     await logPrompt(projectId, ownerId, "command", prompt, raw);
-    const bp = parseBlueprint(raw);
-    if (bp.nodes.length === 0) {
+
+    const scene = parseScene(raw);
+    if (scene.nodes.length === 0) {
       // Fallback: one node from the first line so the user still gets something.
       const line = raw.split("\n").find((l) => l.trim()) ?? prompt;
-      return { nodes: [{ title: line.trim().slice(0, 80), kind: "idea", note: "" }], edges: [] };
+      return {
+        scene: {
+          nodes: [
+            { id: "n1", type: "concept", title: line.trim().slice(0, 80), body: "", size: "md" },
+          ],
+          edges: [],
+        },
+      };
     }
-    return { nodes: bp.nodes, edges: bp.edges };
+    return { scene };
   } catch (e) {
     return toActionFailure(e, "Generation failed");
   }
