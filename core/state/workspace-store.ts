@@ -34,6 +34,8 @@ export type AiNodeData = {
   table?: { columns: { name: string; type: string; key?: "pk" | "fk" }[] };
   code?: { language: string; source: string };
   media?: { url?: string; caption?: string };
+  /** Render as N offset layers, for "several of these running in parallel". */
+  stack?: number;
 };
 export type AiNode = Node<AiNodeData>;
 

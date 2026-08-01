@@ -41,14 +41,32 @@ const KIND_STYLES: Record<string, string> = {
 
 const handleClass = "!h-2.5 !w-2.5 !border-2 !border-white !bg-brand-accent";
 
+/** Offset layers peeking out behind a node, for "several of these". */
+function StackLayers({ count }: { count: number }) {
+  return (
+    <>
+      {Array.from({ length: Math.min(count, 6) - 1 }, (_, i) => (
+        <span
+          key={i}
+          aria-hidden
+          className="absolute inset-0 -z-10 rounded-xl border border-zinc-200 bg-white"
+          style={{ transform: `translate(${(i + 1) * 4}px, ${(i + 1) * -4}px)` }}
+        />
+      ))}
+    </>
+  );
+}
+
 export function AiNode({ data, selected }: NodeProps<AiNodeType>) {
   const kind = data.kind || "generic";
+  const stack = data.stack ?? 1;
   return (
     <div
-      className={`w-60 overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${
-        selected ? "border-brand-accent ring-2 ring-brand-accent/30" : "border-zinc-200"
-      }`}
+      className={`relative w-60 rounded-xl border bg-white shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md ${
+        stack > 1 ? "" : "overflow-hidden"
+      } ${selected ? "border-brand-accent ring-2 ring-brand-accent/30" : "border-zinc-200"}`}
     >
+      {stack > 1 && <StackLayers count={stack} />}
       <Handle type="target" position={Position.Top} className={handleClass} />
       <div className="flex items-center gap-2 border-b border-zinc-100 px-3 py-1.5">
         <span

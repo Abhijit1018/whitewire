@@ -36,6 +36,8 @@ export type SceneNode = {
   media?: { url?: string; caption?: string };
   wireframe?: WireframeSpec;
   shape?: ShapeId;
+  /** Draw as a stack of N cards — "3 workers", "many FontFaces". 1 means single. */
+  stack?: number;
 };
 
 export type SceneEdge = {
@@ -144,6 +146,7 @@ function parseNode(raw: unknown, index: number): SceneNode | null {
   // A node with neither a title nor a payload carries no information.
   if (!title && type === "concept") return null;
 
+  const stack = Math.floor(Number(o.stack));
   return {
     id: str(o.id) || `n${index + 1}`,
     type,
@@ -151,6 +154,8 @@ function parseNode(raw: unknown, index: number): SceneNode | null {
     body: str(o.body) || str(o.note) || str(o.description),
     parent: str(o.parent) || undefined,
     size: asSize(o.size, type),
+    // Beyond a handful the offset layers stop reading as a stack.
+    ...(Number.isFinite(stack) && stack > 1 ? { stack: Math.min(stack, 6) } : {}),
     ...parsePayload(type, o),
   };
 }

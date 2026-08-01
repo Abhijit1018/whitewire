@@ -12,8 +12,15 @@ const TYPE_GUIDE = [
   '  is "desktop", "tablet" or "mobile", and each element is',
   '  {"type","label","x","y","w","h"} on a 100x100 grid (x,y = top-left, in %).',
   "  Use 8-18 elements so the screen reads as a real layout.",
-  '"shape" — a flowchart primitive such as a diamond for a decision.',
+  '"shape" — a flowchart primitive. Set "shape" to one of the ids below.',
 ].join("\n- ");
+
+const SHAPE_GUIDE = [
+  'diamond for a decision, cylinder for a datastore, parallelogram for input or',
+  'output, hexagon for a prepared step, cloud for an external service,',
+  'speechBubble for a comment, plus rectangle, roundRect, ellipse, triangle,',
+  'star, heart, line, arrow and arrowBlock.',
+].join(" ");
 
 /**
  * Teaches the model the full scene vocabulary. Without this it defaults to a
@@ -35,6 +42,10 @@ export function buildScenePrompt(request: string): string {
     "",
     'Size each node: "sm", "md", "lg" or "xl". Tables, code, media and wireframes',
     "usually need lg or xl; a passing note is sm.",
+    "",
+    `Shape ids: ${SHAPE_GUIDE}`,
+    'When several identical things run in parallel — "3 workers", "many queued',
+    'jobs" — use one node with "stack": 3 rather than repeating it.',
     "",
     "Reply with ONLY JSON of this shape:",
     "{",

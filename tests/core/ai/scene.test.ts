@@ -148,3 +148,32 @@ describe("SIZE_PX", () => {
     expect(SIZE_PX.lg.width).toBeLessThan(SIZE_PX.xl.width);
   });
 });
+
+describe("parseScene — stacks and shapes", () => {
+  it("reads a stack count for repeated things", () => {
+    const scene = parseScene(wrap({ nodes: [{ id: "w", title: "Worker", stack: 3 }] }));
+    expect(scene.nodes[0].stack).toBe(3);
+  });
+
+  it("ignores a stack of one, which is just a node", () => {
+    const scene = parseScene(wrap({ nodes: [{ id: "w", title: "Worker", stack: 1 }] }));
+    expect(scene.nodes[0].stack).toBeUndefined();
+  });
+
+  it("caps a runaway stack at what still reads as layers", () => {
+    const scene = parseScene(wrap({ nodes: [{ id: "w", title: "Worker", stack: 400 }] }));
+    expect(scene.nodes[0].stack).toBe(6);
+  });
+
+  it("ignores a stack that is not a number", () => {
+    const scene = parseScene(wrap({ nodes: [{ id: "w", title: "Worker", stack: "many" }] }));
+    expect(scene.nodes[0].stack).toBeUndefined();
+  });
+
+  it("accepts the flowchart shapes a diagram needs", () => {
+    for (const shape of ["diamond", "cylinder", "parallelogram", "hexagon", "cloud"]) {
+      const scene = parseScene(wrap({ nodes: [{ id: "s", type: "shape", title: "x", shape }] }));
+      expect(scene.nodes[0].shape).toBe(shape);
+    }
+  });
+});

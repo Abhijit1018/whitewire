@@ -68,6 +68,7 @@ export function applyScene(
         ...(source.media ? { media: source.media } : {}),
         ...(source.wireframe ? { wireframe: source.wireframe } : {}),
         ...(source.shape ? { shape: source.shape } : {}),
+        ...(source.stack ? { stack: source.stack } : {}),
       },
     };
   });
