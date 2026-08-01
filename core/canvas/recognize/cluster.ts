@@ -2,6 +2,12 @@ import type { Bbox, RecognizedStroke, TextCluster } from "./types";
 
 /** Strokes taller than this are drawings, not letters. */
 const MAX_GLYPH_HEIGHT = 80;
+/**
+ * Letters like I, l and the stem of T are perfectly straight, so they classify
+ * as lines. Short ones are offered to clustering as glyph candidates; a group
+ * made only of them is put back, since that is far more likely a connector.
+ */
+const MAX_STRAIGHT_GLYPH = 80;
 /** Floor for the join distance, so tight little words still group. */
 const MIN_JOIN_GAP = 18;
 /** Letters within this multiple of their own height belong to the same label. */
@@ -33,7 +39,12 @@ function median(values: number[]): number {
  * instead of individual pen strokes.
  */
 export function clusterText(strokes: RecognizedStroke[]): TextCluster[] {
-  const glyphs = strokes.filter((s) => s.kind === "scribble" && s.bbox.h <= MAX_GLYPH_HEIGHT);
+  const isScribbleGlyph = (s: RecognizedStroke) =>
+    s.kind === "scribble" && s.bbox.h <= MAX_GLYPH_HEIGHT;
+  const isStraightGlyph = (s: RecognizedStroke) =>
+    s.kind === "line" && Math.max(s.bbox.w, s.bbox.h) <= MAX_STRAIGHT_GLYPH;
+
+  const glyphs = strokes.filter((s) => isScribbleGlyph(s) || isStraightGlyph(s));
   if (glyphs.length === 0) return [];
 
   const joinGap = Math.max(MIN_JOIN_GAP, median(glyphs.map((g) => g.bbox.h)) * JOIN_GAP_RATIO);
@@ -67,10 +78,13 @@ export function clusterText(strokes: RecognizedStroke[]): TextCluster[] {
     else groups.set(root, [glyph]);
   });
 
-  return [...groups.values()].map((members, i) => ({
-    id: `text${i + 1}`,
-    bbox: mergeBboxes(members.map((m) => m.bbox)),
-    strokeIds: members.map((m) => m.id),
-    text: "",
-  }));
+  return [...groups.values()]
+    // A group of nothing but straight strokes is a connector, not a word.
+    .filter((members) => members.some(isScribbleGlyph))
+    .map((members, i) => ({
+      id: `text${i + 1}`,
+      bbox: mergeBboxes(members.map((m) => m.bbox)),
+      strokeIds: members.map((m) => m.id),
+      text: "",
+    }));
 }

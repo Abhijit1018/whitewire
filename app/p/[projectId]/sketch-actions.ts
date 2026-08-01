@@ -1,11 +1,18 @@
 "use server";
 
 import type { BlueprintNode } from "@/core/ai/blueprint";
+import type { SketchPlan } from "@/core/ai/sketch-plan";
 import { toActionFailure, type ModelErrorCode } from "@/core/ai/model-errors";
 
 type SketchResult = {
   nodes?: BlueprintNode[];
   edges?: [number, number][];
+  error?: string;
+  code?: ModelErrorCode | "failed";
+};
+
+type SketchPlanResult = {
+  plan?: SketchPlan;
   error?: string;
   code?: ModelErrorCode | "failed";
 };
@@ -28,23 +35,25 @@ async function logSketch(projectId: string, ownerId: string, prompt: string, out
 export async function interpretSketchGraphAction(
   projectId: string,
   description: string,
-): Promise<SketchResult> {
+): Promise<SketchPlanResult> {
   if (!description.trim()) return { error: "Nothing recognizable in the drawing.", code: "failed" };
   try {
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { generateNode } = await import("@/core/ai/generate");
-    const { parseBlueprint } = await import("@/core/ai/blueprint");
-    const { buildSketchGraphPrompt } = await import("@/core/canvas/recognize/serialize");
+    const { buildSketchPlanPrompt, parseSketchPlan } = await import("@/core/ai/sketch-plan");
     const { model, ownerId } = await resolveModel(projectId, "reasoning");
 
-    const raw = await generateNode(model, buildSketchGraphPrompt(description));
+    const raw = await generateNode(model, buildSketchPlanPrompt(description));
     await logSketch(projectId, ownerId, description, raw);
 
-    const bp = parseBlueprint(raw);
-    if (bp.nodes.length === 0) {
-      return { error: "The model didn't return a usable board. Try drawing clearer shapes.", code: "failed" };
+    const plan = parseSketchPlan(raw);
+    if (!plan) {
+      return {
+        error: "The model didn't return a usable result. Try drawing clearer shapes.",
+        code: "failed",
+      };
     }
-    return { nodes: bp.nodes, edges: bp.edges };
+    return { plan };
   } catch (e) {
     return toActionFailure(e, "Could not read the sketch");
   }

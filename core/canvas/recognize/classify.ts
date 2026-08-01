@@ -4,6 +4,12 @@ import type { Bbox, Point, RecognizedStroke, ShapeKind } from "./types";
 const CLOSED_GAP_RATIO = 0.28;
 /** Below this the stroke is treated as a dot, not a shape. */
 const MIN_DIAGONAL = 6;
+/**
+ * A closed stroke must be this big to count as a drawn shape. Without a floor,
+ * stray flecks a few pixels across become "rectangles" and then become nodes.
+ */
+const MIN_SHAPE_SIDE = 14;
+const MIN_SHAPE_AREA = 400;
 /** Fill ratio bands. A perfect rect is 1.0, ellipse 0.785, diamond 0.5. */
 const RECT_MIN = 0.87;
 const ELLIPSE_MIN = 0.64;
@@ -103,6 +109,10 @@ function confidenceFor(kind: ShapeKind, ratio: number): number {
 function classifyClosed(points: Point[], bbox: Bbox): { kind: ShapeKind; confidence: number } {
   const bboxArea = bbox.w * bbox.h;
   if (bboxArea === 0) return { kind: "scribble", confidence: 0.3 };
+  // Too small to be a deliberate shape — treat it as ink, not structure.
+  if (Math.min(bbox.w, bbox.h) < MIN_SHAPE_SIDE || bboxArea < MIN_SHAPE_AREA) {
+    return { kind: "scribble", confidence: 0.4 };
+  }
 
   const ratio = polygonArea(points) / bboxArea;
   const corners = simplify(points, pathLength(points) * 0.04).length;

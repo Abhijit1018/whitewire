@@ -4,6 +4,7 @@ import { promoteArrowHeads } from "./graph";
 import type { RecognizedStroke, TextCluster } from "./types";
 
 export * from "./types";
+export type { Bbox } from "./types";
 export { classifyStroke, bboxOf, simplify, polygonArea, isClosed, pathLength } from "./classify";
 export { clusterText, bboxGap, mergeBboxes } from "./cluster";
 export { buildGraph, promoteArrowHeads, contains, distanceToBbox, centroid } from "./graph";

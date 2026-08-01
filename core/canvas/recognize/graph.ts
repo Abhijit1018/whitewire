@@ -134,9 +134,13 @@ export function buildGraph(strokes: RecognizedStroke[], clusters: TextCluster[])
 
   const looseClusters = labelShapes(shapes, clusters);
 
+  // A straight stroke that was read as a letter must not double as a connector.
+  const usedAsText = new Set(clusters.flatMap((c) => c.strokeIds));
+
   const connections: SketchConnection[] = [];
   for (const stroke of strokes) {
     if (stroke.kind !== "arrow" && stroke.kind !== "line") continue;
+    if (usedAsText.has(stroke.id)) continue;
     const from = nearestShape(stroke.start, shapes);
     const to = nearestShape(stroke.end, shapes);
     // A connector with a loose end tells us nothing about structure.

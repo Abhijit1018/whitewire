@@ -245,3 +245,40 @@ describe("describeGraph", () => {
     expect(describeGraph({ shapes: [], connections: [], containment: [], looseLabels: [] })).toBe("");
   });
 });
+
+describe("junk rejection", () => {
+  it("does not promote a tiny closed stroke to a shape", () => {
+    // A 4x5 fleck used to classify as a rectangle and become a node.
+    expect(classifyStroke("a", rect(0, 0, 4, 5, 1)).kind).toBe("scribble");
+  });
+
+  it("still accepts a small but deliberate box", () => {
+    expect(classifyStroke("a", rect(0, 0, 40, 30, 2)).kind).toBe("rect");
+  });
+});
+
+describe("straight-stroke glyphs", () => {
+  it("clusters a straight letter stem together with nearby handwriting", () => {
+    const strokes = [
+      classifyStroke("i", line(40, 0, 40, 30)), // an "I"
+      classifyStroke("n", zigzag(50, 0)),
+    ];
+    const clusters = clusterText(strokes);
+    expect(clusters).toHaveLength(1);
+    expect(clusters[0].strokeIds.sort()).toEqual(["i", "n"]);
+  });
+
+  it("leaves a group of only straight strokes alone, since those are connectors", () => {
+    expect(clusterText([classifyStroke("l", line(0, 0, 60, 0))])).toHaveLength(0);
+  });
+
+  it("does not let a letter stem also count as a connector", () => {
+    const boxA = classifyStroke("a", rect(0, 0, 150, 100));
+    const boxB = classifyStroke("b", rect(160, 0, 150, 100));
+    const stem = classifyStroke("i", line(151, 40, 159, 40));
+    const clusters = [
+      { id: "text1", bbox: { x: 151, y: 40, w: 8, h: 1 }, strokeIds: ["i"], text: "I" },
+    ];
+    expect(buildGraph([boxA, boxB, stem], clusters).connections).toHaveLength(0);
+  });
+});

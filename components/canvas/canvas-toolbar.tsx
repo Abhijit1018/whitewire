@@ -9,8 +9,7 @@ import {
 import { PHASE1_TOOLS, toolForShortcut, type CanvasTool } from "@/core/canvas/tools";
 import { SHAPES, type ShapeId } from "@/core/canvas/shapes";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
-import { describeSketch } from "./recognize-adapter";
-import { applyCleanup } from "./cleanup-adapter";
+import { readSketch as readSketchStrokes } from "./recognize-adapter";
 import { interpretSketchGraphAction } from "@/app/p/[projectId]/sketch-actions";
 import { notify, notifyActionError } from "@/core/state/notify-store";
 import { useRef, useState, useTransition } from "react";
@@ -36,7 +35,6 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
   const activeTool = useWorkspaceStore((s) => s.activeTool);
   const setActiveTool = useWorkspaceStore((s) => s.setActiveTool);
   const addNode = useWorkspaceStore((s) => s.addNode);
-  const addNodesEdges = useWorkspaceStore((s) => s.addNodesEdges);
   const toolDefaults = useWorkspaceStore((s) => s.toolDefaults);
   const [pending, startTransition] = useTransition();
   const [shapeMenuOpen, setShapeMenuOpen] = useState(false);
@@ -124,29 +122,64 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
 
   function readSketch() {
     startTransition(async () => {
-      const description = await describeSketch(useWorkspaceStore.getState().nodes);
-      if (!description) {
+      const reading = await readSketchStrokes(useWorkspaceStore.getState().nodes);
+      if (!reading) {
         notify({ kind: "info", message: "Draw some shapes with the Pen first." });
         return;
       }
-      const res = await interpretSketchGraphAction(projectId, description);
+      const res = await interpretSketchGraphAction(projectId, reading.description);
       if (res.error) {
         notifyActionError(res.error, res.code);
         return;
       }
-      const bp = res.nodes ?? [];
-      if (bp.length === 0) return;
-      const ids = bp.map(() => crypto.randomUUID());
-      const newNodes: AiNode[] = bp.map((n, i) => ({
-        id: ids[i], type: "aiNode",
-        position: { x: 120 + (i % 4) * 280, y: 100 + Math.floor(i / 4) * 180 },
-        data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
-      }));
-      const newEdges: Edge[] = (res.edges ?? []).map(([a, b]) => ({
-        id: crypto.randomUUID(), source: ids[a], target: ids[b],
-      }));
-      addNodesEdges(newNodes, newEdges);
-      applyCleanup();
+      const plan = res.plan;
+      if (!plan) return;
+
+      const store = useWorkspaceStore.getState();
+      if (plan.mode === "wireframe") {
+        // One screen, laid over the footprint of the drawing it came from.
+        store.addNode({
+          id: crypto.randomUUID(),
+          type: "wireframeNode",
+          position: { x: reading.bounds.x, y: reading.bounds.y },
+          style: {
+            width: Math.max(320, Math.round(reading.bounds.w)),
+            height: Math.max(240, Math.round(reading.bounds.h)),
+          },
+          data: {
+            text: plan.spec.title || "Screen",
+            kind: "component",
+            purpose: "",
+            model: "",
+            wireframe: plan.spec,
+          },
+        });
+      } else {
+        const ids = plan.nodes.map(() => crypto.randomUUID());
+        const newNodes: AiNode[] = plan.nodes.map((n, i) => ({
+          id: ids[i],
+          type: "aiNode",
+          // Keep the arrangement the user drew: each node sits on the shape it
+          // came from. Extra nodes fall below the sketch rather than on top of it.
+          position: reading.shapeBoxes[i]
+            ? { x: reading.shapeBoxes[i].x, y: reading.shapeBoxes[i].y }
+            : {
+                x: reading.bounds.x + (i - reading.shapeBoxes.length) * 260,
+                y: reading.bounds.y + reading.bounds.h + 80,
+              },
+          data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
+        }));
+        const newEdges: Edge[] = plan.edges.map(([a, b]) => ({
+          id: crypto.randomUUID(),
+          source: ids[a],
+          target: ids[b],
+        }));
+        store.addNodesEdges(newNodes, newEdges);
+      }
+
+      // The drawing has been converted, so it is replaced rather than kept
+      // alongside a duplicate. Undo restores it.
+      store.deleteNodes(reading.strokeIds);
     });
   }
 
