@@ -12,14 +12,38 @@ function kindOf(type: string): string {
   return "generic";
 }
 
+export type ApplySceneOptions = {
+  /** Explicit positions for top-level nodes, by index — used when the scene
+   *  came from a drawing and should keep the arrangement that was drawn. */
+  positions?: ({ x: number; y: number } | undefined)[];
+  /** Existing node id to link new top-level nodes back to, as Expand does. */
+  connectFrom?: string;
+};
+
 /**
  * Places a generated scene on the canvas. Groups are added before their
  * children so React Flow can resolve `parentId`, and children are clamped to
  * their parent's box.
  */
-export function applyScene(scene: Scene, origin: { x: number; y: number }): void {
+export function applyScene(
+  scene: Scene,
+  origin: { x: number; y: number },
+  options: ApplySceneOptions = {},
+): void {
   const layout = layoutScene(scene, origin);
   if (layout.nodes.length === 0) return;
+
+  // Overridden positions apply to top-level nodes only; group members stay
+  // relative to their parent.
+  if (options.positions) {
+    let rootIndex = 0;
+    for (const placed of layout.nodes) {
+      if (placed.parentId) continue;
+      const override = options.positions[rootIndex];
+      rootIndex += 1;
+      if (override) placed.position = override;
+    }
+  }
 
   // Stable ids per run, so edges and parent links resolve to the new nodes.
   const idMap = new Map(layout.nodes.map((n) => [n.id, crypto.randomUUID()]));
@@ -55,6 +79,21 @@ export function applyScene(scene: Scene, origin: { x: number; y: number }): void
     label: e.label,
     markerEnd: e.directed ? { type: MarkerType.ArrowClosed } : undefined,
   }));
+
+  // Expand hangs its results off the node the user had selected.
+  if (options.connectFrom) {
+    const anchored = layout.nodes.filter((n) => !n.parentId);
+    const linked = new Set(layout.edges.map((e) => e.target));
+    for (const node of anchored) {
+      if (linked.has(node.id)) continue;
+      edges.push({
+        id: crypto.randomUUID(),
+        source: options.connectFrom,
+        target: idMap.get(node.id)!,
+        markerEnd: { type: MarkerType.ArrowClosed },
+      });
+    }
+  }
 
   // Containers must exist before the nodes that name them as parent.
   const groupsFirst = [...nodes].sort((a, b) => {

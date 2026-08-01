@@ -1,13 +1,13 @@
-import { parseBlueprint, type BlueprintNode } from "@/core/ai/blueprint";
+import { parseScene, SCENE_NODE_TYPES, type Scene } from "@/core/ai/scene";
 import { parseWireframe, WIREFRAME_TYPES, type WireframeSpec } from "@/core/ai/wireframe";
 
 /**
  * What the sketch turned out to be. The model chooses: a drawn screen becomes a
- * wireframe, anything structural becomes a connected board.
+ * wireframe, anything structural becomes a scene of connected nodes.
  */
 export type SketchPlan =
   | { mode: "wireframe"; spec: WireframeSpec }
-  | { mode: "diagram"; nodes: BlueprintNode[]; edges: [number, number][] };
+  | { mode: "diagram"; scene: Scene };
 
 export function buildSketchPlanPrompt(description: string): string {
   return [
@@ -29,10 +29,15 @@ export function buildSketchPlanPrompt(description: string): string {
     "stays near the top. Infer the obvious missing pieces of such a screen.",
     "",
     "If mode is diagram, reply with ONLY:",
-    `{"mode":"diagram","nodes":[{"title":"short name","kind":"feature|component|entity|idea","note":"one short line"}],"edges":[[fromIndex,toIndex]]}`,
-    "Give exactly one node per listed shape, in the same order, so edges can",
-    "reference them by 0-based index. Keep the connections and nesting given below;",
-    "do not invent shapes that were not drawn.",
+    `{"mode":"diagram","nodes":[{"id":"box1","type":"concept","title":"short name","body":"one short line","size":"md"}],"edges":[{"from":"box1","to":"box2","label":"optional"}]}`,
+    "Give exactly one node per listed shape, in the same order, and reuse the",
+    "shape's own id (box1, box2, …) so positions line up with the drawing.",
+    `Choose a type per node — ${SCENE_NODE_TYPES.join(", ")} — so a drawn database`,
+    'becomes a "table" with columns and a drawn screen becomes a "wireframe",',
+    'rather than everything becoming a "concept".',
+    'A shape drawn inside another should set "parent" to the outer shape\'s id,',
+    'and the outer one should be type "group".',
+    "Keep the connections given below; do not invent shapes that were not drawn.",
     "",
     description,
   ].join("\n");
@@ -56,6 +61,6 @@ export function parseSketchPlan(raw: string): SketchPlan | null {
     return spec.elements.length > 0 ? { mode: "wireframe", spec } : null;
   }
 
-  const bp = parseBlueprint(raw);
-  return bp.nodes.length > 0 ? { mode: "diagram", nodes: bp.nodes, edges: bp.edges } : null;
+  const scene = parseScene(raw);
+  return scene.nodes.length > 0 ? { mode: "diagram", scene } : null;
 }

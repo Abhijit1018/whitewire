@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { useWorkspaceStore } from "@/core/state/workspace-store";
 import { architectAction } from "@/app/p/[projectId]/architect-actions";
-import type { ArchitectResult } from "@/core/ai/architect";
+import type { ArchitectResult, ArchitectSuggestion } from "@/core/ai/architect";
+import { applyScene } from "./scene-adapter";
 
 function summarizeBoard(): string {
   const { nodes, edges } = useWorkspaceStore.getState();
@@ -46,7 +47,6 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
   const [result, setResult] = useState<ArchitectResult | null>(null);
   const [error, setError] = useState<{ message: string; needsKey: boolean } | null>(null);
   const [pending, startTransition] = useTransition();
-  const addNode = useWorkspaceStore((s) => s.addNode);
 
   function run() {
     const board = summarizeBoard();
@@ -63,14 +63,25 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
     });
   }
 
-  function add(title: string, kind: string) {
+  function add(suggestion: ArchitectSuggestion) {
     const count = useWorkspaceStore.getState().nodes.length;
-    addNode({
-      id: crypto.randomUUID(),
-      type: "aiNode",
-      position: { x: 160 + (count % 5) * 60, y: 130 + count * 30 },
-      data: { text: title, kind, purpose: "", model: "" },
-    });
+    // Goes through the scene adapter so a suggested database arrives as a table
+    // node, a suggested screen as a wireframe, and so on.
+    applyScene(
+      {
+        nodes: [
+          {
+            id: "s1",
+            type: suggestion.type,
+            title: suggestion.title,
+            body: "",
+            size: suggestion.type === "concept" ? "md" : "lg",
+          },
+        ],
+        edges: [],
+      },
+      { x: 160 + (count % 5) * 60, y: 130 + count * 30 },
+    );
   }
 
   const empty =
@@ -124,7 +135,7 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
                       </span>
                       <button
                         type="button"
-                        onClick={() => add(s.title, s.kind)}
+                        onClick={() => add(s)}
                         className="rounded border border-brand-accent/30 px-2 py-0.5 text-xs text-brand-accent transition-colors hover:bg-brand-accent/10 active:scale-95"
                       >
                         + Add

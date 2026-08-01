@@ -11,12 +11,21 @@ describe("parseSketchPlan", () => {
     expect(plan.spec.elements[0]).toMatchObject({ type: "input", label: "Email" });
   });
 
-  it("reads a diagram plan with its edges", () => {
-    const raw = `{"mode":"diagram","nodes":[{"title":"API","kind":"component","note":"x"},{"title":"DB","kind":"entity","note":"y"}],"edges":[[0,1]]}`;
+  it("reads a diagram plan as a scene with its edges", () => {
+    const raw = `{"mode":"diagram","nodes":[{"id":"box1","title":"API"},{"id":"box2","type":"table","title":"DB"}],"edges":[{"from":"box1","to":"box2","label":"reads"}]}`;
     const plan = parseSketchPlan(raw);
     if (plan?.mode !== "diagram") throw new Error("expected diagram");
-    expect(plan.nodes.map((n) => n.title)).toEqual(["API", "DB"]);
-    expect(plan.edges).toEqual([[0, 1]]);
+    expect(plan.scene.nodes.map((n) => n.title)).toEqual(["API", "DB"]);
+    // A drawn database becomes a real table node, not another concept box.
+    expect(plan.scene.nodes[1].type).toBe("table");
+    expect(plan.scene.edges[0]).toMatchObject({ from: "box1", to: "box2", label: "reads" });
+  });
+
+  it("keeps the shape ids so positions line up with the drawing", () => {
+    const raw = `{"mode":"diagram","nodes":[{"id":"box1","title":"A"},{"id":"box2","title":"B"}],"edges":[]}`;
+    const plan = parseSketchPlan(raw);
+    if (plan?.mode !== "diagram") throw new Error("expected diagram");
+    expect(plan.scene.nodes.map((n) => n.id)).toEqual(["box1", "box2"]);
   });
 
   it("tolerates prose wrapped around the JSON", () => {
@@ -25,7 +34,7 @@ describe("parseSketchPlan", () => {
   });
 
   it("falls back to a diagram when the mode is missing", () => {
-    const raw = `{"nodes":[{"title":"API","kind":"component","note":""}],"edges":[]}`;
+    const raw = `{"nodes":[{"id":"a","title":"API"}],"edges":[]}`;
     expect(parseSketchPlan(raw)?.mode).toBe("diagram");
   });
 

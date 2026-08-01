@@ -10,6 +10,7 @@ import { PHASE1_TOOLS, toolForShortcut, type CanvasTool } from "@/core/canvas/to
 import { SHAPES, type ShapeId } from "@/core/canvas/shapes";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { readSketch as readSketchStrokes } from "./recognize-adapter";
+import { applyScene } from "./scene-adapter";
 import { interpretSketchGraphAction } from "@/app/p/[projectId]/sketch-actions";
 import { notify, notifyActionError } from "@/core/state/notify-store";
 import { useRef, useState, useTransition } from "react";
@@ -155,26 +156,13 @@ export function CanvasToolbar({ projectId }: { projectId: string }) {
           },
         });
       } else {
-        const ids = plan.nodes.map(() => crypto.randomUUID());
-        const newNodes: AiNode[] = plan.nodes.map((n, i) => ({
-          id: ids[i],
-          type: "aiNode",
-          // Keep the arrangement the user drew: each node sits on the shape it
-          // came from. Extra nodes fall below the sketch rather than on top of it.
-          position: reading.shapeBoxes[i]
-            ? { x: reading.shapeBoxes[i].x, y: reading.shapeBoxes[i].y }
-            : {
-                x: reading.bounds.x + (i - reading.shapeBoxes.length) * 260,
-                y: reading.bounds.y + reading.bounds.h + 80,
-              },
-          data: { text: n.title, kind: n.kind, purpose: n.note, model: "" },
-        }));
-        const newEdges: Edge[] = plan.edges.map(([a, b]) => ({
-          id: crypto.randomUUID(),
-          source: ids[a],
-          target: ids[b],
-        }));
-        store.addNodesEdges(newNodes, newEdges);
+        // Keep the arrangement that was drawn: the nth top-level node sits on
+        // the nth recognized shape. Anything extra flows below the sketch.
+        applyScene(
+          plan.scene,
+          { x: reading.bounds.x, y: reading.bounds.y + reading.bounds.h + 80 },
+          { positions: reading.shapeBoxes.map((b) => ({ x: b.x, y: b.y })) },
+        );
       }
 
       // The drawing has been converted, so it is replaced rather than kept

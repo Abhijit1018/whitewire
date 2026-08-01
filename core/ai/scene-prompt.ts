@@ -53,3 +53,29 @@ export function buildScenePrompt(request: string): string {
     `Request: ${request}`,
   ].join("\n");
 }
+
+/**
+ * Breaking one node into its parts. Same vocabulary as a full scene, so a
+ * concept can expand into real tables, snippets or a screen rather than more
+ * boxes of prose.
+ */
+export function buildExpandScenePrompt(text: string): string {
+  return [
+    "Break the following concept into 3 to 7 concrete, distinct parts.",
+    "Return them as canvas nodes, choosing the type that fits each part.",
+    "",
+    "Node types:",
+    `- ${TYPE_GUIDE}`,
+    "",
+    'A data store becomes a "table" with real columns. A screen becomes a',
+    '"wireframe". An algorithm worth showing becomes "code". Otherwise use',
+    '"concept" with a short title and one line of detail.',
+    'Size each node "sm", "md", "lg" or "xl".',
+    "",
+    "Reply with ONLY JSON:",
+    '{"nodes":[{"id":"slug","type":"concept","title":"...","body":"...","size":"md"}],"edges":[]}',
+    "Add edges only between the parts themselves; the parent is linked for you.",
+    "",
+    `Concept: "${text}"`,
+  ].join("\n");
+}

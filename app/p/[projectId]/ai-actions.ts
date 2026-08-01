@@ -54,15 +54,35 @@ export async function commandGenerateAction(
 export async function expandAction(
   projectId: string,
   text: string,
-): Promise<{ items?: string[]; error?: string; code?: ModelErrorCode | "failed" }> {
+): Promise<{ scene?: Scene; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { generateNode } = await import("@/core/ai/generate");
-    const { buildExpandPrompt, parseExpandResponse } = await import("@/core/ai/prompts");
+    const { buildExpandScenePrompt } = await import("@/core/ai/scene-prompt");
+    const { parseScene } = await import("@/core/ai/scene");
     const { resolveModel } = await import("@/core/ai/resolve-model");
     const { model, ownerId } = await resolveModel(projectId, "reasoning");
-    const raw = await generateNode(model, buildExpandPrompt(text));
+    const raw = await generateNode(model, buildExpandScenePrompt(text));
     await logPrompt(projectId, ownerId, "expand", text, raw);
-    return { items: parseExpandResponse(raw) };
+
+    const scene = parseScene(raw);
+    if (scene.nodes.length === 0) {
+      // Older models sometimes still answer with a bare list of strings.
+      const { parseExpandResponse } = await import("@/core/ai/prompts");
+      const items = parseExpandResponse(raw);
+      return {
+        scene: {
+          nodes: items.map((title, i) => ({
+            id: `n${i + 1}`,
+            type: "concept" as const,
+            title,
+            body: "",
+            size: "md" as const,
+          })),
+          edges: [],
+        },
+      };
+    }
+    return { scene };
   } catch (e) {
     return toActionFailure(e, "Expand failed");
   }
