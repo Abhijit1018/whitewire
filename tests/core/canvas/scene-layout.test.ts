@@ -117,3 +117,35 @@ describe("layoutScene — edges", () => {
     expect(layout.edges[0].label).toBeUndefined();
   });
 });
+
+describe("layoutScene — wireframe devices", () => {
+  const wire = (device: string) =>
+    scene({
+      nodes: [
+        {
+          id: "w",
+          type: "wireframe",
+          title: "Screen",
+          size: "lg",
+          wireframe: { title: "S", device, elements: [{ type: "button", label: "Go", x: 1, y: 1, w: 10, h: 5 }] },
+        },
+      ],
+    });
+
+  it("draws a mobile screen taller than it is wide", () => {
+    const node = layoutScene(wire("mobile")).nodes[0];
+    expect(node.height).toBeGreaterThan(node.width);
+  });
+
+  it("draws a desktop screen wider than it is tall", () => {
+    const node = layoutScene(wire("desktop")).nodes[0];
+    expect(node.width).toBeGreaterThan(node.height);
+  });
+
+  it("falls back to the plain size bucket when no device is named", () => {
+    const node = layoutScene(
+      scene({ nodes: [{ id: "w", type: "wireframe", title: "S", size: "lg" }] }),
+    ).nodes[0];
+    expect(node).toMatchObject(SIZE_PX.lg);
+  });
+});

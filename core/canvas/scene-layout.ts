@@ -1,4 +1,5 @@
 import { SIZE_PX, type Scene, type SceneNode, type SceneNodeType } from "@/core/ai/scene";
+import { DEVICE_ASPECT } from "@/core/ai/wireframe";
 
 /** Canvas node type used to render each scene type. */
 const NODE_TYPE: Record<SceneNodeType, string> = {
@@ -40,7 +41,14 @@ export type PlacedEdge = {
 export type SceneLayout = { nodes: PlacedNode[]; edges: PlacedEdge[] };
 
 function boxOf(node: SceneNode): { width: number; height: number } {
-  return SIZE_PX[node.size];
+  const base = SIZE_PX[node.size];
+  // A phone screen drawn in a landscape box reads wrong, so a wireframe that
+  // names its device is given that device's proportions.
+  const device = node.wireframe?.device;
+  if (node.type === "wireframe" && device) {
+    return { width: base.width, height: Math.round(base.width / DEVICE_ASPECT[device]) };
+  }
+  return base;
 }
 
 /**

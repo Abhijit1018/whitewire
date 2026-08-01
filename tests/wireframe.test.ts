@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildWireframePrompt, parseWireframe } from "@/core/ai/wireframe";
+import { buildWireframePrompt, parseWireframe, WIREFRAME_TYPES } from "@/core/ai/wireframe";
 
 describe("buildWireframePrompt", () => {
   it("embeds the screen and asks for JSON elements", () => {
@@ -33,5 +33,41 @@ describe("parseWireframe", () => {
 
   it("returns empty for unparseable input", () => {
     expect(parseWireframe("nope")).toEqual({ title: "", elements: [] });
+  });
+});
+
+describe("wireframe vocabulary", () => {
+  it("covers the structure, content, control and people primitives", () => {
+    for (const t of ["sidebar", "table", "chart", "search", "tabs", "pagination", "avatarRow", "modal"]) {
+      expect(WIREFRAME_TYPES).toContain(t);
+    }
+  });
+
+  it("keeps a camelCase type through a lowercase reply", () => {
+    const s = parseWireframe('{"elements":[{"type":"avatarrow","label":"Team","x":1,"y":1,"w":9,"h":9}]}');
+    expect(s.elements[0].type).toBe("avatarRow");
+  });
+
+  it("still falls back to text for a type the renderer does not know", () => {
+    const s = parseWireframe('{"elements":[{"type":"carousel","label":"x","x":1,"y":1,"w":5,"h":5}]}');
+    expect(s.elements[0].type).toBe("text");
+  });
+});
+
+describe("wireframe device", () => {
+  it("reads a named device", () => {
+    expect(parseWireframe('{"device":"mobile","elements":[]}').device).toBe("mobile");
+  });
+
+  it("ignores a device it cannot draw", () => {
+    expect(parseWireframe('{"device":"watch","elements":[]}').device).toBeUndefined();
+  });
+
+  it("leaves the device unset when the model omits it", () => {
+    expect(parseWireframe('{"elements":[]}').device).toBeUndefined();
+  });
+
+  it("asks the model to choose one in the prompt", () => {
+    expect(buildWireframePrompt("Login")).toContain("mobile");
   });
 });

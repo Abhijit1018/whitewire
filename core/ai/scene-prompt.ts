@@ -8,7 +8,10 @@ const TYPE_GUIDE = [
   '"table" — a data entity. Give it columns with types and pk/fk markers.',
   '"code" — a real snippet. Give language and source.',
   '"image" / "video" — media. Give a url if you genuinely know one, else just a caption.',
-  '"wireframe" — a UI screen laid out on a 100x100 grid.',
+  '"wireframe" — a UI screen. Give it {"title","device","elements"} where device',
+  '  is "desktop", "tablet" or "mobile", and each element is',
+  '  {"type","label","x","y","w","h"} on a 100x100 grid (x,y = top-left, in %).',
+  "  Use 8-18 elements so the screen reads as a real layout.",
   '"shape" — a flowchart primitive such as a diamond for a decision.',
 ].join("\n- ");
 
