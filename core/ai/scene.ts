@@ -49,7 +49,15 @@ export type SceneEdge = {
   directed: boolean;
 };
 
-export type Scene = { nodes: SceneNode[]; edges: SceneEdge[] };
+export const SCENE_LAYOUTS = ["flow", "mindmap", "tree", "matrix", "timeline"] as const;
+export type SceneLayoutKind = (typeof SCENE_LAYOUTS)[number];
+
+export type Scene = {
+  nodes: SceneNode[];
+  edges: SceneEdge[];
+  /** How the board is arranged. Defaults to a wrapping flow. */
+  layout: SceneLayoutKind;
+};
 
 /** Pixel box for each size bucket, so content is not forced into one shape. */
 export const SIZE_PX: Record<SceneSize, { width: number; height: number }> = {
@@ -211,7 +219,7 @@ function parseEdges(raw: unknown, ids: Set<string>): SceneEdge[] {
  * the JSON is ignored.
  */
 export function parseScene(rawText: string): Scene {
-  const empty: Scene = { nodes: [], edges: [] };
+  const empty: Scene = { nodes: [], edges: [], layout: "flow" };
   const match = rawText.match(/\{[\s\S]*\}/);
   if (!match) return empty;
 
@@ -232,5 +240,12 @@ export function parseScene(rawText: string): Scene {
   const unique = parsed.filter((n) => (seen.has(n.id) ? false : (seen.add(n.id), true)));
 
   const nodes = resolveParents(unique);
-  return { nodes, edges: parseEdges(obj.edges, new Set(nodes.map((n) => n.id))) };
+  const layout = str(obj.layout).toLowerCase();
+  return {
+    nodes,
+    edges: parseEdges(obj.edges, new Set(nodes.map((n) => n.id))),
+    layout: (SCENE_LAYOUTS as readonly string[]).includes(layout)
+      ? (layout as SceneLayoutKind)
+      : "flow",
+  };
 }

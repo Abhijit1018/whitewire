@@ -149,3 +149,94 @@ describe("layoutScene — wireframe devices", () => {
     expect(node).toMatchObject(SIZE_PX.lg);
   });
 });
+
+describe("layoutScene — board genres", () => {
+  const many = (n: number, extra: Record<string, unknown> = {}) =>
+    Array.from({ length: n }, (_, i) => ({ id: `n${i}`, title: `N${i}`, size: "sm", ...extra }));
+
+  const noOverlap = (nodes: { position: { x: number; y: number }; width: number; height: number }[]) => {
+    for (let i = 0; i < nodes.length; i += 1) {
+      for (let j = i + 1; j < nodes.length; j += 1) {
+        const a = nodes[i];
+        const b = nodes[j];
+        const apart =
+          a.position.x + a.width <= b.position.x ||
+          b.position.x + b.width <= a.position.x ||
+          a.position.y + a.height <= b.position.y ||
+          b.position.y + b.height <= a.position.y;
+        if (!apart) return false;
+      }
+    }
+    return true;
+  };
+
+  it("defaults to flow when no layout is named", () => {
+    expect(scene({ nodes: many(2) }).layout).toBe("flow");
+  });
+
+  it("ignores a layout it cannot draw", () => {
+    expect(scene({ layout: "spiral", nodes: many(2) }).layout).toBe("flow");
+  });
+
+  it("puts the first node in the middle of a mindmap", () => {
+    const nodes = layoutScene(scene({ layout: "mindmap", nodes: many(7) })).nodes;
+    const centre = nodes[0];
+    const xs = nodes.map((n) => n.position.x);
+    const ys = nodes.map((n) => n.position.y);
+    expect(centre.position.x).toBeGreaterThan(Math.min(...xs));
+    expect(centre.position.x).toBeLessThan(Math.max(...xs));
+    expect(centre.position.y).toBeGreaterThan(Math.min(...ys));
+    expect(centre.position.y).toBeLessThan(Math.max(...ys));
+  });
+
+  it("keeps every node on canvas whatever the genre", () => {
+    for (const layout of ["mindmap", "tree", "matrix", "timeline"]) {
+      const nodes = layoutScene(scene({ layout, nodes: many(6) })).nodes;
+      expect(nodes.every((n) => n.position.x >= 0 && n.position.y >= 0)).toBe(true);
+    }
+  });
+
+  it("layers a tree by its edges", () => {
+    const layout = layoutScene(
+      scene({
+        layout: "tree",
+        nodes: many(3),
+        edges: [{ from: "n0", to: "n1" }, { from: "n1", to: "n2" }],
+      }),
+    );
+    const [root, mid, leaf] = layout.nodes;
+    expect(mid.position.y).toBeGreaterThan(root.position.y);
+    expect(leaf.position.y).toBeGreaterThan(mid.position.y);
+  });
+
+  it("does not stack a tree when the edges form a cycle", () => {
+    const layout = layoutScene(
+      scene({
+        layout: "tree",
+        nodes: many(2),
+        edges: [{ from: "n0", to: "n1" }, { from: "n1", to: "n0" }],
+      }),
+    );
+    expect(noOverlap(layout.nodes)).toBe(true);
+  });
+
+  it("spreads a matrix across two rows and two columns", () => {
+    const nodes = layoutScene(scene({ layout: "matrix", nodes: many(4) })).nodes;
+    expect(new Set(nodes.map((n) => n.position.x)).size).toBeGreaterThan(1);
+    expect(new Set(nodes.map((n) => n.position.y)).size).toBeGreaterThan(1);
+  });
+
+  it("runs a timeline left to right, alternating about the spine", () => {
+    const nodes = layoutScene(scene({ layout: "timeline", nodes: many(4) })).nodes;
+    for (let i = 1; i < nodes.length; i += 1) {
+      expect(nodes[i].position.x).toBeGreaterThan(nodes[i - 1].position.x);
+    }
+    expect(nodes[0].position.y).not.toBe(nodes[1].position.y);
+  });
+
+  it("never overlaps nodes in any genre", () => {
+    for (const layout of ["flow", "mindmap", "tree", "matrix", "timeline"]) {
+      expect(noOverlap(layoutScene(scene({ layout, nodes: many(6) })).nodes)).toBe(true);
+    }
+  });
+});

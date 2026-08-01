@@ -42,6 +42,7 @@ export async function commandGenerateAction(
             { id: "n1", type: "concept", title: line.trim().slice(0, 80), body: "", size: "md" },
           ],
           edges: [],
+          layout: "flow",
         },
       };
     }
@@ -79,6 +80,7 @@ export async function expandAction(
             size: "md" as const,
           })),
           edges: [],
+          layout: "flow" as const,
         },
       };
     }

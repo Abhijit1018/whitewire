@@ -79,8 +79,8 @@ describe("parseScene — nodes", () => {
   });
 
   it("returns an empty scene for unparseable output", () => {
-    expect(parseScene("no json here")).toEqual({ nodes: [], edges: [] });
-    expect(parseScene("{ broken")).toEqual({ nodes: [], edges: [] });
+    expect(parseScene("no json here")).toEqual({ nodes: [], edges: [], layout: "flow" });
+    expect(parseScene("{ broken")).toEqual({ nodes: [], edges: [], layout: "flow" });
   });
 });
 
