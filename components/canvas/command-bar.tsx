@@ -71,9 +71,9 @@ export function CommandBar({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="relative flex w-full items-center gap-2">
       {question && (
-        <div className="flex flex-wrap items-center gap-2 rounded-md border border-brand-accent/30 bg-brand-accent/5 px-3 py-2 text-sm">
+        <div className="absolute bottom-full left-0 right-0 mb-2 flex flex-wrap items-center gap-2 rounded-md border border-brand-accent/30 bg-card px-3 py-2 text-sm shadow-lg">
           <span className="text-foreground">{question.text}</span>
           {question.options.map((option) => (
             <button
@@ -94,7 +94,6 @@ export function CommandBar({ projectId }: { projectId: string }) {
           </button>
         </div>
       )}
-      <div className="flex w-full items-center gap-2">
       <input
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
@@ -110,7 +109,6 @@ export function CommandBar({ projectId }: { projectId: string }) {
       >
         {pending ? "Generating…" : "Generate"}
       </button>
-      </div>
     </div>
   );
 }

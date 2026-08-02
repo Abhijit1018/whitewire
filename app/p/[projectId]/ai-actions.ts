@@ -39,14 +39,22 @@ ${board}`);
     await logPrompt(projectId, ownerId, "command", prompt, raw);
 
     const scene = parseScene(raw);
-    if (scene.nodes.length === 0) {
-      // Fallback: one node from the first line so the user still gets something.
-      const line = raw.split("\n").find((l) => l.trim()) ?? prompt;
+    // A question or an edit to existing nodes are both complete answers that
+    // legitimately carry no new nodes — they must not hit the fallback.
+    if (scene.nodes.length === 0 && !scene.question && scene.updates.length === 0) {
+      const line = raw.split("\n").find((l) => l.trim())?.trim() ?? "";
+      // If the reply was meant to be JSON, its first line is a brace or a fence,
+      // not a title. Turning that into a node produced empty "{" cards.
+      if (!line || /^[[{`]|^```|^"?nodes"?\s*:/.test(line)) {
+        return {
+          error: "The model's reply couldn't be read as a board. Try rephrasing, or a stronger model.",
+          code: "failed",
+        };
+      }
+      // Prose reply: keep it as a single node so the user still gets something.
       return {
         scene: {
-          nodes: [
-            { id: "n1", type: "concept", title: line.trim().slice(0, 80), body: "", size: "md" },
-          ],
+          nodes: [{ id: "n1", type: "concept", title: line.slice(0, 80), body: "", size: "md" }],
           edges: [],
           layout: "flow",
           updates: [],
