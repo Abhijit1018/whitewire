@@ -75,6 +75,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
+  // Search Console ownership. Must stay put — Google re-checks periodically and
+  // removing it un-verifies the property.
+  verification: { google: "6UG1kiTamRWkkvVxaTi_6IEFNCe549cGzaKL4KAXacA" },
 };
 
 export default function RootLayout({
