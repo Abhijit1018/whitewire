@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,10 @@ export function NewProjectDialog() {
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [template, setTemplate] = useState("blank");
+  // `pending` only guards once React has re-rendered. A second click landing in
+  // the same tick still saw the old state and created a duplicate project, so
+  // the real latch is a ref, which updates synchronously.
+  const submitting = useRef(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>New project</DialogTrigger>
@@ -24,12 +28,14 @@ export function NewProjectDialog() {
         <DialogTitle>New project</DialogTitle>
         <form
           action={async (formData) => {
-            if (pending) return;
+            if (submitting.current) return;
+            submitting.current = true;
             setPending(true);
             try {
               await createProjectAction(formData);
               setOpen(false);
             } finally {
+              submitting.current = false;
               setPending(false);
             }
           }}
