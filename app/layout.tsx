@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Caveat, Fraunces } from "next/font/google";
 import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import { RouteProgress } from "@/components/app-shell/route-progress";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
 import {
   SITE_URL,
@@ -95,6 +97,9 @@ export default function RootLayout({
         <RouteProgress />
         {children}
         <Toaster />
+        {/* Traffic and Core Web Vitals — you cannot tune SEO you do not measure. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

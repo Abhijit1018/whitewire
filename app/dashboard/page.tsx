@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import { ExampleProjectButton } from "./example-project-button";
 import { Sidebar } from "@/components/app-shell/sidebar";
 import { Topbar } from "@/components/app-shell/topbar";
 import { db } from "@/core/persistence/db";
@@ -22,7 +23,12 @@ export default async function Dashboard() {
           {projects.length === 0 ? (
             <div className="mt-20 flex flex-col items-center text-center">
               <p className="text-muted-foreground">No projects yet.</p>
-              <p className="text-sm text-muted-foreground">Create your first one to get started.</p>
+              <p className="text-sm text-muted-foreground">
+                Create your first one — or look at a finished board before connecting a model.
+              </p>
+              <div className="mt-5">
+                <ExampleProjectButton />
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
