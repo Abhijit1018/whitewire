@@ -5,68 +5,10 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { buildMemoryGraph, backlinksFor, extractLinks } from "@/core/memory/links";
+import { MemoryGraph } from "./memory-graph";
 import { saveNoteAction, deleteNoteAction } from "./actions";
 
 export type Note = { id: string; title: string; body: string; harvested?: boolean };
-
-/** Radial map of the notes and the [[links]] between them. */
-function GraphView({
-  notes,
-  activeId,
-  onPick,
-}: {
-  notes: Note[];
-  activeId: string | null;
-  onPick: (title: string) => void;
-}) {
-  const graph = useMemo(() => buildMemoryGraph(notes), [notes]);
-  const size = 460;
-  const radius = size / 2 - 60;
-  const positions = new Map(
-    graph.nodes.map((n, i) => {
-      const angle = (i / Math.max(graph.nodes.length, 1)) * Math.PI * 2 - Math.PI / 2;
-      return [n.id, { x: size / 2 + Math.cos(angle) * radius, y: size / 2 + Math.sin(angle) * radius }];
-    }),
-  );
-
-  if (graph.nodes.length === 0) {
-    return <p className="p-6 text-sm text-muted-foreground">No notes yet — the graph fills in as you write.</p>;
-  }
-
-  return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="h-auto w-full">
-      {graph.links.map((link, i) => {
-        const a = positions.get(link.from);
-        const b = positions.get(link.to);
-        if (!a || !b) return null;
-        return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="currentColor" className="text-border" strokeWidth={1} />;
-      })}
-      {graph.nodes.map((node) => {
-        const p = positions.get(node.id)!;
-        return (
-          <g key={node.id} onClick={() => onPick(node.title)} className="cursor-pointer">
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r={node.id === activeId ? 9 : 6}
-              className={
-                !node.exists
-                  ? "fill-transparent stroke-muted-foreground"
-                  : node.id === activeId
-                    ? "fill-brand-accent"
-                    : "fill-muted-foreground"
-              }
-              strokeDasharray={node.exists ? undefined : "2 2"}
-            />
-            <text x={p.x} y={p.y - 12} textAnchor="middle" className="fill-foreground text-[9px]">
-              {node.title.slice(0, 18)}
-            </text>
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
 
 export function MemoryWorkbench({ notes }: { notes: Note[] }) {
   const [activeId, setActiveId] = useState<string | null>(notes[0]?.id ?? null);
@@ -89,7 +31,7 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[220px_1fr_320px]">
+    <div className="grid gap-4 lg:grid-cols-[220px_1fr_340px]">
       <aside className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Notes</h2>
         <ul className="space-y-1">
@@ -127,6 +69,11 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
         </button>
       </aside>
 
+      <div className="h-[calc(100vh-13rem)] min-h-[420px] overflow-hidden rounded-xl border border-border bg-surface">
+        <MemoryGraph notes={notes} activeId={activeId} onPick={open} />
+      </div>
+
+      <div className="flex h-[calc(100vh-13rem)] min-h-[420px] flex-col gap-5 overflow-y-auto pr-1">
       <section>
         <form action={saveNoteAction} className="space-y-3">
           <input type="hidden" name="id" value={active && !active.harvested ? active.id : ""} />
@@ -158,12 +105,6 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
       </section>
 
       <aside className="space-y-5">
-        <div>
-          <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Graph</h2>
-          <div className="rounded-lg border border-border">
-            <GraphView notes={notes} activeId={activeId} onPick={open} />
-          </div>
-        </div>
         <div>
           <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Links from this note
@@ -199,6 +140,7 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
           )}
         </div>
       </aside>
+      </div>
     </div>
   );
 }
