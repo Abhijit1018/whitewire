@@ -1,7 +1,11 @@
 import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
-export const metadata = { title: "About · WhiteWire" };
+export const metadata = {
+  title: "About",
+  description: "Why WhiteWire exists: an AI-native canvas where product ideas become connected boards, wireframes and schemas — with your own LLM.",
+  alternates: { canonical: "/about" },
+};
 
 export default async function About() {
   const signedIn = await hasSession();

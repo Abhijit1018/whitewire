@@ -1,7 +1,11 @@
 import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
-export const metadata = { title: "Terms · WhiteWire" };
+export const metadata = {
+  title: "Terms",
+  description: "The terms that govern use of WhiteWire.",
+  alternates: { canonical: "/terms" },
+};
 
 export default async function Terms() {
   const signedIn = await hasSession();

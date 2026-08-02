@@ -1,7 +1,11 @@
 import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
-export const metadata = { title: "Docs · WhiteWire" };
+export const metadata = {
+  title: "Docs",
+  description: "How to use WhiteWire: connect a model, generate a board, sketch to wireframe, generate schemas and APIs, share and export.",
+  alternates: { canonical: "/docs" },
+};
 
 const STEPS = [
   { t: "1. Create an account", d: "Sign up with email — no credit card, no credits to buy." },

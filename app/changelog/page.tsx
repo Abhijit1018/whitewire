@@ -1,7 +1,11 @@
 import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
-export const metadata = { title: "Changelog · WhiteWire" };
+export const metadata = {
+  title: "Changelog",
+  description: "What shipped in WhiteWire, newest first — canvas, AI scenes, wireframes, sketch recognition and knowledge-graph memory.",
+  alternates: { canonical: "/changelog" },
+};
 
 const ENTRIES = [
   { date: "Jul 2026", title: "Landing & app redesign", body: "New single-scroll landing, grey/white app theme, transparent brand logo, and an Account page." },

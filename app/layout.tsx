@@ -4,6 +4,13 @@ import "./globals.css";
 import "@xyflow/react/dist/style.css";
 import { RouteProgress } from "@/components/app-shell/route-progress";
 import { Toaster } from "@/components/ui/toaster";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_DESCRIPTION,
+  softwareApplicationJsonLd,
+} from "@/core/seo/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +35,44 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "WhiteWire",
-  description: "AI-native canvas workspace. Bring your own LLM.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    // Sub-pages set their own title and inherit the brand suffix.
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "AI canvas",
+    "AI whiteboard",
+    "wireframe generator",
+    "database schema diagram",
+    "ER diagram tool",
+    "architecture diagram AI",
+    "sketch to wireframe",
+    "product design canvas",
+    "bring your own LLM",
+    "knowledge graph",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
 export default function RootLayout({
@@ -43,6 +86,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Structured data: rich results for search engines, and a factual
+            answer for assistants asked what WhiteWire is. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd()) }}
+        />
         <RouteProgress />
         {children}
         <Toaster />

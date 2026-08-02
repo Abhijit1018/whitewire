@@ -2,7 +2,11 @@ import { Sidebar } from "@/components/app-shell/sidebar";
 import { Topbar } from "@/components/app-shell/topbar";
 import { MarketplaceGrid } from "@/components/marketplace/marketplace-grid";
 
-export const metadata = { title: "Marketplace · WhiteWire" };
+export const metadata = {
+  title: "Marketplace",
+  description: "Plugins and templates for WhiteWire — Lean Canvas, SWOT, flowchart, C4, Kanban and user story map starters.",
+  alternates: { canonical: "/marketplace" },
+};
 
 export default function MarketplacePage() {
   return (

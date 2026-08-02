@@ -3,7 +3,11 @@ import { MarketingShell, PageHeader } from "@/components/marketing/marketing-she
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export const metadata = { title: "Contact · WhiteWire" };
+export const metadata = {
+  title: "Contact",
+  description: "Get in touch with the WhiteWire team about the product, feedback or partnerships.",
+  alternates: { canonical: "/contact" },
+};
 
 export default async function Contact() {
   const signedIn = await hasSession();

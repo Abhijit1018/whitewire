@@ -1,7 +1,11 @@
 import { hasSession } from "@/lib/auth";
 import { MarketingShell, PageHeader } from "@/components/marketing/marketing-shell";
 
-export const metadata = { title: "Privacy · WhiteWire" };
+export const metadata = {
+  title: "Privacy",
+  description: "How WhiteWire handles your data: your model keys are encrypted and your boards stay yours.",
+  alternates: { canonical: "/privacy" },
+};
 
 export default async function Privacy() {
   const signedIn = await hasSession();
