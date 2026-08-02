@@ -46,7 +46,7 @@ export function LandingFooter() {
         </div>
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="text-sm font-semibold">{col.title}</h4>
+            <h3 className="text-sm font-semibold">{col.title}</h3>
             <ul className="mt-3 space-y-2">
               {col.links.map((l) => (
                 <li key={l.label}>
