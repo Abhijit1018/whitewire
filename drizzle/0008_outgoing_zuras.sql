@@ -1,0 +1,1 @@
+ALTER TABLE "memory_notes" ALTER COLUMN "owner_id" SET DATA TYPE text;

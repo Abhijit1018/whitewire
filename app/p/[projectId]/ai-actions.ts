@@ -31,7 +31,11 @@ export async function commandGenerateAction(
     const { buildScenePrompt } = await import("@/core/ai/scene-prompt");
     const { parseScene } = await import("@/core/ai/scene");
     const { model, ownerId } = await resolveModel(projectId, "reasoning");
-    const raw = await generateNode(model, buildScenePrompt(prompt, board));
+    // The user's own notes, so generation matches decisions they already made.
+    const { recallFor } = await import("@/core/memory/recall");
+    const memory = await recallFor(ownerId, `${prompt}
+${board}`);
+    const raw = await generateNode(model, buildScenePrompt(prompt, board, memory));
     await logPrompt(projectId, ownerId, "command", prompt, raw);
 
     const scene = parseScene(raw);

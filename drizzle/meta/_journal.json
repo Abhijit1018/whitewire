@@ -50,6 +50,20 @@
       "when": 1783318952175,
       "tag": "0006_brainy_arclight",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1785668908848,
+      "tag": "0007_watery_daimon_hellstrom",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1785669721176,
+      "tag": "0008_outgoing_zuras",
+      "breakpoints": true
     }
   ]
 }

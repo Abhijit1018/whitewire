@@ -27,7 +27,18 @@ const SHAPE_GUIDE = [
  * uniform grid of title-plus-one-line boxes, which is what the flat blueprint
  * format used to force.
  */
-export function buildScenePrompt(request: string, board = ""): string {
+export function buildScenePrompt(request: string, board = "", memory = ""): string {
+  const recall = memory.trim()
+    ? [
+        "",
+        "What this user has written down elsewhere, for context. Use it when it is",
+        "relevant — match their vocabulary and decisions — but do not put these on",
+        "the board unless the request calls for them:",
+        memory.trim(),
+        "",
+      ].join("\n")
+    : "";
+
   const existing = board.trim()
     ? [
         "",
@@ -48,6 +59,7 @@ export function buildScenePrompt(request: string, board = ""): string {
   return [
     "You are building a board on a design canvas. Return a scene of mixed nodes —",
     "not a uniform grid of identical boxes.",
+    recall,
     existing,
     "",
     "Node types:",

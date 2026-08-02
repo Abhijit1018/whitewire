@@ -94,6 +94,25 @@ export const promptHistory = pgTable("prompt_history", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+/**
+ * Memory notes belong to the account, not a project — they are the thing that
+ * carries context between boards. Links between them are derived from
+ * [[wiki links]] in the body rather than stored, so the text is the truth.
+ */
+export const memoryNotes = pgTable(
+  "memory_notes",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    ownerId: text("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    body: text("body").notNull().default(""),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [unique("memory_notes_owner_title").on(t.ownerId, t.title)],
+);
+
+export type MemoryNote = typeof memoryNotes.$inferSelect;
 export type Artifact = typeof artifacts.$inferSelect;
 export type Attachment = typeof attachments.$inferSelect;
 export type Version = typeof versions.$inferSelect;
