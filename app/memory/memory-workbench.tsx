@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { buildMemoryGraph, backlinksFor, extractLinks } from "@/core/memory/links";
 import { saveNoteAction, deleteNoteAction } from "./actions";
 
-export type Note = { id: string; title: string; body: string };
+export type Note = { id: string; title: string; body: string; harvested?: boolean };
 
 /** Radial map of the notes and the [[links]] between them. */
 function GraphView({
@@ -98,11 +98,19 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
               <button
                 type="button"
                 onClick={() => setActiveId(note.id)}
-                className={`w-full truncate rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
+                className={`flex w-full items-center gap-1.5 truncate rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
                   note.id === activeId ? "bg-brand-accent/10 text-brand-accent" : "hover:bg-muted"
                 }`}
               >
-                {note.title}
+                <span className="truncate">{note.title}</span>
+                {note.harvested && (
+                  <span
+                    title="From your boards"
+                    className="ml-auto shrink-0 rounded bg-muted px-1 text-[9px] uppercase text-muted-foreground"
+                  >
+                    board
+                  </span>
+                )}
               </button>
             </li>
           ))}
@@ -121,7 +129,7 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
 
       <section>
         <form action={saveNoteAction} className="space-y-3">
-          <input type="hidden" name="id" value={active?.id ?? ""} />
+          <input type="hidden" name="id" value={active && !active.harvested ? active.id : ""} />
           <Input
             name="title"
             key={`${active?.id ?? "new"}-title`}
@@ -140,7 +148,7 @@ export function MemoryWorkbench({ notes }: { notes: Note[] }) {
           />
           <div className="flex items-center gap-2">
             <Button type="submit">Save note</Button>
-            {active && (
+            {active && !active.harvested && (
               <Button type="submit" formAction={deleteNoteAction} variant="outline">
                 <Trash2 className="size-4" /> Delete
               </Button>
