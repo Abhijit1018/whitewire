@@ -9,6 +9,9 @@ import { applyScene } from "./scene-adapter";
 
 export function CommandBar({ projectId }: { projectId: string }) {
   const [prompt, setPrompt] = useState("");
+  const [question, setQuestion] = useState<
+    { text: string; options: string[]; asked: string } | null
+  >(null);
   const [pending, startTransition] = useTransition();
 
   function submit() {
@@ -34,7 +37,15 @@ export function CommandBar({ projectId }: { projectId: string }) {
           return;
         }
         const scene = res.scene;
-        if (!scene || (scene.nodes.length === 0 && scene.updates.length === 0)) return;
+        if (!scene) return;
+
+        // The model withheld a board because it needs an answer first. Keep the
+        // prompt so the user can extend it rather than retype it.
+        if (scene.question) {
+          setQuestion({ ...scene.question, asked: text });
+          return;
+        }
+        if (scene.nodes.length === 0 && scene.updates.length === 0) return;
 
         // New work is dropped below what already exists rather than on top of it.
         const bottom = nodes.length
@@ -44,6 +55,7 @@ export function CommandBar({ projectId }: { projectId: string }) {
         // The scene arrives already sized and grouped, so it is placed as laid
         // out rather than pushed through the uniform grid tidy-up.
         applyScene(scene, { x: 120, y: bottom }, { handles: board.handles });
+        setQuestion(null);
         setPrompt("");
       } catch (e) {
         notify({ kind: "error", message: e instanceof Error ? e.message : "Generation failed" });
@@ -51,8 +63,38 @@ export function CommandBar({ projectId }: { projectId: string }) {
     });
   }
 
+  /** Answering re-runs the original request with the answer appended. */
+  function answer(choice: string) {
+    if (!question) return;
+    setPrompt(`${question.asked} — ${choice}`);
+    setQuestion(null);
+  }
+
   return (
-    <div className="flex w-full items-center gap-2">
+    <div className="flex w-full flex-col gap-2">
+      {question && (
+        <div className="flex flex-wrap items-center gap-2 rounded-md border border-brand-accent/30 bg-brand-accent/5 px-3 py-2 text-sm">
+          <span className="text-foreground">{question.text}</span>
+          {question.options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => answer(option)}
+              className="rounded-full border border-brand-accent/40 px-2.5 py-0.5 text-xs text-brand-accent transition-colors hover:bg-brand-accent/10"
+            >
+              {option}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setQuestion(null)}
+            className="ml-auto text-xs text-muted-foreground hover:text-foreground"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+      <div className="flex w-full items-center gap-2">
       <input
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
@@ -68,6 +110,7 @@ export function CommandBar({ projectId }: { projectId: string }) {
       >
         {pending ? "Generating…" : "Generate"}
       </button>
+      </div>
     </div>
   );
 }

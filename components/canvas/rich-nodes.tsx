@@ -48,8 +48,18 @@ const KEY_STYLES: Record<string, string> = {
 };
 
 /** A schema entity: name, columns, types, key markers — an ER box, not a paragraph. */
-export function TableNode({ data, selected }: NodeProps<AiNodeType>) {
+export function TableNode({ id, data, selected }: NodeProps<AiNodeType>) {
+  const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
   const columns = data.table?.columns ?? [];
+
+  function editColumn(index: number, patch: { name?: string; type?: string }) {
+    const next = columns.map((c, i) => (i === index ? { ...c, ...patch } : c));
+    updateNodeData(id, { table: { columns: next } });
+  }
+
+  function addColumn() {
+    updateNodeData(id, { table: { columns: [...columns, { name: "column", type: "text" }] } });
+  }
   return (
     <div
       className={`w-full overflow-hidden rounded-xl border bg-white shadow-sm ${
@@ -62,30 +72,45 @@ export function TableNode({ data, selected }: NodeProps<AiNodeType>) {
         <Database className="size-3.5 text-zinc-400" />
         <span className="text-[13px] font-semibold text-zinc-800">{data.text || "table"}</span>
       </div>
-      {columns.length === 0 ? (
-        <p className="px-3 py-2 text-[11px] text-zinc-400">No columns</p>
-      ) : (
-        <ul className="divide-y divide-zinc-50">
-          {columns.map((c, i) => (
-            <li key={i} className="flex items-center justify-between gap-2 px-3 py-1">
-              <span className="flex min-w-0 items-center gap-1.5">
-                {c.key && (
-                  <span className={`rounded px-1 text-[9px] font-bold uppercase ${KEY_STYLES[c.key]}`}>{c.key}</span>
-                )}
-                <span className="truncate text-[12px] text-zinc-700">{c.name}</span>
-              </span>
-              <span className="shrink-0 font-mono text-[10px] text-zinc-400">{c.type}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="divide-y divide-zinc-50">
+        {columns.map((c, i) => (
+          <li key={i} className="flex items-center justify-between gap-2 px-3 py-1">
+            <span className="flex min-w-0 flex-1 items-center gap-1.5">
+              {c.key && (
+                <span className={`rounded px-1 text-[9px] font-bold uppercase ${KEY_STYLES[c.key]}`}>{c.key}</span>
+              )}
+              <input
+                value={c.name}
+                onChange={(e) => editColumn(i, { name: e.target.value })}
+                className="nodrag min-w-0 flex-1 bg-transparent text-[12px] text-zinc-700 outline-none focus:text-zinc-900"
+                aria-label={`Column ${i + 1} name`}
+              />
+            </span>
+            <input
+              value={c.type}
+              onChange={(e) => editColumn(i, { type: e.target.value })}
+              className="nodrag w-20 shrink-0 bg-transparent text-right font-mono text-[10px] text-zinc-400 outline-none focus:text-zinc-700"
+              aria-label={`Column ${i + 1} type`}
+            />
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        onClick={addColumn}
+        className="nodrag w-full border-t border-zinc-100 px-3 py-1 text-left text-[11px] text-zinc-400 transition-colors hover:bg-zinc-50 hover:text-zinc-600"
+      >
+        + column
+      </button>
       <Handle type="source" position={Position.Bottom} className={handleClass} />
     </div>
   );
 }
 
-/** Monospace source block. Plain text on purpose — no highlighter dependency. */
-export function CodeNode({ data, selected }: NodeProps<AiNodeType>) {
+/** Monospace source block, editable in place. Plain text — no highlighter dependency. */
+export function CodeNode({ id, data, selected }: NodeProps<AiNodeType>) {
+  const updateNodeData = useWorkspaceStore((s) => s.updateNodeData);
+  const language = data.code?.language ?? "text";
   return (
     <div
       className={`flex h-full w-full flex-col overflow-hidden rounded-xl border bg-zinc-950 shadow-sm ${
@@ -97,13 +122,20 @@ export function CodeNode({ data, selected }: NodeProps<AiNodeType>) {
       <div className="flex items-center gap-1.5 border-b border-zinc-800 px-3 py-1.5">
         <Code2 className="size-3.5 text-zinc-500" />
         <span className="truncate text-[12px] font-medium text-zinc-300">{data.text || "snippet"}</span>
-        <span className="ml-auto shrink-0 rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-[9px] uppercase text-zinc-400">
-          {data.code?.language || "text"}
-        </span>
+        <input
+          value={language}
+          onChange={(e) => updateNodeData(id, { code: { language: e.target.value, source: data.code?.source ?? "" } })}
+          className="nodrag ml-auto w-16 shrink-0 rounded bg-zinc-800 px-1.5 py-0.5 text-right font-mono text-[9px] uppercase text-zinc-400 outline-none focus:text-zinc-200"
+          aria-label="Language"
+        />
       </div>
-      <pre className="nowheel flex-1 overflow-auto px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-200">
-        {data.code?.source ?? ""}
-      </pre>
+      <textarea
+        value={data.code?.source ?? ""}
+        onChange={(e) => updateNodeData(id, { code: { language, source: e.target.value } })}
+        spellCheck={false}
+        placeholder="// write or paste code…"
+        className="nodrag nowheel flex-1 resize-none bg-transparent px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-200 outline-none placeholder:text-zinc-600"
+      />
       <Handle type="source" position={Position.Bottom} className={handleClass} />
     </div>
   );

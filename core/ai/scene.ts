@@ -62,6 +62,11 @@ export type Scene = {
   layout: SceneLayoutKind;
   /** Changes to existing nodes, so a follow-up amends instead of duplicating. */
   updates: SceneUpdate[];
+  /**
+   * Set when the model needs an answer before it can build anything. When
+   * present the scene is otherwise empty and nothing is placed on the canvas.
+   */
+  question?: { text: string; options: string[] };
 };
 
 /** Pixel box for each size bucket, so content is not forced into one shape. */
@@ -273,7 +278,25 @@ export function parseScene(rawText: string): Scene {
 
   const nodes = resolveParents(unique);
   const layout = str(obj.layout).toLowerCase();
+
+  // A question only counts when the model actually withheld a board; if it
+  // asked *and* answered, the board is what the user wanted.
+  const questionText = str((obj.question as Record<string, unknown>)?.text ?? obj.question);
+  const question =
+    questionText && nodes.length === 0
+      ? {
+          text: questionText,
+          options: Array.isArray((obj.question as Record<string, unknown>)?.options)
+            ? ((obj.question as Record<string, unknown>).options as unknown[])
+                .map((o) => str(o))
+                .filter((o) => o.length > 0)
+                .slice(0, 4)
+            : [],
+        }
+      : undefined;
+
   return {
+    ...(question ? { question } : {}),
     nodes,
     edges: parseEdges(obj.edges, new Set(nodes.map((n) => n.id))),
     layout: (SCENE_LAYOUTS as readonly string[]).includes(layout)

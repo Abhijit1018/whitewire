@@ -4,6 +4,7 @@ import { applyCleanup } from "./cleanup-adapter";
 import { ExpandButton } from "./expand-button";
 import { ArchitectPanel } from "./architect-panel";
 import { HistoryPanel } from "./history-panel";
+import { SaveIndicator } from "./save-indicator";
 import { PluginMenu } from "./plugin-menu";
 import { CanvasMenu } from "./canvas-menu";
 
@@ -11,6 +12,7 @@ export function CanvasTools({ projectId }: { projectId: string }) {
   return (
     <div className="flex items-center gap-2">
       <ArchitectPanel projectId={projectId} />
+      <SaveIndicator />
       <HistoryPanel projectId={projectId} />
       <button
         type="button"

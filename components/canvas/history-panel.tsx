@@ -73,11 +73,11 @@ export function HistoryPanel({ projectId }: { projectId: string }) {
       }}
     >
       <DialogTrigger className="rounded-md border border-zinc-200 px-3 py-1.5 text-sm transition-all hover:bg-zinc-100 active:scale-95">
-        History
+        Versions
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>History</DialogTitle>
+          <DialogTitle>Versions</DialogTitle>
         </DialogHeader>
         <div className="flex gap-4 border-b pb-2 text-sm">
           <button

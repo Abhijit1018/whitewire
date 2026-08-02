@@ -14,6 +14,7 @@ import {
   type NodeChange,
   type OnSelectionChangeParams,
 } from "@xyflow/react";
+import { trackSave } from "@/core/state/save-store";
 import { useWorkspaceStore, type AiNode } from "@/core/state/workspace-store";
 import { getHelperLines } from "@/core/canvas/helper-lines";
 import { nodeTypes } from "./ai-node";
@@ -120,7 +121,8 @@ export default function WhiteboardInner({ projectId, initial, canEdit = true }: 
 
   // Debounced autosave of the graph (strip volatile UI flags).
   const save = useMemo(
-    () => (snapshot: Record<string, unknown>) => saveCanvasAction(projectId, snapshot),
+    () => (snapshot: Record<string, unknown>) =>
+      trackSave(() => saveCanvasAction(projectId, snapshot)),
     [projectId],
   );
   const saver = useDebouncedSaver(save, 1500);
