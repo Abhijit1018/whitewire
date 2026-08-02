@@ -80,6 +80,7 @@ export function ArchitectPanel({ projectId }: { projectId: string }) {
         ],
         edges: [],
         layout: "flow",
+        updates: [],
       },
       { x: 160 + (count % 5) * 60, y: 130 + count * 30 },
     );

@@ -22,6 +22,8 @@ async function logPrompt(
 export async function commandGenerateAction(
   projectId: string,
   prompt: string,
+  /** What is already on the canvas, so a follow-up extends it. */
+  board = "",
 ): Promise<{ scene?: Scene; error?: string; code?: ModelErrorCode | "failed" }> {
   try {
     const { generateNode } = await import("@/core/ai/generate");
@@ -29,7 +31,7 @@ export async function commandGenerateAction(
     const { buildScenePrompt } = await import("@/core/ai/scene-prompt");
     const { parseScene } = await import("@/core/ai/scene");
     const { model, ownerId } = await resolveModel(projectId, "reasoning");
-    const raw = await generateNode(model, buildScenePrompt(prompt));
+    const raw = await generateNode(model, buildScenePrompt(prompt, board));
     await logPrompt(projectId, ownerId, "command", prompt, raw);
 
     const scene = parseScene(raw);
@@ -43,6 +45,7 @@ export async function commandGenerateAction(
           ],
           edges: [],
           layout: "flow",
+          updates: [],
         },
       };
     }
@@ -81,6 +84,7 @@ export async function expandAction(
           })),
           edges: [],
           layout: "flow" as const,
+          updates: [],
         },
       };
     }

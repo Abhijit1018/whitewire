@@ -27,10 +27,28 @@ const SHAPE_GUIDE = [
  * uniform grid of title-plus-one-line boxes, which is what the flat blueprint
  * format used to force.
  */
-export function buildScenePrompt(request: string): string {
+export function buildScenePrompt(request: string, board = ""): string {
+  const existing = board.trim()
+    ? [
+        "",
+        board.trim(),
+        "",
+        "This board already exists. Do NOT rebuild it. Extend it:",
+        '- Reference an existing node by its handle (#1, #2) in "edges" and "parent",',
+        "  so new work connects to what is already there.",
+        '- To reword or re-describe an existing node, add it to "updates" as',
+        '  {"target":"#2","title":"...","body":"..."} instead of adding a duplicate.',
+        '- Only put genuinely new things in "nodes".',
+        "- If the request is ambiguous about which existing nodes it affects, ask",
+        "  instead of guessing (see the question form below).",
+        "",
+      ].join("\n")
+    : "";
+
   return [
     "You are building a board on a design canvas. Return a scene of mixed nodes —",
     "not a uniform grid of identical boxes.",
+    existing,
     "",
     "Node types:",
     `- ${TYPE_GUIDE}`,
@@ -67,8 +85,8 @@ export function buildScenePrompt(request: string): string {
     "}",
     "",
     'Every id is a short slug you invent. "parent" and edge endpoints must',
-    "reference ids that exist. Use 5-12 nodes. Label edges when the label adds",
-    "meaning; leave it out otherwise.",
+    "reference either an id in this reply or a #handle from the board above.",
+    "Use 5-12 nodes. Label edges when the label adds meaning; leave it out otherwise.",
     `Wireframe element types: ${WIREFRAME_TYPES.join(", ")}.`,
     `Valid node types: ${SCENE_NODE_TYPES.join(", ")}.`,
     "",

@@ -13,6 +13,8 @@ function kindOf(type: string): string {
 }
 
 export type ApplySceneOptions = {
+  /** Handle (#1) -> existing canvas node id, so a scene can attach to the board. */
+  handles?: Record<string, string>;
   /** Explicit positions for top-level nodes, by index — used when the scene
    *  came from a drawing and should keep the arrangement that was drawn. */
   positions?: ({ x: number; y: number } | undefined)[];
@@ -31,7 +33,8 @@ export function applyScene(
   options: ApplySceneOptions = {},
 ): void {
   const layout = layoutScene(scene, origin);
-  if (layout.nodes.length === 0) return;
+  // A reply may be updates only — rewording existing nodes and adding nothing.
+  if (layout.nodes.length === 0 && scene.updates.length === 0) return;
 
   // Overridden positions apply to top-level nodes only; group members stay
   // relative to their parent.
@@ -47,6 +50,10 @@ export function applyScene(
 
   // Stable ids per run, so edges and parent links resolve to the new nodes.
   const idMap = new Map(layout.nodes.map((n) => [n.id, crypto.randomUUID()]));
+  // A reference is either a node in this scene or a handle for one already on
+  // the board; anything else is dangling and its edge is dropped.
+  const resolve = (ref: string): string | undefined =>
+    idMap.get(ref) ?? options.handles?.[ref];
 
   const nodes: AiNode[] = layout.nodes.map((placed) => {
     const { source } = placed;
@@ -73,13 +80,20 @@ export function applyScene(
     };
   });
 
-  const edges: Edge[] = layout.edges.map((e) => ({
-    id: crypto.randomUUID(),
-    source: idMap.get(e.source)!,
-    target: idMap.get(e.target)!,
-    label: e.label,
-    markerEnd: e.directed ? { type: MarkerType.ArrowClosed } : undefined,
-  }));
+  const edges: Edge[] = layout.edges
+    .map((e) => {
+      const source = resolve(e.source);
+      const target = resolve(e.target);
+      if (!source || !target) return null;
+      return {
+        id: crypto.randomUUID(),
+        source,
+        target,
+        label: e.label,
+        markerEnd: e.directed ? { type: MarkerType.ArrowClosed } : undefined,
+      };
+    })
+    .filter((e) => e !== null) as Edge[];
 
   // Expand hangs its results off the node the user had selected.
   if (options.connectFrom) {
@@ -103,5 +117,17 @@ export function applyScene(
     return aGroup - bGroup;
   });
 
-  useWorkspaceStore.getState().addNodesEdges(groupsFirst, edges);
+  const store = useWorkspaceStore.getState();
+  store.addNodesEdges(groupsFirst, edges);
+
+  // Amendments to nodes already on the board, so a follow-up prompt rewords
+  // what is there instead of adding a near-duplicate beside it.
+  for (const update of scene.updates) {
+    const id = options.handles?.[update.target];
+    if (!id) continue;
+    store.updateNodeData(id, {
+      ...(update.title ? { text: update.title } : {}),
+      ...(update.body ? { purpose: update.body } : {}),
+    });
+  }
 }

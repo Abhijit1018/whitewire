@@ -52,11 +52,16 @@ export type SceneEdge = {
 export const SCENE_LAYOUTS = ["flow", "mindmap", "tree", "matrix", "timeline"] as const;
 export type SceneLayoutKind = (typeof SCENE_LAYOUTS)[number];
 
+/** An edit to a node already on the board, addressed by its handle. */
+export type SceneUpdate = { target: string; title?: string; body?: string };
+
 export type Scene = {
   nodes: SceneNode[];
   edges: SceneEdge[];
   /** How the board is arranged. Defaults to a wrapping flow. */
   layout: SceneLayoutKind;
+  /** Changes to existing nodes, so a follow-up amends instead of duplicating. */
+  updates: SceneUpdate[];
 };
 
 /** Pixel box for each size bucket, so content is not forced into one shape. */
@@ -82,6 +87,27 @@ const SHAPE_IDS = new Set<string>(SHAPES.map((s) => s.id));
 
 function str(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
+}
+
+/** "#3" — a reference to a node already on the board, not one in this scene. */
+export function isHandle(ref: string): boolean {
+  return /^#\d+$/.test(ref);
+}
+
+function parseUpdates(raw: unknown): SceneUpdate[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((u) => {
+      const o = u as Record<string, unknown>;
+      const target = str(o?.target) || str(o?.id) || str(o?.handle);
+      return {
+        target,
+        title: str(o?.title) || undefined,
+        body: str(o?.body) || str(o?.note) || undefined,
+      };
+    })
+    // Only handles can be updated; a new node is expressed in `nodes`.
+    .filter((u) => isHandle(u.target) && (u.title !== undefined || u.body !== undefined));
 }
 
 function asType(v: unknown): SceneNodeType {
@@ -210,7 +236,13 @@ function parseEdges(raw: unknown, ids: Set<string>): SceneEdge[] {
         directed: o.directed === false ? false : true,
       };
     })
-    .filter((e): e is SceneEdge => Boolean(e && ids.has(e.from) && ids.has(e.to) && e.from !== e.to));
+    .filter((e): e is SceneEdge => {
+      if (!e || e.from === e.to) return false;
+      // An endpoint is either a node in this scene or a handle for one already
+      // on the board (#1, #2, …), which the adapter resolves to a real id.
+      const known = (ref: string) => ids.has(ref) || isHandle(ref);
+      return known(e.from) && known(e.to);
+    });
 }
 
 /**
@@ -219,7 +251,7 @@ function parseEdges(raw: unknown, ids: Set<string>): SceneEdge[] {
  * the JSON is ignored.
  */
 export function parseScene(rawText: string): Scene {
-  const empty: Scene = { nodes: [], edges: [], layout: "flow" };
+  const empty: Scene = { nodes: [], edges: [], layout: "flow", updates: [] };
   const match = rawText.match(/\{[\s\S]*\}/);
   if (!match) return empty;
 
@@ -247,5 +279,6 @@ export function parseScene(rawText: string): Scene {
     layout: (SCENE_LAYOUTS as readonly string[]).includes(layout)
       ? (layout as SceneLayoutKind)
       : "flow",
+    updates: parseUpdates(obj.updates),
   };
 }

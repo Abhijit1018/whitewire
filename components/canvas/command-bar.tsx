@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useWorkspaceStore } from "@/core/state/workspace-store";
+import { summarizeBoard } from "@/core/canvas/board-summary";
 import { notify, notifyActionError } from "@/core/state/notify-store";
 import { commandGenerateAction } from "@/app/p/[projectId]/ai-actions";
 import { applyScene } from "./scene-adapter";
@@ -14,15 +16,34 @@ export function CommandBar({ projectId }: { projectId: string }) {
     const text = prompt.trim();
     startTransition(async () => {
       try {
-        const res = await commandGenerateAction(projectId, text);
+        // Tell the model what is already here, so a follow-up extends the board
+        // instead of building a second, disconnected one beside it.
+        const { nodes, edges } = useWorkspaceStore.getState();
+        const board = summarizeBoard(
+          nodes,
+          edges.map((e) => ({
+            source: e.source,
+            target: e.target,
+            label: typeof e.label === "string" ? e.label : undefined,
+          })),
+        );
+
+        const res = await commandGenerateAction(projectId, text, board.text);
         if (res.error) {
           notifyActionError(res.error, res.code);
           return;
         }
-        if (!res.scene || res.scene.nodes.length === 0) return;
+        const scene = res.scene;
+        if (!scene || (scene.nodes.length === 0 && scene.updates.length === 0)) return;
+
+        // New work is dropped below what already exists rather than on top of it.
+        const bottom = nodes.length
+          ? Math.max(...nodes.map((n) => n.position.y + (Number(n.style?.height) || 160))) + 120
+          : 100;
+
         // The scene arrives already sized and grouped, so it is placed as laid
         // out rather than pushed through the uniform grid tidy-up.
-        applyScene(res.scene, { x: 120, y: 100 });
+        applyScene(scene, { x: 120, y: bottom }, { handles: board.handles });
         setPrompt("");
       } catch (e) {
         notify({ kind: "error", message: e instanceof Error ? e.message : "Generation failed" });

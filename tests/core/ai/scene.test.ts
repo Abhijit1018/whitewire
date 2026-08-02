@@ -79,8 +79,8 @@ describe("parseScene — nodes", () => {
   });
 
   it("returns an empty scene for unparseable output", () => {
-    expect(parseScene("no json here")).toEqual({ nodes: [], edges: [], layout: "flow" });
-    expect(parseScene("{ broken")).toEqual({ nodes: [], edges: [], layout: "flow" });
+    expect(parseScene("no json here")).toEqual({ nodes: [], edges: [], layout: "flow", updates: [] });
+    expect(parseScene("{ broken")).toEqual({ nodes: [], edges: [], layout: "flow", updates: [] });
   });
 });
 
@@ -175,5 +175,42 @@ describe("parseScene — stacks and shapes", () => {
       const scene = parseScene(wrap({ nodes: [{ id: "s", type: "shape", title: "x", shape }] }));
       expect(scene.nodes[0].shape).toBe(shape);
     }
+  });
+});
+
+describe("parseScene — amending an existing board", () => {
+  it("keeps an edge that points at a board handle", () => {
+    const scene = parseScene(
+      wrap({ nodes: [{ id: "new", title: "New" }], edges: [{ from: "new", to: "#3" }] }),
+    );
+    expect(scene.edges[0]).toMatchObject({ from: "new", to: "#3" });
+  });
+
+  it("still drops an edge to something that is neither a node nor a handle", () => {
+    const scene = parseScene(
+      wrap({ nodes: [{ id: "new", title: "New" }], edges: [{ from: "new", to: "ghost" }] }),
+    );
+    expect(scene.edges).toHaveLength(0);
+  });
+
+  it("reads updates addressed to a handle", () => {
+    const scene = parseScene(
+      wrap({ nodes: [], updates: [{ target: "#2", title: "Renamed", body: "clearer" }] }),
+    );
+    expect(scene.updates).toEqual([{ target: "#2", title: "Renamed", body: "clearer" }]);
+  });
+
+  it("ignores an update that names a new node rather than a handle", () => {
+    const scene = parseScene(wrap({ nodes: [], updates: [{ target: "api", title: "X" }] }));
+    expect(scene.updates).toEqual([]);
+  });
+
+  it("ignores an update that changes nothing", () => {
+    const scene = parseScene(wrap({ nodes: [], updates: [{ target: "#1" }] }));
+    expect(scene.updates).toEqual([]);
+  });
+
+  it("defaults updates to empty when the model omits them", () => {
+    expect(parseScene(wrap({ nodes: [{ id: "a", title: "x" }] })).updates).toEqual([]);
   });
 });
